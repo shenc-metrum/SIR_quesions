@@ -46,9 +46,9 @@ if (getOption("bbr.bbi_exe_path") == "bbi") {
 file.path(MODEL_DIR, "bbi.yaml") %>% yaml::read_yaml() %>% names()
 # If this errors, run `bbi_init()`:
 
-# bbi_init(.dir = MODEL_DIR,            # the directory to create the bbi.yaml in
-#          .nonmem_dir = "/opt/NONMEM", # location of NONMEM installation
-#          .nonmem_version = "nm74gf")  # default NONMEM version to use
+bbi_init(.dir = MODEL_DIR,            # the directory to create the bbi.yaml in
+         .nonmem_dir = "/opt/NONMEM", # location of NONMEM installation
+         .nonmem_version = "nm74gf")  # default NONMEM version to use
 
 # Note this only needs to be done _once for each folder_ you are modeling in. Once the bbi.yaml exists, 
 # you will not need to run `bbi_init()` again unless you want to create another one; for example if you 
@@ -57,18 +57,10 @@ file.path(MODEL_DIR, "bbi.yaml") %>% yaml::read_yaml() %>% names()
 # For more details on the `bbi.yaml` file and its usage, see:
 # https://metrumresearchgroup.github.io/bbr/articles/getting-started.html#bbi-yaml-configuration-file
 
-# mod107 <- new_model(file.path(MODEL_DIR, "107"))
-mod107 <- read_model(file.path(MODEL_DIR, "107"))
-.p <- submit_model(mod107, .mode = "local", .wait = FALSE)
-.s <- mod107 %>% model_summary()
+# mod106 <- new_model(file.path(MODEL_DIR, "106")) # make new model (only run if models fit for the first time)
+mod106 <- read_model(file.path(MODEL_DIR, "106")) # read model
+.p <- submit_model(mod106, .mode = "local", .wait = FALSE) # submit model
+.s <- mod106 %>% model_summary() # model summary
 .s
-
-mod204 <- new_model(file.path(MODEL_DIR, "204"))
-mod204 <- read_model(file.path(MODEL_DIR, "204"))
-.p <- submit_model(mod204, .mode = "local", .wait = FALSE)
-
-mod210 <- new_model(file.path(MODEL_DIR, "210"))
-mod210 <- read_model(file.path(MODEL_DIR, "210"))
-.p <- submit_model(mod210, .mode = "local", .wait = FALSE)
 
 
