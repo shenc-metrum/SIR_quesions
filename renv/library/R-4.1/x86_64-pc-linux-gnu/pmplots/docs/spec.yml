@@ -1,0 +1,107 @@
+unit:
+  section: Unit tests
+  requirements:
+    - The package passes all unit tests using the `testthat` framework
+rcmdcheck:
+  section: R CMD check
+  requirements:
+    - The package passes `R CMD check`
+plots:
+  section: Plots generated
+  requirements:
+    - Functions `dv_time`, `dv_tafd`, and `dv_tad` plot `DV` versus the
+      appropriate time measure; both lines and points are plotted
+    - Functions `dv_pred` and `dv_ipred` plot `DV` versus the appropriate
+      predicted value; a line of identity is added as well as a loess smothing
+      line; both the x- and y-axis maybe be transformed to log scale
+      with the `loglog` argument; if `loglog` is used, only positive
+      values are retained for the plot
+    - Functions `res_time`, `res_tafd`, and `res_tad` plots residual
+      versus the appropriate time measure; a reference line is added
+      at `res=0` as well as a loess smoothing line
+    - Functions `wres_time`, `wres_tafd`, and `wres_tad` plots weighted
+      residual versus the appropriate time measure; a reference line is added
+      at `wres=0` as well as a loess smoothing line
+    - Functions `cwres_time`, `cwres_tafd`, and `cwres_tad` plots conditional
+      weighted residual versus the appropriate time measure; a reference line is added
+      at `cwres=0` as well as a loess smoothing line
+    - Functions `res_pred`, `wres_pred` and `cwres_pred` plot the appropriate
+      residual versus population model predictions (`PRED`); a horizontal
+      reference line is added at `c/w/res=0` as well as a loess smoothing line
+    - Functions `res_cont`, `wres_cont`, and `cwres_cont` plot the appropriate
+      residual versus a continuous covariate in the data set; a horizontal
+      reference line is added at `c/w/res=0` as well as a loess smoothing line
+    - Functions `res_cat`, `wres_cat`, and `cwres_cat` makes a boxplot of the
+      appropriate residual versus a categorical data set column
+    - Function `wres_q` and `cwres_q` generates quantile-quantile plots of the
+      appropriate residual value; a refereince identity line is added
+    - Function `eta_hist` generates histograms of model ETAs and returns a list
+      `gg/ggplot` objects
+    - Function `eta_cont` generates a scatterplot of model ETAs versus a continuous
+      variable in the data set; a horizontal reference line at `ETAn=0` and
+      loess smoothing line are also added to the plot
+    - Function `eta_cat` generates boxplot summaries of model ETAs by a
+      categorical variable in the data set
+    - Function `eta_pairs` generates pairs plots using the `ggpairs` function
+      from the `GGally` package
+    - Function `splitplot` splits the input data set according to a
+      discrete data item and generates a plot according to a user-named
+      function, returning a list of `gg/ggplot` objects
+cont_cont:
+  section: Continuous scatter
+  requirements:
+    - x-axis options availabe in `x_scale_continuous` can be modified
+      by the xs argument
+    - y-axis options available in `y_scale_continuous` can be modified
+      by the ys argument
+    - When loess smoothing lines are generated, `geom_smooth` with
+      `ggplot2` default behavior is used; the smooth may be modified
+      through the `smooth` argument
+    - A title may be added through the `title` argument
+cont_cat:
+  section: Boxplot summaries
+  requirements:
+    - x-axis options availabe in `x_scale_discrete` can be modified
+      by the xs argument
+    - y-axis options available in `y_scale_continuous` can be modified
+      by the ys argument
+    - Boxplot summaries are generated using `geom_boxplot` with `ggplot2`
+      default configuration
+    - If `shown` is `TRUE`, a numeric summary of each box is included
+      below each box. In the summary, `n` is the number of non-`NA`
+      observations in the
+      `y` column for that box and `N` is the number of unique `ID` values
+      for that box.  An error will be generated if `ID` does
+      not exist in the plotting data frame when `shown` is `TRUE`.
+      When `N` is equal to `n` in the summary, only `n` is shown.
+    - A title may be added thought the `title` argument
+input:
+  section: Input data
+  requirements:
+    - Data are input as data.frame or tibble
+    - Data sets are expected to be filter prior to plotting, so that
+      the input data frame only contains rows that are appropriate
+      for the current plotting function
+    - For continuous scatter plots, numeric data are required
+      or an error is generated; data are considered discrete
+      if they are `numeric` or `integer`
+    - For boxplot summaries,  discrete
+      data are required for x-axis for boxplot summaries; data are
+      considered discrete of they are `character`, `factor`, or `logical`
+look_feel:
+  section: Look and feel
+  requirements:
+    - Scatter plots are made with black points via `geom_point`
+    - Box plots are made with white fill via `geom_boxplot`
+    - The `ggplot2` default grid lines are retained on the plot
+    - Plots are made with white background
+    - Loess lines are blue and dashed
+    - Lines of identity and horizontal reference lines for
+      scatter plots are solid grey
+rpackages:
+  section: R packages
+  requirements:
+    - "Imports: `dplyr` `(>= 0.7.2)`, `rlang` `(>= 0.1.2)`"
+    - "Depends: `ggplot2` `(>= 2.2.1)`"
+    - "Suggests: `testthat`"
+

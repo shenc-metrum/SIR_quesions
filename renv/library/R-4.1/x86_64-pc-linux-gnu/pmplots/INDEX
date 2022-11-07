@@ -1,0 +1,59 @@
+[.pm_opts               Extract multiple pmplots options
+$<-.pm_opts             Assign a pmplots option
+add_density             Add a density curve to a plot
+as.list.pm_opts         Coerce pm_opts object to a list
+boxwork                 Make boxplots
+col_label               Column // axis-label specification
+cont_hist               Generate a histogram plot
+cwres_time              Plot conditional weighted residuals versus time
+defcx                   Default setting for discrete x-axis scale
+defx                    Default setting for x-axis scale
+defy                    Default setting for continuous y-axis scale
+dv_pred                 Plot DV versus predicted values
+dv_pred_ipred           Create plots showing DV, PRED, and IPRED by
+                        individual
+dv_time                 Plot DV versus time
+eta_cat                 Plot ETAs versus categorical variables
+eta_cont                Plot ETAs versus continuous variables
+eta_hist                ETA histograms
+eta_labs                Make ETA labels and col-labels
+geom_3s                 Additional reference lines
+layer                   Layer functions
+list_plot_x             Apply a plotting function to a vector of x or y
+                        values
+log_scale               Scale information for log transformation
+logbr                   Create breaks on log scale
+npde_ref                Input parameters for NPDE reference lines
+npde_time               Plot NPDE versus time
+pairs_plot              Pairs plots using ggpairs
+parse_label             Parse the label part of a col_label
+pm_axis                 Get defaults for plot axes
+pm_axis_functions       Functions to generate axis data
+pm_box                  Plot continuous variable against a categorical
+                        variable
+pm_browser              pmplots browser object
+pm_gadget               pmplots browser gadget
+pm_grid                 Arrange a list of plots in a grid
+pm_log                  Identity and log scale helpers
+pm_opts                 Set global plot options
+pm_scatter              Plot continuous variable versus continuous
+                        variable
+pm_smooths              Add loess line
+pm_theme                The standard pmplots theme
+pmplots                 Plots for pharmacometrics
+pmplots_data            Example data sets
+print.pm_opts           Print the pm_opts object
+res_cat                 Plot residuals versus categorical variable
+res_cont                Plot residuals versus continuous variables
+res_hist                Histograms of residuals or NPDE
+res_pred                Residuals or NPDE versus predicted values
+res_q                   QQ plot for conditional residuals or NPDE
+res_time                Plot residuals versus time
+rot_x                   Rotate axis text
+scatt                   Scatter plot function
+split_plot              Split and plot
+supplement_cwres        Add 'CWRES' column from 'CWRESI' if needed
+theme_plain             A plain ggplot2 theme
+wrap_plots              Faceted plots
+wres_time               Plot weighted residuals versus time
+y_time                  Plot continuous data versus time

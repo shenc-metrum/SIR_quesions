@@ -1,0 +1,64 @@
+Version: 1
+
+Packages:
+  - gridExtra
+  - ggpubr
+  - vpc
+  - future.apply
+  - lastdose
+  - xml2
+  - withr
+  - processx
+  - gridGraphics
+  - future.batchtools
+  - sensitivity
+  - testthat
+  - devtools
+  - tidyverse
+  - mrgsolve
+  - caTools
+  - bitops
+  - rprojroot
+  - pmplots
+  - mrggsave
+  - patchwork
+  - cowplot
+  - GGally
+  - latex2exp
+  - checkmate
+  - fs
+  - furrr
+  - glue
+  - magrittr
+  - jsonlite
+  - processx
+  - rlang
+  - withr
+  - stringr
+  - yaml
+  - yspec
+  - kableExtra
+  - bbr
+  - mrggt
+  - data.table
+  - pmtables
+  - PKPDmisc
+  - sessioninfo
+  - texPreview
+  - diffobj
+  - here
+  - templ
+  - logitnorm
+  - nhanesA
+  - mvtnorm
+  - stringfish
+  - rmarkdown
+  - markdown
+
+Repos:
+  - templ: https://s3.amazonaws.com/mpn.metworx.dev/releases/templ/0.1.0
+  - MPN: https://mpn.metworx.com/snapshots/stable/2021-11-19/
+
+
+Lockfile:
+    Type: renv

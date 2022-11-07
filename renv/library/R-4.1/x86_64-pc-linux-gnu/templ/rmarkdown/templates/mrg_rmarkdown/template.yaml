@@ -1,0 +1,4 @@
+name: mrg - rmarkdown (pdf)
+description: >
+   Utilizes mrgtemplate.tex and mrglogo2.
+create_dir: FALSE

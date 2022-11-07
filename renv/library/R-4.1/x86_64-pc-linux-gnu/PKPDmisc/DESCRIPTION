@@ -1,0 +1,38 @@
+Package: PKPDmisc
+Type: Package
+Title: Pharmacokinetic and Pharmacodynamic Data Management Functions
+Version: 3.0.0
+Date: 2020-06-25
+Authors@R: c(
+    person("Devin", "Pastoor",
+    email = "devin.pastoor@gmail.com", role = c("aut", "cre")))
+Description: A toolbox for data management common to pharmacokinetic and
+  pharmacokinetic modeling and simulation, such as resampling,
+  area-under-the-curve calculation, data chunking, custom csv
+  output, and project scaffolding.
+URL: https://github.com/metrumresearchgroup/PKPDmisc
+BugReports: https://github.com/metrumresearchgroup/PKPDmisc/issues
+Depends: R (>= 3.2.2)
+LinkingTo: Rcpp, BH
+Imports: dplyr (>= 0.5.0), data.table, ggplot2, lazyeval, magrittr,
+        parallel, purrr, Rcpp (>= 0.12.10), readr (>= 1.0.0), rlang,
+        stringr, tibble
+Suggests: sessioninfo, knitr, rmarkdown, testthat
+LazyData: TRUE
+License: MIT + file LICENSE
+VignetteBuilder: knitr
+RoxygenNote: 7.1.0
+Encoding: UTF-8
+OriginalRepository: MPNDEV
+Repository: MPN
+Origin: github.com/metrumresearchgroup/PKPDmisc
+git_tag: 3.0.0
+git_commit: a90d6edb6bc2a5de6a8d22797fdb88a3a1aa4032
+NeedsCompilation: yes
+Packaged: 2020-06-25 22:12:45 UTC; devinp
+Author: Devin Pastoor [aut, cre]
+Maintainer: Devin Pastoor <devin.pastoor@gmail.com>
+Built: R 4.1.1; x86_64-pc-linux-gnu; 2022-05-11 22:26:38 UTC; unix
+PkgrVersion: v3.0.0-rc1
+PkgrInstallType: binary
+PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2021-11-19/

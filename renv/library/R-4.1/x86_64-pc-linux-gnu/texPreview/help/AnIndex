@@ -1,0 +1,12 @@
+%>%	pipe
+as.kable	as_kable
+buildUsepackage	BuildUsepackage
+build_usepackage	build_usepackage
+check_requirements	check_requirements
+getTexPackages	getTexPackages
+get_texpackages	get_texpackages
+texPreview	texPreview
+tex_opts	tex_opts
+tex_opts_current	tex_opts
+tex_preview	tex_preview
+tex_requirements	tex_requirements

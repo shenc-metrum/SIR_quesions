@@ -1,0 +1,90 @@
+SETUP__:
+  description: Example PopPK analysis data set
+  sponsor: example-project
+  projectnumber: EXAMPK1011F
+  use_internal_db: true
+  glue: 
+    bmiunits: "kg/m$^2$"
+  flags: 
+    covariate: [AGE:SCR, HT, AST:ALT]
+  lookup_file: "look.yml"
+C:
+NUM:
+ID:
+SUBJ: !look
+TIME: !look
+  label: time after first dose
+  unit: hour
+SEQ: 
+  label: data type
+  values: {observation: 0, dose: 1}
+CMT:
+EVID:
+  make_factor: true
+  lookup: true
+AMT: !look
+  unit: mg
+DV:  !look
+  unit: "micrograms/L"
+  unit.tex: "$\\mu$g/L"
+AGE: !look
+  range: [18,50]
+WT: !look
+  range: [40,100]
+  dots: {time_varying: true} 
+CRCL:
+  label: creatinine clearance
+  unit: ml/min
+  range: [15,150]
+  dots: {time_varying: true}
+ALB: !look
+  range: [1.2,6]
+BMI: !look
+  range: [18,25]
+  unit.tex: <<bmiunits>>
+AAG:
+  short: alpha-1-acid glycoprotein
+  unit: mg/dL
+  range: [50,120]
+SCR: 
+  about: [serum creatinine, mg/dL]
+  range: [0.7,6]
+AST:
+  short: aspartate aminotransferase
+  range: [10,36]
+ALT: 
+  short: alanine aminotransferase
+  range: [10,35]
+HT: !look
+  range: [140, 222]
+  unit: cm
+CP: !look 
+  short: Child-Pugh score
+  values: {normal: 0, Pugh1: 1, Pugh2: 2, Pugh3: 3}
+  dots: {updated_from_lookup: false} # these dots used in tests
+TAFD:
+  short: time after first dose
+  unit: hours
+  dots: {timecol: true}
+TAD:
+  about: [time after dose, hours]
+  dots: {timecol: true}
+LDOS:
+  short: last dose amount
+  unit: mg
+MDV:
+BLQ:
+  short: below limit of quantification
+  values: 
+    above QL: 1
+    below Q: 0
+PHASE: 
+  short: study phase indicator
+  values: 1
+  dots: {categorical: true}
+STUDY: 
+  short: study number
+  values: {SAD: 1, MAD: 2, Renal: 3, Hepatic: 4}
+RF: 
+  short: renal function stage
+  values: {Normal: norm, Mild: mild, Moderate: mod, Severe: sev}

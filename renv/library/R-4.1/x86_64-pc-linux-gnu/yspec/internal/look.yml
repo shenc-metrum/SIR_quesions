@@ -1,0 +1,7 @@
+SETUP__:
+  flags: 
+    covariate: [CP]
+CP: 
+  dots: {updated_from_lookup: true, came_from_lookup: true} # used in test
+TIME: 
+  dots: {timecol: true}

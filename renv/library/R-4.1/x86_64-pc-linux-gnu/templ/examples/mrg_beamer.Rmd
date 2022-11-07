@@ -1,0 +1,48 @@
+---
+title: "MetrumRG Beamer Presentation"
+subtitle: "Presentation Subtitle"
+author: "First Last"
+knit: templ::knit_to("../deliv/presentation")
+output: templ::mrg_beamer
+---
+
+
+```{r,setup, include=FALSE}
+knitr::opts_chunk$set(cache=FALSE)
+library(tidyverse)
+library(pmplots)
+library(pmtables)
+```
+
+# First Section
+
+## First Frame
+
+Hello, world!
+
+# Second Section
+
+## Second Frame
+
+### Bulleted Lists
+- Element A
+- Element B
+    - B.1
+    - B.2
+- Element C    
+
+# Elements
+
+## Plots
+
+```{r, echo=FALSE, warning = FALSE, message = FALSE}
+cwres_time(pmplots_data_obs())
+```
+
+## Tables
+
+```{r, results = "asis", echo = FALSE}
+out <- pt_data_inventory(pmt_obs,by=c(Study = "STUDYf"))
+stable(out, r_file = "mrg_beamer.Rmd") %>% pt_wrap()
+```
+

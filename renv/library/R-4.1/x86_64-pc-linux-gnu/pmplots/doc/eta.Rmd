@@ -1,0 +1,59 @@
+---
+title: "ETA Plots"
+author: "Kyle Baron"
+date: "`r Sys.Date()`"
+output: 
+  rmarkdown::html_vignette: 
+    keep_md: true
+vignette: >
+  %\VignetteIndexEntry{ETA Plots}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+# Set up
+```{r, message = FALSE, warning = FALSE}
+library(pmplots)
+library(dplyr)
+
+data <- pmplots_data_id()
+```
+
+
+A good workflow is to create a character vector of your etas and 
+their names.  
+```{r}
+etas <- c("ETA1//ETA-CL", "ETA2//ETA-VC", "ETA3//ETA-KA")
+
+etas
+```
+
+
+Note that very frequently, ETA plots come back as a list of plots, 
+one for each ETA. You can combine them together into a single plot using 
+`pm_grid()` or `patchwork::wrap_plots()`.
+
+
+# ETA histogram
+```{r}
+eta_hist(data,etas) %>% pm_grid()
+```
+
+
+# ETA Pairs
+```{r}
+eta_pairs(data, etas)
+```
+
+# ETA versus categorical variable
+```{r}
+eta_cat(data, x = "STUDYc", y = etas) %>% pm_grid()
+```
+
+
+# ETA versus continuous variable
+```{r}
+eta_cont(data, x = "WT", y = etas) %>% pm_grid()
+```
+

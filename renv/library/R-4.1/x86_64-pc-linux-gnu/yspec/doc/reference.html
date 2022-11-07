@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+<meta name="date" content="2021-09-07" />
+
+<title>Yaml specification reference</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+<script>// Hide empty <a> tag within highlighted CodeBlock for screen reader accessibility (see https://github.com/jgm/pandoc/issues/6352#issuecomment-626106786) -->
+// v0.0.1
+// Written by JooYoung Seo (jooyoung@psu.edu) and Atsushi Yasumoto on June 1st, 2020.
+
+document.addEventListener('DOMContentLoaded', function() {
+  const codeList = document.getElementsByClassName("sourceCode");
+  for (var i = 0; i < codeList.length; i++) {
+    var linkList = codeList[i].getElementsByTagName('a');
+    for (var j = 0; j < linkList.length; j++) {
+      if (linkList[j].innerHTML === "") {
+        linkList[j].setAttribute('aria-hidden', 'true');
+      }
+    }
+  }
+});
+</script>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Yaml specification reference</h1>
+<h4 class="author"></h4>
+<h4 class="date">2021-09-07</h4>
+
+
+<div id="TOC">
+<ul>
+<li><a href="#syntax"><span class="toc-section-number">0.1</span> Syntax</a></li>
+<li><a href="#organization"><span class="toc-section-number">0.2</span> Organization</a></li>
+<li><a href="#setup__-specification-fields"><span class="toc-section-number">0.3</span> <code>SETUP__</code> specification fields</a></li>
+<li><a href="#data-column-specification-fields"><span class="toc-section-number">0.4</span> Data column specification fields</a></li>
+<li><a href="#namespaces"><span class="toc-section-number">0.5</span> Namespaces</a></li>
+<li><a href="#defaults"><span class="toc-section-number">0.6</span> Defaults</a></li>
+<li><a href="#examples"><span class="toc-section-number">0.7</span> Examples</a>
+<ul>
+<li><a href="#continuous-values"><span class="toc-section-number">0.7.1</span> Continuous values</a></li>
+<li><a href="#character-data"><span class="toc-section-number">0.7.2</span> Character data</a></li>
+<li><a href="#discrete-data-with-decode"><span class="toc-section-number">0.7.3</span> Discrete data with decode</a></li>
+<li><a href="#look-up-column-definition"><span class="toc-section-number">0.7.4</span> Look up column definition</a></li>
+<li><a href="#include-tex-in-data-specification-document"><span class="toc-section-number">0.7.5</span> Include TeX in data specification document</a></li>
+</ul></li>
+<li><a href="#flags"><span class="toc-section-number">0.8</span> <code>flags</code></a></li>
+</ul>
+</div>
+
+<div id="syntax" class="section level2" number="0.1">
+<h2 number="0.1"><span class="header-section-number">0.1</span> Syntax</h2>
+<p>yspec uses standard <a href="https://en.wikipedia.org/wiki/YAML">yaml</a> syntax to state the data set column definitions.</p>
+<p><strong>NOTES</strong></p>
+<ul>
+<li>Use double-quotes around any value you want to be a string</li>
+<li><code>true</code> and <code>yes</code> by themselves will be rendered as <code>TRUE</code>; use <code>&quot;yes&quot;</code> if you need that word by itself as a value for a field</li>
+<li><code>false</code> and <code>no</code> by themselves will be returned as <code>FALSE</code>; use <code>&quot;no&quot;</code> if you need that word by itself as a value for a field</li>
+<li>If a string starts with a piece of punctuation, make sure to put the entire string in double quotes
+<ul>
+<li>Use <code>short: &quot;&gt; QL&quot;</code> not <code>short: &gt; QL</code></li>
+<li>Use <code>values: [&quot;.&quot;, C]</code> not <code>values: [.,C]</code></li>
+<li>Use <code>address: &quot;123 Main St.&quot;</code> not <code>address: 123 Main St.</code></li>
+<li>Use <code>label: &quot;line 1 \\n line 2&quot;</code> not <code>label: line 1 \n line2</code></li>
+</ul></li>
+</ul>
+<p>Instructions for including TeX in the yaml specification code are provided in a section below.</p>
+</div>
+<div id="organization" class="section level2" number="0.2">
+<h2 number="0.2"><span class="header-section-number">0.2</span> Organization</h2>
+<p>Save your data specification code in a file, typically with a <code>.yaml</code> file extension.</p>
+<p>At the top of the file, include a block called <code>SETUP__:</code>; this is where the data set meta data is stored. For example</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1"></a>SETUP__:</span>
+<span id="cb1-2"><a href="#cb1-2"></a>  description: PKPD analysis data set</span>
+<span id="cb1-3"><a href="#cb1-3"></a>  use_internal_db: true</span>
+<span id="cb1-4"><a href="#cb1-4"></a>  projectnumber: FOO123</span>
+<span id="cb1-5"><a href="#cb1-5"></a>  sponsor: MetrumRG</span></code></pre></div>
+<p>See the details below for other files that can be included here.</p>
+<p>Next, list each data set column in order, with the data column name starting in the first column and ending with a colon. For example:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb2-1"><a href="#cb2-1"></a>WT:</span>
+<span id="cb2-2"><a href="#cb2-2"></a>  short: weight</span>
+<span id="cb2-3"><a href="#cb2-3"></a>  unit: kg</span>
+<span id="cb2-4"><a href="#cb2-4"></a>  range: [50, 150]</span></code></pre></div>
+<p>This specifies a “short” name for this column as well as a unit and a range. A complete listing is provided below.</p>
+<p>You can see an fully worked example by running</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>ys_help<span class="op">$</span><span class="kw">yaml</span>()</span></code></pre></div>
+<p>See the <code>?ys_help</code> help topic for more information.</p>
+<p>Or, you can export a collection of package assets with this command</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>ys_help<span class="op">$</span><span class="kw">export</span>(<span class="dt">output=</span><span class="st">&quot;assets&quot;</span>)</span></code></pre></div>
+<p>See the [ys_help] topic for more information.</p>
+</div>
+<div id="setup__-specification-fields" class="section level2" number="0.3">
+<h2 number="0.3"><span class="header-section-number">0.3</span> <code>SETUP__</code> specification fields</h2>
+<ul>
+<li><code>description</code>: <code>&lt;chr&gt;</code>; a short, label-like description of the data set</li>
+<li><code>projectnumber</code>: <code>&lt;chr&gt;</code> the project reference number; may be incorporated into rendered define documents; when the project number is given in the first yspec object in a project object, that project number will be rendered in the project-wide define document</li>
+<li><code>sponsor</code>: <code>&lt;chr&gt;</code> the project sponsor; when the project sponsor is given in the first yspec object in a project object, that project sponsor name will be rendered in the project-wide define document</li>
+<li><code>data_path</code>: <code>&lt;chr&gt;</code>; a path locating the data set associated with the spec</li>
+<li><code>data_stem</code>: <code>&lt;chr&gt;</code>; the stem (no extension) for the data set associated with the spec; usually the stem of the data file is the same as the stem of the spec, but they can also be different</li>
+<li><code>lookup_file</code>: <code>&lt;chr&gt;</code>; a yaml array of other yaml files where yspec will look for column lookup information</li>
+<li><code>use_internal_db</code>: <code>&lt;logical&gt; (true/false)</code>; if <code>true</code>, then yspec will load the internal column lookup database</li>
+<li><code>import</code>: <code>&lt;chr&gt;</code>; give the name of a <code>&lt;file&gt;</code> to import into the current data spec; all columns from <code>&lt;file&gt;</code> are imported as is; additional columns may also be listed with the normal syntax and these columns will appear after the imported columns</li>
+<li><code>character_last</code>: <code>&lt;logical&gt;</code>; if true, automatically push all non-numeric columns to the end of the data specification list</li>
+<li><code>comment_col</code>: <code>&lt;chr&gt;</code>; identify the column that is used to store comments; the comment column will not be pushed to the back when <code>character_last</code> is true</li>
+<li><code>glue</code>: <code>&lt;map&gt;</code>; specify name/value pairs; in the yaml data specification, use <code>&lt;&lt;name&gt;&gt;</code> in the text and <code>value</code> will glued into the text after it has been sanitized; intended use is to allow LaTeX code to evade the sanitizer</li>
+<li><code>max_nchar_label</code>: <code>integer</code>; the maximum number of characters allowed in the <code>label</code> field</li>
+<li><code>max_nchar_short</code>: <code>integer</code>; the maximum number of characters allowed in the <code>short</code> field</li>
+<li><code>max_nchar_col</code>: <code>integer</code>; the maximum number of characters allowed in the data set column name</li>
+<li><code>flags</code>: <code>&lt;map&gt;</code>; for each key, an array of column names where a logical data item will be set in the <code>dots</code> list</li>
+</ul>
+</div>
+<div id="data-column-specification-fields" class="section level2" number="0.4">
+<h2 number="0.4"><span class="header-section-number">0.4</span> Data column specification fields</h2>
+<ul>
+<li><code>short: short-name</code>
+<ul>
+<li>a short name for the column; don’t include unit here</li>
+</ul></li>
+<li><code>unit: numeric</code>
+<ul>
+<li>the unit of measure</li>
+</ul></li>
+<li><code>range: [min-value, max-value]</code>
+<ul>
+<li>indicates continuous data</li>
+</ul></li>
+<li><code>values: [val1, val2, valn]</code>
+<ul>
+<li>specify each valid value</li>
+<li>indicates discrete data</li>
+</ul></li>
+<li><code>values: {decode1: val1, decode22: val2}</code>
+<ul>
+<li>put the decode into the specification of values using a default yaml map structure (the decode is to the left of the <code>:</code>)</li>
+<li><strong>Note</strong> the curly brackets, not square brackets</li>
+</ul></li>
+<li><code>decode: [decode1, decode2, decode3]</code>
+<ul>
+<li>separate the <code>decode</code> from the <code>values</code> specification</li>
+<li>see example below for clearer way to input very long decodes</li>
+</ul></li>
+<li><code>longvalues: true</code>
+<ul>
+<li>print the values in a (long) <code>yaml</code>-formatted list</li>
+</ul></li>
+<li><code>comment: just whatever you want to say</code></li>
+<li><code>comment: &gt;       say something       on multiple lines of       text</code></li>
+<li><code>source: ADSL.xpt</code>
+<ul>
+<li>where the data came from</li>
+<li>include both the sdtm domain and variable name</li>
+</ul></li>
+<li><code>about: [short-name, unit]</code>
+<ul>
+<li>this is a convenience structure</li>
+</ul></li>
+<li><code>label</code>: a label for the column; the label must be 40 or fewer characters and will get written into the define file as well as the data frame prior to writing out to sas xport format</li>
+<li><code>long: a longer name to describe the column</code></li>
+<li><code>dots</code>:
+<ul>
+<li>a named list of whatever you want to carry along in the object; the <code>dots</code> list isn’t used by any rendering function in the yspec package, but might be used by a custom rendering function</li>
+</ul></li>
+<li><code>axis</code>:
+<ul>
+<li>a short-ish name that can be used for axis titles for plots</li>
+<li>generally, don’t include unit; yspec helpers will add that automatically by default</li>
+<li>if <code>short</code> will work for your axis title (as it is … with no modification), yspec will use that if no <code>axis</code> field is used</li>
+</ul></li>
+<li><code>type</code>:
+<ul>
+<li>can be <code>numeric</code>, <code>character</code>, or <code>integer</code></li>
+<li>this is optional; the default is <code>numeric</code></li>
+</ul></li>
+<li><code>make_factor</code>: if <code>true</code>, then the column will be able to be converted to a factor regardless of whether <code>decode</code> is included or not</li>
+<li><code>lookup</code>:
+<ul>
+<li>logical; if <code>true</code> then the definition for the column is looked up in the <code>lookup_files</code> (specified in <code>SETUP__:</code>)</li>
+<li>use the <code>!look</code> handler to indicate lookup</li>
+</ul></li>
+</ul>
+</div>
+<div id="namespaces" class="section level2" number="0.5">
+<h2 number="0.5"><span class="header-section-number">0.5</span> Namespaces</h2>
+<p>Namespaces are alternative representation of certain column data fields</p>
+<ul>
+<li><code>unit</code></li>
+<li><code>short</code></li>
+<li><code>label</code></li>
+<li><code>long</code></li>
+<li><code>decode</code></li>
+<li><code>comment</code></li>
+</ul>
+<p>You can create namespaces by attaching a <code>.&lt;name&gt;</code> suffix to eligible fields.</p>
+<p>For example, we can create a “tex” representation for <code>unit</code> like this</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb5-1"><a href="#cb5-1"></a>DV: </span>
+<span id="cb5-2"><a href="#cb5-2"></a>  short: dependent variable</span>
+<span id="cb5-3"><a href="#cb5-3"></a>  unit: &quot;microgram/mL&quot;</span>
+<span id="cb5-4"><a href="#cb5-4"></a>  unit.tex: &quot;$\\mu$g/mL&quot;</span></code></pre></div>
+<p>Here, the <code>unit:</code> entry states the value for unit in the <code>base</code> namespace, the default data you get on load. Using <code>unit.tex:</code> introduces an entry for the <code>tex</code> namespace. After loading the spec, you can change to this namespace using</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>spec &lt;-<span class="st"> </span><span class="kw">ys_load</span>(...)</span>
+<span id="cb6-2"><a href="#cb6-2"></a>spec_tex &lt;-<span class="st"> </span><span class="kw">ys_namespace</span>(spec, <span class="st">&quot;tex&quot;</span>) </span></code></pre></div>
+<p>Any time you attach a <code>.&lt;name&gt;</code> suffix to a field, <code>yspec</code> will interpret that as an attempt to enter namespace data. The user is responsible for creating and organizing namespaces and naming them. <code>yspec</code> will create the <code>base</code> namespace. Also, when rendering a data specification document, <code>yspec</code> will attempt to switch to the <code>tex</code> namespace if it exists. Beyond that, <code>yspec</code> is agnostic to the names of the namespaces you create.</p>
+<p>As another example, we can have alternate <code>short</code> names depending on whether or not we are using that name to create axis titles for a plot</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb7-1"><a href="#cb7-1"></a>EGFR:</span>
+<span id="cb7-2"><a href="#cb7-2"></a>  short: estimated creatinine clearance</span>
+<span id="cb7-3"><a href="#cb7-3"></a>  short.plot: eGFR</span></code></pre></div>
+<p>or decode</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb8-1"><a href="#cb8-1"></a>SEX:</span>
+<span id="cb8-2"><a href="#cb8-2"></a>  values: [0, 1]</span>
+<span id="cb8-3"><a href="#cb8-3"></a>  decode: [male, female]</span>
+<span id="cb8-4"><a href="#cb8-4"></a>  decode.letter: [m, f]</span></code></pre></div>
+</div>
+<div id="defaults" class="section level2" number="0.6">
+<h2 number="0.6"><span class="header-section-number">0.6</span> Defaults</h2>
+<ul>
+<li>If <code>type</code> is not given, then it will default to <code>numeric</code></li>
+</ul>
+</div>
+<div id="examples" class="section level2" number="0.7">
+<h2 number="0.7"><span class="header-section-number">0.7</span> Examples</h2>
+<div id="continuous-values" class="section level3" number="0.7.1">
+<h3 number="0.7.1"><span class="header-section-number">0.7.1</span> Continuous values</h3>
+<ul>
+<li>The <code>about</code> array provides a short name and unit</li>
+<li>Any time <code>range</code> is given, the data is assumed to be continuous</li>
+</ul>
+<div class="sourceCode" id="cb9"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb9-1"><a href="#cb9-1"></a>WT:</span>
+<span id="cb9-2"><a href="#cb9-2"></a>  about: [weight, kg]</span>
+<span id="cb9-3"><a href="#cb9-3"></a>  range: [5, 300]</span></code></pre></div>
+<p>This is equivalent to</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb10-1"><a href="#cb10-1"></a>WT:</span>
+<span id="cb10-2"><a href="#cb10-2"></a>  short: weight</span>
+<span id="cb10-3"><a href="#cb10-3"></a>  unit: kg</span>
+<span id="cb10-4"><a href="#cb10-4"></a>  range: [5,300]</span></code></pre></div>
+</div>
+<div id="character-data" class="section level3" number="0.7.2">
+<h3 number="0.7.2"><span class="header-section-number">0.7.2</span> Character data</h3>
+<ul>
+<li>Using <code>values</code> indicates discrete data</li>
+</ul>
+<div class="sourceCode" id="cb11"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb11-1"><a href="#cb11-1"></a>RACE:</span>
+<span id="cb11-2"><a href="#cb11-2"></a>  values: [White, Black, Native American, Other]</span></code></pre></div>
+<p>Any other array input structure can be used. For example</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb12-1"><a href="#cb12-1"></a>RACE: </span>
+<span id="cb12-2"><a href="#cb12-2"></a>  values:</span>
+<span id="cb12-3"><a href="#cb12-3"></a>    - White</span>
+<span id="cb12-4"><a href="#cb12-4"></a>    - Black</span>
+<span id="cb12-5"><a href="#cb12-5"></a>    - Native American</span>
+<span id="cb12-6"><a href="#cb12-6"></a>    - Other</span></code></pre></div>
+<p>By default, <code>values</code> are printed as comma-separated list. To get them to print in long format</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb13-1"><a href="#cb13-1"></a>RACE:</span>
+<span id="cb13-2"><a href="#cb13-2"></a>  values: [White, Black, Native American, Other]</span>
+<span id="cb13-3"><a href="#cb13-3"></a>  longvalues: true</span></code></pre></div>
+</div>
+<div id="discrete-data-with-decode" class="section level3" number="0.7.3">
+<h3 number="0.7.3"><span class="header-section-number">0.7.3</span> Discrete data with decode</h3>
+<p><strong>Method 1</strong></p>
+<ul>
+<li>Notice that the yaml key can only be simple character value</li>
+<li>Also, we use curly braces to specify a list like this</li>
+<li>Finally it is a <code>:</code> that separates decode (on the left) and the value (on the right).</li>
+</ul>
+<div class="sourceCode" id="cb14"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb14-1"><a href="#cb14-1"></a>SEX:</span>
+<span id="cb14-2"><a href="#cb14-2"></a>  values: {dude: 0, gal: 1}</span></code></pre></div>
+<p>Special handlers are available that add some flexibility to this value / decode specification.</p>
+<p>The <code>!value:decode</code> handler allows you to put the value on the left and decode on the right</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb15-1"><a href="#cb15-1"></a>SEX: </span>
+<span id="cb15-2"><a href="#cb15-2"></a>  values: !value:decode</span>
+<span id="cb15-3"><a href="#cb15-3"></a>    0 : dude</span>
+<span id="cb15-4"><a href="#cb15-4"></a>    1 : gal</span></code></pre></div>
+<p>The default behavior can be achieved with</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb16-1"><a href="#cb16-1"></a>SEX: </span>
+<span id="cb16-2"><a href="#cb16-2"></a>  values: !value:decode</span>
+<span id="cb16-3"><a href="#cb16-3"></a>    dude: 0</span>
+<span id="cb16-4"><a href="#cb16-4"></a>    gal: 1</span></code></pre></div>
+<p>The handlers also allow associating multiple values with a single decode</p>
+<p><strong>To get multiple values with the same decode</strong></p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb17-1"><a href="#cb17-1"></a>STUDY:</span>
+<span id="cb17-2"><a href="#cb17-2"></a>  values: !decode:value</span>
+<span id="cb17-3"><a href="#cb17-3"></a>    phase 1 : [101, 102, 103]</span>
+<span id="cb17-4"><a href="#cb17-4"></a>    phase 2 : [201, 202, 203]</span>
+<span id="cb17-5"><a href="#cb17-5"></a>    phase 3 : [301, 302, 303]</span></code></pre></div>
+<p><strong>Method 2</strong></p>
+<ul>
+<li>These are more complicated decodes</li>
+<li>Put the <code>values</code> and <code>deode</code> in brackets (array)</li>
+</ul>
+<div class="sourceCode" id="cb18"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">BQL</span><span class="kw">:</span></span>
+<span id="cb18-2"><a href="#cb18-2"></a><span class="at">  </span><span class="fu">values</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="dv">0</span><span class="kw">,</span><span class="dv">1</span><span class="kw">]</span></span>
+<span id="cb18-3"><a href="#cb18-3"></a><span class="at">  </span><span class="fu">decode</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">not below quantitation limit</span><span class="kw">,</span><span class="at"> below quantitation limit</span><span class="kw">]</span></span></code></pre></div>
+<p><strong>Method 3</strong> Really, it’s the same as method 2, but easier to type and read when the decode gets really long</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb19-1"><a href="#cb19-1"></a>BQL:</span>
+<span id="cb19-2"><a href="#cb19-2"></a>  values [0, 1]</span>
+<span id="cb19-3"><a href="#cb19-3"></a>  decode:</span>
+<span id="cb19-4"><a href="#cb19-4"></a>    - not below the quantitation limit of 2 ng/ml</span>
+<span id="cb19-5"><a href="#cb19-5"></a>    - below the quantitation limit of 2 ng/ml</span></code></pre></div>
+</div>
+<div id="look-up-column-definition" class="section level3" number="0.7.4">
+<h3 number="0.7.4"><span class="header-section-number">0.7.4</span> Look up column definition</h3>
+<p>Either fill in the <code>lookup</code> field or use the <code>!look</code> handler</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb20-1"><a href="#cb20-1"></a>CMT: </span>
+<span id="cb20-2"><a href="#cb20-2"></a>  lookup: true</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb21-1"><a href="#cb21-1"></a>CMT: !look</span></code></pre></div>
+<p>You can also give the column name to import</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb22-1"><a href="#cb22-1"></a>HT: </span>
+<span id="cb22-2"><a href="#cb22-2"></a>  lookup: HT_INCHES</span></code></pre></div>
+<p>In this example, there would be a column called <code>HT_INCHES</code> in the lookup file that would be imported under the name <code>HT</code>.</p>
+</div>
+<div id="include-tex-in-data-specification-document" class="section level3" number="0.7.5">
+<h3 number="0.7.5"><span class="header-section-number">0.7.5</span> Include TeX in data specification document</h3>
+<p>Most define documents get rendered via <code>xtable</code> and the text gets processed by a sanitize function. yspec implements a custom sanitize function called <code>ys_sanitize()</code>, which is similar to <code>xtable::sanitize</code>, but whitelists some symbols so they do not get sanitized.</p>
+<p>To protect TeX code from the sanitizer, first create a field in <code>SETUP__</code> called <code>glue</code> with a map between a name and some corresponding TeX code. In the following example, we with to write <span class="math inline">\(\mu\)</span>g/L, so we create a name called <code>mugL</code> and map it to <code>$\\mu$g/L</code>:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb23-1"><a href="#cb23-1"></a>SETUP__:</span>
+<span id="cb23-2"><a href="#cb23-2"></a>  glue: {mugL: &quot;$\\mu$g/L&quot;}</span></code></pre></div>
+<p>Once the map is in place, we can write the data set column definition like this:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb24-1"><a href="#cb24-1"></a>DV: </span>
+<span id="cb24-2"><a href="#cb24-2"></a>  unit: &quot;&lt;&lt;mugL&gt;&gt;&quot;</span></code></pre></div>
+<p>When the table for the define document is rendered, first the sanitizer will run, but it won’t find anything in the <code>unit</code> field for the <code>DV</code> column. Then yspec will call <code>glue()</code> and replace <code>&lt;&lt;mugL&gt;&gt;</code> with <code>$\\mu%g/L</code>.</p>
+<p>Notice that we put all of the values in quotes; this is good practice to ensure that yaml will parse the value as a character data item when reading in the spec.</p>
+</div>
+</div>
+<div id="flags" class="section level2" number="0.8">
+<h2 number="0.8"><span class="header-section-number">0.8</span> <code>flags</code></h2>
+<p>The <code>flags</code> section in <code>SETUP__:</code> is available for you to name sets of columns in the work in spec. For example, the following code defines a flag called <code>covariate</code> and it names three columns (<code>WT</code>, <code>AGE</code>, and <code>CRCL</code>) to carry this tag</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb25-1"><a href="#cb25-1"></a>SETUP__:</span>
+<span id="cb25-2"><a href="#cb25-2"></a>  flags:</span>
+<span id="cb25-3"><a href="#cb25-3"></a>    covariate: [WT, AGE, CRCL]</span></code></pre></div>
+<p>When yspec loads a yaml file that contains <code>flags</code>, it will go into every column in the spec and add a logical flag in <code>dots</code> that indicates whether or not that column is a member of that covariate set. For this example, all columns in the spec will have <code>dots$covariate</code> set to <code>FALSE</code> except for <code>WT</code>, <code>AGE</code>, and <code>CRCL</code> where it will be set to <code>TRUE</code>.</p>
+<p>The user can appear to this information when filtering the spec. Filtering like this will return a yspec object containing only <code>WT</code>, <code>AGE</code>, and <code>CRCL</code>.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="kw">ys_filter</span>(spec, covariate)</span></code></pre></div>
+<p>Note that this flagging process will not overwrite a flag that the user already set in a specific column. In this example, <code>AGE</code> will not be flagged as a covariate, but <code>WT</code> and <code>CRCL</code> will.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb27-1"><a href="#cb27-1"></a>SETUP__:</span>
+<span id="cb27-2"><a href="#cb27-2"></a>  flags:</span>
+<span id="cb27-3"><a href="#cb27-3"></a>    covariate: [WT, AGE, CRCL]</span>
+<span id="cb27-4"><a href="#cb27-4"></a>WT: </span>
+<span id="cb27-5"><a href="#cb27-5"></a>  short: weight</span>
+<span id="cb27-6"><a href="#cb27-6"></a>AGE: </span>
+<span id="cb27-7"><a href="#cb27-7"></a>  short: age</span>
+<span id="cb27-8"><a href="#cb27-8"></a>  dots: {covariate: false}</span>
+<span id="cb27-9"><a href="#cb27-9"></a>CRCL:</span>
+<span id="cb27-10"><a href="#cb27-10"></a>  short: creatinine clearance</span></code></pre></div>
+<p>It’s recommended that <code>flags</code> are given in the <code>SETUP__</code> information only, but the user can override as needed.</p>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

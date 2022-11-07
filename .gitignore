@@ -1,0 +1,10 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+model/pk/sir/
+model/pk/sir_test/
+model/pk/sir2/
+model/pk/boot/
+model/rpi_model/sir
+model/rpi_model/boot

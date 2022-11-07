@@ -1,0 +1,56 @@
+---
+title: ""
+output: github_document
+---
+
+# Introduction
+
+`pmplots` is an `R` package to generate exploratory and diagnostic
+plots commonly of interest in pharamcometrics.  Each function in `pmplots`
+is named according to the specific plot it generates via calls to functions
+in the `ggplot2` `R` package.  
+
+This document lists the functional requirements for the `pmplots` package. 
+
+# Requirements for pharamcometric plotting package `pmplots`
+```{r,echo = FALSE, message = FALSE}
+library(yaml)
+library(kableExtra)
+library(pander)
+library(dplyr)
+
+x <- yaml.load_file("spec.yml")
+
+handles <- names(x)
+
+x <- lapply(seq_along(handles), function(i) {
+  handle <- handles[i]
+  data_frame(
+    i  = i,
+    handle  = handle,
+    sec = x[[i]]$section,
+    req = x[[i]]$requirements
+  )
+})
+x <- bind_rows(x)
+
+x <- mutate(x, rid = 1:n())
+x <- select(x, Section = sec, RID = rid, Requirement = req)
+
+x <- mutate(x, Section = paste0("__", Section, "__"))
+x <- mutate(x, Section = if_else(duplicated(Section), "", Section))
+#names(x)[1] <- paste0("Section",paste(rep("&nbsp;",6),collapse=""))
+#x <- rename(x,`Section header&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;` = Section)
+```
+
+```{r, echo  = FALSE}
+pander(x, justify = c("left","right", "left"), style = "multiline", 
+       split.cells = c(20, 3, 40), split.tables = 80)
+```
+
+
+
+
+
+
+

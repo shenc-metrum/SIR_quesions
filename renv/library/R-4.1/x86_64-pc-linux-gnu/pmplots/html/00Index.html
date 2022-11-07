@@ -1,0 +1,411 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>R: Plots for Pharmacometrics</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+<h1> Plots for Pharmacometrics
+<img class="toplogo" src="../../../doc/html/Rlogo.svg" alt="[R logo]" />
+</h1>
+<hr/>
+<div style="text-align: center;">
+<a href="../../../doc/html/packages.html"><img class="arrow" src="../../../doc/html/left.jpg" alt="[Up]" /></a>
+<a href="../../../doc/html/index.html"><img class="arrow" src="../../../doc/html/up.jpg" alt="[Top]" /></a>
+</div><h2>Documentation for package &lsquo;pmplots&rsquo; version 0.3.3</h2>
+
+<ul><li><a href="../DESCRIPTION">DESCRIPTION file</a>.</li>
+<li><a href="../doc/index.html">User guides, package vignettes and other documentation.</a></li>
+</ul>
+
+<h2>Help Pages</h2>
+
+
+<p style="text-align: center;">
+<a href="#A">A</a>
+<a href="#B">B</a>
+<a href="#C">C</a>
+<a href="#D">D</a>
+<a href="#E">E</a>
+<a href="#G">G</a>
+<a href="#L">L</a>
+<a href="#N">N</a>
+<a href="#P">P</a>
+<a href="#R">R</a>
+<a href="#S">S</a>
+<a href="#T">T</a>
+<a href="#W">W</a>
+<a href="#Y">Y</a>
+<a href="#misc">misc</a>
+</p>
+
+
+<h2><a name="A">-- A --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="add_density.html">add_density</a></td>
+<td>Add a density curve to a plot</td></tr>
+<tr><td style="width: 25%;"><a href="as.list.pm_opts.html">as.list.pm_opts</a></td>
+<td>Coerce pm_opts object to a list</td></tr>
+</table>
+
+<h2><a name="B">-- B --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="boxwork.html">boxwork</a></td>
+<td>Make boxplots</td></tr>
+</table>
+
+<h2><a name="C">-- C --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="col_label.html">col_label</a></td>
+<td>Column // axis-label specification</td></tr>
+<tr><td style="width: 25%;"><a href="pm_box.html">cont_cat</a></td>
+<td>Plot continuous variable against a categorical variable</td></tr>
+<tr><td style="width: 25%;"><a href="pm_scatter.html">cont_cont</a></td>
+<td>Plot continuous variable versus continuous variable</td></tr>
+<tr><td style="width: 25%;"><a href="cont_hist.html">cont_hist</a></td>
+<td>Generate a histogram plot</td></tr>
+<tr><td style="width: 25%;"><a href="cont_hist.html">cont_hist_list</a></td>
+<td>Generate a histogram plot</td></tr>
+<tr><td style="width: 25%;"><a href="res_cat.html">cwresi_cat</a></td>
+<td>Plot residuals versus categorical variable</td></tr>
+<tr><td style="width: 25%;"><a href="res_cont.html">cwresi_cont</a></td>
+<td>Plot residuals versus continuous variables</td></tr>
+<tr><td style="width: 25%;"><a href="res_hist.html">cwresi_hist</a></td>
+<td>Histograms of residuals or NPDE</td></tr>
+<tr><td style="width: 25%;"><a href="res_pred.html">cwresi_pred</a></td>
+<td>Residuals or NPDE versus predicted values</td></tr>
+<tr><td style="width: 25%;"><a href="res_q.html">cwresi_q</a></td>
+<td>QQ plot for conditional residuals or NPDE</td></tr>
+<tr><td style="width: 25%;"><a href="cwres_time.html">cwresi_tad</a></td>
+<td>Plot conditional weighted residuals versus time</td></tr>
+<tr><td style="width: 25%;"><a href="cwres_time.html">cwresi_tafd</a></td>
+<td>Plot conditional weighted residuals versus time</td></tr>
+<tr><td style="width: 25%;"><a href="cwres_time.html">cwresi_time</a></td>
+<td>Plot conditional weighted residuals versus time</td></tr>
+<tr><td style="width: 25%;"><a href="res_cat.html">cwres_cat</a></td>
+<td>Plot residuals versus categorical variable</td></tr>
+<tr><td style="width: 25%;"><a href="res_cont.html">cwres_cont</a></td>
+<td>Plot residuals versus continuous variables</td></tr>
+<tr><td style="width: 25%;"><a href="res_hist.html">cwres_hist</a></td>
+<td>Histograms of residuals or NPDE</td></tr>
+<tr><td style="width: 25%;"><a href="res_pred.html">cwres_pred</a></td>
+<td>Residuals or NPDE versus predicted values</td></tr>
+<tr><td style="width: 25%;"><a href="res_q.html">cwres_q</a></td>
+<td>QQ plot for conditional residuals or NPDE</td></tr>
+<tr><td style="width: 25%;"><a href="cwres_time.html">cwres_tad</a></td>
+<td>Plot conditional weighted residuals versus time</td></tr>
+<tr><td style="width: 25%;"><a href="cwres_time.html">cwres_tafd</a></td>
+<td>Plot conditional weighted residuals versus time</td></tr>
+<tr><td style="width: 25%;"><a href="cwres_time.html">cwres_time</a></td>
+<td>Plot conditional weighted residuals versus time</td></tr>
+</table>
+
+<h2><a name="D">-- D --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="defcx.html">defcx</a></td>
+<td>Default setting for discrete x-axis scale</td></tr>
+<tr><td style="width: 25%;"><a href="defx.html">defx</a></td>
+<td>Default setting for x-axis scale</td></tr>
+<tr><td style="width: 25%;"><a href="defy.html">defy</a></td>
+<td>Default setting for continuous y-axis scale</td></tr>
+<tr><td style="width: 25%;"><a href="dv_pred_ipred.html">do_dv_pred_ipred</a></td>
+<td>Create plots showing DV, PRED, and IPRED by individual</td></tr>
+<tr><td style="width: 25%;"><a href="dv_pred.html">dv_ipred</a></td>
+<td>Plot DV versus predicted values</td></tr>
+<tr><td style="width: 25%;"><a href="dv_pred.html">dv_pred</a></td>
+<td>Plot DV versus predicted values</td></tr>
+<tr><td style="width: 25%;"><a href="dv_pred.html">dv_preds</a></td>
+<td>Plot DV versus predicted values</td></tr>
+<tr><td style="width: 25%;"><a href="dv_pred_ipred.html">dv_pred_ipred</a></td>
+<td>Create plots showing DV, PRED, and IPRED by individual</td></tr>
+<tr><td style="width: 25%;"><a href="dv_pred_ipred.html">dv_pred_ipred_impl</a></td>
+<td>Create plots showing DV, PRED, and IPRED by individual</td></tr>
+<tr><td style="width: 25%;"><a href="dv_time.html">dv_tad</a></td>
+<td>Plot DV versus time</td></tr>
+<tr><td style="width: 25%;"><a href="dv_time.html">dv_tafd</a></td>
+<td>Plot DV versus time</td></tr>
+<tr><td style="width: 25%;"><a href="dv_time.html">dv_time</a></td>
+<td>Plot DV versus time</td></tr>
+</table>
+
+<h2><a name="E">-- E --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="eta_cat.html">eta_cat</a></td>
+<td>Plot ETAs versus categorical variables</td></tr>
+<tr><td style="width: 25%;"><a href="eta_labs.html">eta_col_labs</a></td>
+<td>Make ETA labels and col-labels</td></tr>
+<tr><td style="width: 25%;"><a href="eta_cont.html">eta_cont</a></td>
+<td>Plot ETAs versus continuous variables</td></tr>
+<tr><td style="width: 25%;"><a href="eta_hist.html">eta_hist</a></td>
+<td>ETA histograms</td></tr>
+<tr><td style="width: 25%;"><a href="eta_labs.html">eta_labs</a></td>
+<td>Make ETA labels and col-labels</td></tr>
+<tr><td style="width: 25%;"><a href="pairs_plot.html">eta_pairs</a></td>
+<td>Pairs plots using ggpairs</td></tr>
+</table>
+
+<h2><a name="G">-- G --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="layer.html">ga</a></td>
+<td>Layer functions</td></tr>
+<tr><td style="width: 25%;"><a href="geom_3s.html">geom_3s</a></td>
+<td>Additional reference lines</td></tr>
+<tr><td style="width: 25%;"><a href="layer.html">gh</a></td>
+<td>Layer functions</td></tr>
+<tr><td style="width: 25%;"><a href="layer.html">gs</a></td>
+<td>Layer functions</td></tr>
+</table>
+
+<h2><a name="L">-- L --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="parse_label.html">label_parse_label</a></td>
+<td>Parse the label part of a col_label</td></tr>
+<tr><td style="width: 25%;"><a href="layer.html">layer</a></td>
+<td>Layer functions</td></tr>
+<tr><td style="width: 25%;"><a href="geom_3s.html">layer_3s</a></td>
+<td>Additional reference lines</td></tr>
+<tr><td style="width: 25%;"><a href="layer.html">layer_a</a></td>
+<td>Layer functions</td></tr>
+<tr><td style="width: 25%;"><a href="layer.html">layer_as</a></td>
+<td>Layer functions</td></tr>
+<tr><td style="width: 25%;"><a href="add_density.html">layer_dnorm</a></td>
+<td>Add a density curve to a plot</td></tr>
+<tr><td style="width: 25%;"><a href="layer.html">layer_dots</a></td>
+<td>Layer functions</td></tr>
+<tr><td style="width: 25%;"><a href="layer.html">layer_h</a></td>
+<td>Layer functions</td></tr>
+<tr><td style="width: 25%;"><a href="layer.html">layer_hs</a></td>
+<td>Layer functions</td></tr>
+<tr><td style="width: 25%;"><a href="layer.html">layer_s</a></td>
+<td>Layer functions</td></tr>
+<tr><td style="width: 25%;"><a href="layer.html">layer_sa</a></td>
+<td>Layer functions</td></tr>
+<tr><td style="width: 25%;"><a href="layer.html">layer_sh</a></td>
+<td>Layer functions</td></tr>
+<tr><td style="width: 25%;"><a href="list_plot.html">list_plot_x</a></td>
+<td>Apply a plotting function to a vector of x or y values</td></tr>
+<tr><td style="width: 25%;"><a href="list_plot.html">list_plot_xy</a></td>
+<td>Apply a plotting function to a vector of x or y values</td></tr>
+<tr><td style="width: 25%;"><a href="list_plot.html">list_plot_y</a></td>
+<td>Apply a plotting function to a vector of x or y values</td></tr>
+<tr><td style="width: 25%;"><a href="list_plot.html">list_plot_yx</a></td>
+<td>Apply a plotting function to a vector of x or y values</td></tr>
+<tr><td style="width: 25%;"><a href="logbr.html">logbr</a></td>
+<td>Create breaks on log scale</td></tr>
+<tr><td style="width: 25%;"><a href="logbr.html">logbr3</a></td>
+<td>Create breaks on log scale</td></tr>
+<tr><td style="width: 25%;"><a href="log_scale.html">log_scale</a></td>
+<td>Scale information for log transformation</td></tr>
+</table>
+
+<h2><a name="N">-- N --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="res_cat.html">npde_cat</a></td>
+<td>Plot residuals versus categorical variable</td></tr>
+<tr><td style="width: 25%;"><a href="res_cont.html">npde_cont</a></td>
+<td>Plot residuals versus continuous variables</td></tr>
+<tr><td style="width: 25%;"><a href="res_hist.html">npde_hist</a></td>
+<td>Histograms of residuals or NPDE</td></tr>
+<tr><td style="width: 25%;"><a href="res_pred.html">npde_pred</a></td>
+<td>Residuals or NPDE versus predicted values</td></tr>
+<tr><td style="width: 25%;"><a href="res_q.html">npde_q</a></td>
+<td>QQ plot for conditional residuals or NPDE</td></tr>
+<tr><td style="width: 25%;"><a href="npde_ref.html">npde_ref</a></td>
+<td>Input parameters for NPDE reference lines</td></tr>
+<tr><td style="width: 25%;"><a href="npde_time.html">npde_tad</a></td>
+<td>Plot NPDE versus time</td></tr>
+<tr><td style="width: 25%;"><a href="npde_time.html">npde_tafd</a></td>
+<td>Plot NPDE versus time</td></tr>
+<tr><td style="width: 25%;"><a href="npde_time.html">npde_time</a></td>
+<td>Plot NPDE versus time</td></tr>
+</table>
+
+<h2><a name="P">-- P --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="pairs_plot.html">pairs_plot</a></td>
+<td>Pairs plots using ggpairs</td></tr>
+<tr><td style="width: 25%;"><a href="parse_label.html">parse_label</a></td>
+<td>Parse the label part of a col_label</td></tr>
+<tr><td style="width: 25%;"><a href="pm_opts.html">pm</a></td>
+<td>Set global plot options</td></tr>
+<tr><td style="width: 25%;"><a href="pmplots.html">pmplots</a></td>
+<td>Plots for pharmacometrics</td></tr>
+<tr><td style="width: 25%;"><a href="pmplots_data.html">pmplots_data</a></td>
+<td>Example data sets</td></tr>
+<tr><td style="width: 25%;"><a href="pmplots_data.html">pmplots_data_id</a></td>
+<td>Example data sets</td></tr>
+<tr><td style="width: 25%;"><a href="pmplots_data.html">pmplots_data_obs</a></td>
+<td>Example data sets</td></tr>
+<tr><td style="width: 25%;"><a href="pm_theme.html">pm_abline</a></td>
+<td>The standard pmplots theme</td></tr>
+<tr><td style="width: 25%;"><a href="pm_axis.html">pm_axis</a></td>
+<td>Get defaults for plot axes</td></tr>
+<tr><td style="width: 25%;"><a href="pm_axis_functions.html">pm_axis_cwres</a></td>
+<td>Functions to generate axis data</td></tr>
+<tr><td style="width: 25%;"><a href="pm_axis_functions.html">pm_axis_cwresi</a></td>
+<td>Functions to generate axis data</td></tr>
+<tr><td style="width: 25%;"><a href="pm_axis.html">pm_axis_data</a></td>
+<td>Get defaults for plot axes</td></tr>
+<tr><td style="width: 25%;"><a href="pm_axis_functions.html">pm_axis_dv</a></td>
+<td>Functions to generate axis data</td></tr>
+<tr><td style="width: 25%;"><a href="pm_axis_functions.html">pm_axis_functions</a></td>
+<td>Functions to generate axis data</td></tr>
+<tr><td style="width: 25%;"><a href="pm_axis_functions.html">pm_axis_ipred</a></td>
+<td>Functions to generate axis data</td></tr>
+<tr><td style="width: 25%;"><a href="pm_axis_functions.html">pm_axis_npde</a></td>
+<td>Functions to generate axis data</td></tr>
+<tr><td style="width: 25%;"><a href="pm_axis_functions.html">pm_axis_pred</a></td>
+<td>Functions to generate axis data</td></tr>
+<tr><td style="width: 25%;"><a href="pm_axis_functions.html">pm_axis_res</a></td>
+<td>Functions to generate axis data</td></tr>
+<tr><td style="width: 25%;"><a href="pm_axis_functions.html">pm_axis_tad</a></td>
+<td>Functions to generate axis data</td></tr>
+<tr><td style="width: 25%;"><a href="pm_axis_functions.html">pm_axis_tafd</a></td>
+<td>Functions to generate axis data</td></tr>
+<tr><td style="width: 25%;"><a href="pm_axis_functions.html">pm_axis_time</a></td>
+<td>Functions to generate axis data</td></tr>
+<tr><td style="width: 25%;"><a href="pm_axis_functions.html">pm_axis_wres</a></td>
+<td>Functions to generate axis data</td></tr>
+<tr><td style="width: 25%;"><a href="pm_box.html">pm_box</a></td>
+<td>Plot continuous variable against a categorical variable</td></tr>
+<tr><td style="width: 25%;"><a href="pm_box.html">pm_box_list</a></td>
+<td>Plot continuous variable against a categorical variable</td></tr>
+<tr><td style="width: 25%;"><a href="pm_browser.html">pm_browser</a></td>
+<td>pmplots browser object</td></tr>
+<tr><td style="width: 25%;"><a href="pm_browser.html">pm_browser_show</a></td>
+<td>pmplots browser object</td></tr>
+<tr><td style="width: 25%;"><a href="pm_gadget.html">pm_gadget</a></td>
+<td>pmplots browser gadget</td></tr>
+<tr><td style="width: 25%;"><a href="pm_grid.html">pm_grid</a></td>
+<td>Arrange a list of plots in a grid</td></tr>
+<tr><td style="width: 25%;"><a href="cont_hist.html">pm_histogram</a></td>
+<td>Generate a histogram plot</td></tr>
+<tr><td style="width: 25%;"><a href="pm_theme.html">pm_hline</a></td>
+<td>The standard pmplots theme</td></tr>
+<tr><td style="width: 25%;"><a href="pm_log.html">pm_ident</a></td>
+<td>Identity and log scale helpers</td></tr>
+<tr><td style="width: 25%;"><a href="pm_log.html">pm_log</a></td>
+<td>Identity and log scale helpers</td></tr>
+<tr><td style="width: 25%;"><a href="pm_opts.html">pm_options</a></td>
+<td>Set global plot options</td></tr>
+<tr><td style="width: 25%;"><a href="pm_opts.html">pm_opts</a></td>
+<td>Set global plot options</td></tr>
+<tr><td style="width: 25%;"><a href="pm_scatter.html">pm_scatter</a></td>
+<td>Plot continuous variable versus continuous variable</td></tr>
+<tr><td style="width: 25%;"><a href="pm_scatter.html">pm_scatter_list</a></td>
+<td>Plot continuous variable versus continuous variable</td></tr>
+<tr><td style="width: 25%;"><a href="pm_theme.html">pm_smooth</a></td>
+<td>The standard pmplots theme</td></tr>
+<tr><td style="width: 25%;"><a href="pm_smooths.html">pm_smooths</a></td>
+<td>Add loess line</td></tr>
+<tr><td style="width: 25%;"><a href="pm_theme.html">pm_theme</a></td>
+<td>The standard pmplots theme</td></tr>
+<tr><td style="width: 25%;"><a href="print.pm_opts.html">print.pm_opts</a></td>
+<td>Print the pm_opts object</td></tr>
+</table>
+
+<h2><a name="R">-- R --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="res_cat.html">res_cat</a></td>
+<td>Plot residuals versus categorical variable</td></tr>
+<tr><td style="width: 25%;"><a href="res_cont.html">res_cont</a></td>
+<td>Plot residuals versus continuous variables</td></tr>
+<tr><td style="width: 25%;"><a href="res_hist.html">res_hist</a></td>
+<td>Histograms of residuals or NPDE</td></tr>
+<tr><td style="width: 25%;"><a href="res_pred.html">res_pred</a></td>
+<td>Residuals or NPDE versus predicted values</td></tr>
+<tr><td style="width: 25%;"><a href="res_q.html">res_q</a></td>
+<td>QQ plot for conditional residuals or NPDE</td></tr>
+<tr><td style="width: 25%;"><a href="res_time.html">res_tad</a></td>
+<td>Plot residuals versus time</td></tr>
+<tr><td style="width: 25%;"><a href="res_time.html">res_tafd</a></td>
+<td>Plot residuals versus time</td></tr>
+<tr><td style="width: 25%;"><a href="res_time.html">res_time</a></td>
+<td>Plot residuals versus time</td></tr>
+<tr><td style="width: 25%;"><a href="rot_x.html">rot_x</a></td>
+<td>Rotate axis text</td></tr>
+<tr><td style="width: 25%;"><a href="rot_x.html">rot_y</a></td>
+<td>Rotate axis text</td></tr>
+</table>
+
+<h2><a name="S">-- S --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="scatt.html">scatt</a></td>
+<td>Scatter plot function</td></tr>
+<tr><td style="width: 25%;"><a href="split_plot.html">split_plot</a></td>
+<td>Split and plot</td></tr>
+<tr><td style="width: 25%;"><a href="supplement_cwres.html">supplement_cwres</a></td>
+<td>Add 'CWRES' column from 'CWRESI' if needed</td></tr>
+</table>
+
+<h2><a name="T">-- T --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="theme_plain.html">theme_plain</a></td>
+<td>A plain ggplot2 theme</td></tr>
+</table>
+
+<h2><a name="W">-- W --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="wrap_plots.html">wrap_cont_cat</a></td>
+<td>Faceted plots</td></tr>
+<tr><td style="width: 25%;"><a href="wrap_plots.html">wrap_cont_cont</a></td>
+<td>Faceted plots</td></tr>
+<tr><td style="width: 25%;"><a href="wrap_plots.html">wrap_cont_time</a></td>
+<td>Faceted plots</td></tr>
+<tr><td style="width: 25%;"><a href="wrap_plots.html">wrap_dv_preds</a></td>
+<td>Faceted plots</td></tr>
+<tr><td style="width: 25%;"><a href="wrap_plots.html">wrap_eta_cont</a></td>
+<td>Faceted plots</td></tr>
+<tr><td style="width: 25%;"><a href="wrap_plots.html">wrap_hist</a></td>
+<td>Faceted plots</td></tr>
+<tr><td style="width: 25%;"><a href="wrap_plots.html">wrap_plots</a></td>
+<td>Faceted plots</td></tr>
+<tr><td style="width: 25%;"><a href="wrap_plots.html">wrap_res_time</a></td>
+<td>Faceted plots</td></tr>
+<tr><td style="width: 25%;"><a href="res_cat.html">wres_cat</a></td>
+<td>Plot residuals versus categorical variable</td></tr>
+<tr><td style="width: 25%;"><a href="res_cont.html">wres_cont</a></td>
+<td>Plot residuals versus continuous variables</td></tr>
+<tr><td style="width: 25%;"><a href="res_hist.html">wres_hist</a></td>
+<td>Histograms of residuals or NPDE</td></tr>
+<tr><td style="width: 25%;"><a href="res_pred.html">wres_pred</a></td>
+<td>Residuals or NPDE versus predicted values</td></tr>
+<tr><td style="width: 25%;"><a href="res_q.html">wres_q</a></td>
+<td>QQ plot for conditional residuals or NPDE</td></tr>
+<tr><td style="width: 25%;"><a href="wres_time.html">wres_tad</a></td>
+<td>Plot weighted residuals versus time</td></tr>
+<tr><td style="width: 25%;"><a href="wres_time.html">wres_tafd</a></td>
+<td>Plot weighted residuals versus time</td></tr>
+<tr><td style="width: 25%;"><a href="wres_time.html">wres_time</a></td>
+<td>Plot weighted residuals versus time</td></tr>
+</table>
+
+<h2><a name="Y">-- Y --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="y_time.html">y_time</a></td>
+<td>Plot continuous data versus time</td></tr>
+</table>
+
+<h2><a name="misc">-- misc --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="cash-set-.pm_opts.html">$&lt;-.pm_opts</a></td>
+<td>Assign a pmplots option</td></tr>
+<tr><td style="width: 25%;"><a href="sub-.pm_opts.html">[.pm_opts</a></td>
+<td>Extract multiple pmplots options</td></tr>
+</table>
+</div></body></html>

@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+<meta name="date" content="2021-09-07" />
+
+<title>Label the columns in a data set</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+<script>// Hide empty <a> tag within highlighted CodeBlock for screen reader accessibility (see https://github.com/jgm/pandoc/issues/6352#issuecomment-626106786) -->
+// v0.0.1
+// Written by JooYoung Seo (jooyoung@psu.edu) and Atsushi Yasumoto on June 1st, 2020.
+
+document.addEventListener('DOMContentLoaded', function() {
+  const codeList = document.getElementsByClassName("sourceCode");
+  for (var i = 0; i < codeList.length; i++) {
+    var linkList = codeList[i].getElementsByTagName('a');
+    for (var j = 0; j < linkList.length; j++) {
+      if (linkList[j].innerHTML === "") {
+        linkList[j].setAttribute('aria-hidden', 'true');
+      }
+    }
+  }
+});
+</script>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Label the columns in a data set</h1>
+<h4 class="author"></h4>
+<h4 class="date">2021-09-07</h4>
+
+
+<div id="TOC">
+<ul>
+<li><a href="#introduction"><span class="toc-section-number">1</span> Introduction</a></li>
+<li><a href="#set-up"><span class="toc-section-number">2</span> Set up</a></li>
+<li><a href="#load-specification-object-and-data-set"><span class="toc-section-number">3</span> Load specification object and data set</a></li>
+<li><a href="#use-ys_add_labels"><span class="toc-section-number">4</span> Use ys_add_labels</a></li>
+<li><a href="#where-does-label-come-from"><span class="toc-section-number">5</span> Where does label come from?</a></li>
+<li><a href="#custom-label-formation"><span class="toc-section-number">6</span> Custom label formation</a></li>
+<li><a href="#extract-the-label-field"><span class="toc-section-number">7</span> Extract the label field</a></li>
+</ul>
+</div>
+
+<div id="introduction" class="section level1" number="1">
+<h1 number="1"><span class="header-section-number">1</span> Introduction</h1>
+<p>This vignette shows you how to add labels to the columns of a data set.</p>
+</div>
+<div id="set-up" class="section level1" number="2">
+<h1 number="2"><span class="header-section-number">2</span> Set up</h1>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>knitr<span class="op">::</span>opts_chunk<span class="op">$</span><span class="kw">set</span>(<span class="dt">comment =</span> <span class="st">&#39;.&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">library</span>(purrr)</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="kw">library</span>(dplyr)</span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="kw">library</span>(yspec)</span></code></pre></div>
+</div>
+<div id="load-specification-object-and-data-set" class="section level1" number="3">
+<h1 number="3"><span class="header-section-number">3</span> Load specification object and data set</h1>
+<p>We’ll use the examples provided in the package</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>data &lt;-<span class="st"> </span>ys_help<span class="op">$</span><span class="kw">data</span>()</span>
+<span id="cb3-2"><a href="#cb3-2"></a>spec &lt;-<span class="st"> </span>ys_help<span class="op">$</span><span class="kw">spec</span>()</span></code></pre></div>
+<p>The data</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">as_tibble</span>(data)</span></code></pre></div>
+<pre><code>. # A tibble: 4,360 x 29
+.    C       NUM    ID  SUBJ  TIME   SEQ   CMT  EVID   AMT    DV   AGE    WT  CRCL
+.    &lt;lgl&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+.  1 NA        1     1     1  0        0     1     1     5   0    28.0  55.2  114.
+.  2 NA        2     1     1  0.61     1     2     0    NA  61.0  28.0  55.2  114.
+.  3 NA        3     1     1  1.15     1     2     0    NA  91.0  28.0  55.2  114.
+.  4 NA        4     1     1  1.73     1     2     0    NA 122.   28.0  55.2  114.
+.  5 NA        5     1     1  2.15     1     2     0    NA 126.   28.0  55.2  114.
+.  6 NA        6     1     1  3.19     1     2     0    NA  84.7  28.0  55.2  114.
+.  7 NA        7     1     1  4.21     1     2     0    NA  62.1  28.0  55.2  114.
+.  8 NA        8     1     1  5.09     1     2     0    NA  49.1  28.0  55.2  114.
+.  9 NA        9     1     1  6.22     1     2     0    NA  64.2  28.0  55.2  114.
+. 10 NA       10     1     1  8.09     1     2     0    NA  59.6  28.0  55.2  114.
+. # … with 4,350 more rows, and 16 more variables: ALB &lt;dbl&gt;, BMI &lt;dbl&gt;,
+. #   AAG &lt;dbl&gt;, SCR &lt;dbl&gt;, AST &lt;dbl&gt;, ALT &lt;dbl&gt;, HT &lt;dbl&gt;, CP &lt;int&gt;, TAFD &lt;dbl&gt;,
+. #   TAD &lt;dbl&gt;, LDOS &lt;int&gt;, MDV &lt;int&gt;, BLQ &lt;int&gt;, PHASE &lt;int&gt;, STUDY &lt;int&gt;,
+. #   RF &lt;chr&gt;</code></pre>
+<p>The spec</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>spec</span></code></pre></div>
+<pre><code>.  name  c d unit         short                         source           
+.  C     + + .            comment character             ysdb_internal.yml
+.  NUM   - - .            record number                 ysdb_internal.yml
+.  ID    - - .            subject identifier            ysdb_internal.yml
+.  SUBJ  + - .            subject identifier            ysdb_internal.yml
+.  TIME  - - hour         TIME                          look.yml         
+.  SEQ   - + .            SEQ                           .                
+.  CMT   - - .            compartment number            ysdb_internal.yml
+.  EVID  - - .            event ID                      ysdb_internal.yml
+.  AMT   - - mg           dose amount                   ysdb_internal.yml
+.  DV    - - micrograms/L dependent variable            ysdb_internal.yml
+.  AGE   - - years        age                           ysdb_internal.yml
+.  WT    - - kg           weight                        ysdb_internal.yml
+.  CRCL  - - ml/min       CRCL                          .                
+.  ALB   - - g/dL         albumin                       ysdb_internal.yml
+.  BMI   - - m2/kg        BMI                           ysdb_internal.yml
+.  AAG   - - mg/dL        alpha-1-acid glycoprotein     .                
+.  SCR   - - mg/dL        serum creatinine              .                
+.  AST   - - .            aspartate aminotransferase    .                
+.  ALT   - - .            alanine aminotransferase      .                
+.  HT    - - cm           height                        ysdb_internal.yml
+.  CP    - + .            Child-Pugh score              look.yml         
+.  TAFD  - - hours        time after first dose         .                
+.  TAD   - - hours        time after dose               .                
+.  LDOS  - - mg           last dose amount              .                
+.  MDV   - - .            MDV                           ysdb_internal.yml
+.  BLQ   - + .            below limit of quantification .                
+.  PHASE - - .            study phase indicator         .                
+.  STUDY - + .            study number                  .                
+.  RF    + + .            renal function stage          .</code></pre>
+</div>
+<div id="use-ys_add_labels" class="section level1" number="4">
+<h1 number="4"><span class="header-section-number">4</span> Use ys_add_labels</h1>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>data &lt;-<span class="st"> </span><span class="kw">ys_add_labels</span>(data,spec)</span></code></pre></div>
+<p>It isn’t obvious that anything was done here</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">as_tibble</span>(data)</span></code></pre></div>
+<pre><code>. # A tibble: 4,360 x 29
+.    C       NUM    ID  SUBJ  TIME   SEQ   CMT  EVID   AMT    DV   AGE    WT  CRCL
+.    &lt;lgl&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+.  1 NA        1     1     1  0        0     1     1     5   0    28.0  55.2  114.
+.  2 NA        2     1     1  0.61     1     2     0    NA  61.0  28.0  55.2  114.
+.  3 NA        3     1     1  1.15     1     2     0    NA  91.0  28.0  55.2  114.
+.  4 NA        4     1     1  1.73     1     2     0    NA 122.   28.0  55.2  114.
+.  5 NA        5     1     1  2.15     1     2     0    NA 126.   28.0  55.2  114.
+.  6 NA        6     1     1  3.19     1     2     0    NA  84.7  28.0  55.2  114.
+.  7 NA        7     1     1  4.21     1     2     0    NA  62.1  28.0  55.2  114.
+.  8 NA        8     1     1  5.09     1     2     0    NA  49.1  28.0  55.2  114.
+.  9 NA        9     1     1  6.22     1     2     0    NA  64.2  28.0  55.2  114.
+. 10 NA       10     1     1  8.09     1     2     0    NA  59.6  28.0  55.2  114.
+. # … with 4,350 more rows, and 16 more variables: ALB &lt;dbl&gt;, BMI &lt;dbl&gt;,
+. #   AAG &lt;dbl&gt;, SCR &lt;dbl&gt;, AST &lt;dbl&gt;, ALT &lt;dbl&gt;, HT &lt;dbl&gt;, CP &lt;int&gt;, TAFD &lt;dbl&gt;,
+. #   TAD &lt;dbl&gt;, LDOS &lt;int&gt;, MDV &lt;int&gt;, BLQ &lt;int&gt;, PHASE &lt;int&gt;, STUDY &lt;int&gt;,
+. #   RF &lt;chr&gt;</code></pre>
+<p>How can you tell that the labels were added?</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>labs &lt;-<span class="st"> </span><span class="kw">map</span>(data, attr, <span class="st">&quot;label&quot;</span>)</span>
+<span id="cb11-2"><a href="#cb11-2"></a></span>
+<span id="cb11-3"><a href="#cb11-3"></a>labs[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]</span></code></pre></div>
+<pre><code>. $C
+. [1] &quot;comment character&quot;
+. 
+. $NUM
+. [1] &quot;record number&quot;
+. 
+. $ID
+. [1] &quot;subject identifier&quot;
+. 
+. $SUBJ
+. [1] &quot;subject identifier&quot;
+. 
+. $TIME
+. [1] &quot;time after first dose&quot;</code></pre>
+<p>Or do this</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw">str</span>(data)</span></code></pre></div>
+</div>
+<div id="where-does-label-come-from" class="section level1" number="5">
+<h1 number="5"><span class="header-section-number">5</span> Where does label come from?</h1>
+<p>Ideally, we’d like to be writing in a <code>label</code> entry for every column in the data set. You can set the <code>ys.require.label</code> option to <code>TRUE</code> to require this when loading the spec (an error will be generated).</p>
+<p>But yspec has a function called <code>ys_get_label</code> that will form a label for you. Here are the rules:</p>
+<ol style="list-style-type: decimal">
+<li>If <code>label</code> exists for a column, it will be used</li>
+<li>Otherwise, if <code>long</code> is found and it is <code>&lt;=</code> 40 characters, it be used</li>
+<li>Otherwise, <code>short</code> will be used; reminder that <code>short</code> defaults to the column name (<code>col</code>) too</li>
+</ol>
+<p>Let’s look at some examples:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="kw">ys_get_label</span>(spec)[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]</span></code></pre></div>
+<pre><code>. $C
+. [1] &quot;comment character&quot;
+. 
+. $NUM
+. [1] &quot;record number&quot;
+. 
+. $ID
+. [1] &quot;subject identifier&quot;</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="kw">ys_get_label</span>(spec<span class="op">$</span>NUM)</span></code></pre></div>
+<pre><code>. [1] &quot;record number&quot;</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>spec<span class="op">$</span>NUM<span class="op">$</span>label</span></code></pre></div>
+<pre><code>. NULL</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>spec<span class="op">$</span>C<span class="op">$</span>label</span></code></pre></div>
+<pre><code>. NULL</code></pre>
+</div>
+<div id="custom-label-formation" class="section level1" number="6">
+<h1 number="6"><span class="header-section-number">6</span> Custom label formation</h1>
+<p>Just as an example, we can add a custom labeling function. For example, I want the label to be the column name.</p>
+<p>Set up a function that takes the column data as the first argument</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>label_fun &lt;-<span class="st"> </span><span class="cf">function</span>(x,...) x[[<span class="st">&quot;col&quot;</span>]]</span></code></pre></div>
+<p>Now, pass that function into <code>ys_add_labels</code></p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>data &lt;-<span class="st"> </span><span class="kw">ys_add_labels</span>(data, spec, <span class="dt">fun =</span> label_fun)</span></code></pre></div>
+<p>And check the output</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="kw">map</span>(data, attr, <span class="st">&quot;label&quot;</span>)[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]</span></code></pre></div>
+<pre><code>. $C
+. [1] &quot;C&quot;
+. 
+. $NUM
+. [1] &quot;NUM&quot;
+. 
+. $ID
+. [1] &quot;ID&quot;
+. 
+. $SUBJ
+. [1] &quot;SUBJ&quot;
+. 
+. $TIME
+. [1] &quot;TIME&quot;</code></pre>
+</div>
+<div id="extract-the-label-field" class="section level1" number="7">
+<h1 number="7"><span class="header-section-number">7</span> Extract the label field</h1>
+<p>Recall that the yspec object is just a list. We can always map across that list and grab the label field:s</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="kw">map</span>(spec, <span class="st">&quot;label&quot;</span>)[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]</span></code></pre></div>
+<pre><code>. $C
+. NULL
+. 
+. $NUM
+. NULL
+. 
+. $ID
+. NULL
+. 
+. $SUBJ
+. NULL
+. 
+. $TIME
+. [1] &quot;time after first dose&quot;</code></pre>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

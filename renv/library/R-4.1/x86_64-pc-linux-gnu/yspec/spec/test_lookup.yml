@@ -1,0 +1,25 @@
+SETUP__:
+  lookup_file: [_yspec_lookup.yml, _yspec_lookup_2.yml]
+  projectnumber: DEM104101F
+  sponsor: ABC Pharmaceuticals, Inc
+WT:
+  lookup: true
+HT:
+  lookup: true
+BMI:
+  lookup: true
+ALB:
+  lookup: false
+EGFR:
+  lookup: true
+CMT:
+  values: [1,2,3]
+  comment: This is just like the CMT data item in NONMEM
+C:
+  short: a comment
+
+
+
+
+
+

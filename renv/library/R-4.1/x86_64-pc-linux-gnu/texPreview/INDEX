@@ -1,0 +1,18 @@
+%>%                     re-export magrittr pipe operators
+as.kable                Try to coerce an object into a knitr_kable
+                        object
+build_usepackage        Build usepackage command for TeX document
+buildUsepackage         Build usepackage command for TeX document
+                        \Sexpr[results=rd,
+                        stage=render]{lifecycle::badge("deprecated")}
+check_requirements      Check TeX Requirements for Package
+get_texpackages         Get list of TeX packages installed on System
+getTexPackages          Get list of TeX packages installed on System
+                        \Sexpr[results=rd,
+                        stage=render]{lifecycle::badge("deprecated")}
+tex_opts                Default and current tex options
+tex_preview             Render and Preview snippets of TeX in R Viewer
+tex_requirements        Query TeX file for Required Packages
+texPreview              Render and Preview snippets of TeX in R Viewer
+                        \Sexpr[results=rd,
+                        stage=render]{lifecycle::badge("deprecated")}

@@ -1,0 +1,10 @@
+knit_to                 Render a document to a specified directory
+mrg_beamer              MetrumRG beamer presentation including logo
+mrg_beamer_template     Location of mrg beamer template
+mrg_document            MetrumRG pdf document with cover page and logo
+mrg_html0               Experimental: html document
+mrg_include             Return a list of includes
+mrg_logo                Location of mrglogo2.pdf file
+mrg_notebook            MetrumRG technical notebook
+mrg_template            Location of mrgtemplate.tex
+mrgtemplate             Create build location for branded documents

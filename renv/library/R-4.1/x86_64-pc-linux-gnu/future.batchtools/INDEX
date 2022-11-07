@@ -1,0 +1,6 @@
+batchtools_custom       Batchtools futures for custom batchtools
+                        configuration
+batchtools_local        batchtools local and interactive futures
+batchtools_template     Batchtools futures for LSF, OpenLava, SGE,
+                        Slurm, TORQUE etc.
+future.batchtools       future.batchtools: A Future for batchtools

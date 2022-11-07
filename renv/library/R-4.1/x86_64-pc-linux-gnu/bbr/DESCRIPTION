@@ -1,0 +1,68 @@
+Type: Package
+Package: bbr
+Title: R package for bbi
+Version: 1.2.0
+Authors@R: 
+    c(person(given = "Devin",
+             family = "Pastoor",
+             role = c("aut", "cre"),
+             email = "devin.pastoor@gmail.com"),
+      person(given = "Seth",
+             family = "Green",
+             role = "aut",
+             email = "seth127@gmail.com"),
+      person(given = "Anna-Christina",
+             family = "Nevison",
+             role = "aut",
+             email = "annanev@umich.edu"),
+      person(given = "Sean",
+             family = "Wilson",
+             role = "aut",
+             email = "copernican@gmail.com"),
+      person(given = "Samuel",
+             family = "Callisto",
+             role = "aut",
+             email = "samc@metrumrg.com"),
+      person(given = "Tim",
+             family = "Waterhouse",
+             role = "aut",
+             email = "timw@metrumrg.com"),
+      person(given = "Kyle T",
+           family = "Baron",
+           role = c("aut"),
+           email = "kyleb@metrumrg.com"))
+Description: R package for making calls to bbi for running
+    NONMEM and other models. Also manages model metadata, workflow, and
+    run logs.
+License: MIT + file LICENSE
+Depends: R (>= 3.5)
+Imports: checkmate, cli, data.table, digest, diffobj, dplyr (>= 1.0.0),
+        fs, glue, jsonlite, lifecycle, magrittr, processx, purrr,
+        readr, rlang, stringr, tibble, tidyr, tidyselect (>= 1.0.0),
+        xfun, yaml
+Suggests: covr, devtools, forcats, ggplot2, knitr, rmarkdown, testthat
+        (>= 2.1.0), withr
+VignetteBuilder: knitr
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
+SystemRequirements: bbi (>= 3.0.2)
+OriginalRepository: MPNDEV
+Repository: MPN
+Origin: github.com/metrumresearchgroup/bbr
+git_tag: 1.2.0
+git_commit: 3ba89aec2b547e9b1063f8b8c7b0565378c282f1
+NeedsCompilation: no
+Packaged: 2021-11-17 14:51:02 UTC; root
+Author: Devin Pastoor [aut, cre],
+  Seth Green [aut],
+  Anna-Christina Nevison [aut],
+  Sean Wilson [aut],
+  Samuel Callisto [aut],
+  Tim Waterhouse [aut],
+  Kyle T Baron [aut]
+Maintainer: Devin Pastoor <devin.pastoor@gmail.com>
+Built: R 4.1.1; ; 2022-01-25 21:39:31 UTC; unix
+PkgrVersion: v3.0.0-rc1
+PkgrInstallType: binary
+PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2021-11-19/
