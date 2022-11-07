@@ -1,5 +1,3 @@
-context("tempfile")
-
 test_that("with_tempfile works", {
 
   f1 <- character()
@@ -70,4 +68,9 @@ test_that("local_tempfile works", {
 
   expect_false(file.exists(f1))
   expect_false(file.exists(f2))
+})
+
+test_that("local_tempfile() can add data", {
+  path <- local_tempfile(lines = c("a", "b"))
+  expect_equal(readLines(path), c("a", "b"))
 })

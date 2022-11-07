@@ -84,6 +84,24 @@ typedef double capture;
 #define CMT self.cmt
 // Bool flag indicating that the system is advancing to steady-state
 #define SS_ADVANCE _ss_flag_
+// Always accept THETA(n) as THETAn
+#define THETA(a) THETA##a
+
+// NMVARS
+#ifdef _MRGSOLVE_USING_NM_VARS_
+#define A(a) _A_[a-1]
+#define A_0(a) _A_0_[a-1]
+#define DADT(a) _DADT_[a-1]
+#define T _ODETIME_[0]
+#define EXP(a) exp(a)
+#define LOG(a) log(a)
+#define SQRT(a) sqrt(a)
+#endif
+
+// EVTOOLS PLUGIN
+#ifdef _MRGSOLVE_USING_EVTOOLS_
+#include "mrgsolve-evtools.h"
+#endif
 
 // These are the fundamental macros for
 // bioavailability, infusion rate, infusion duration
@@ -118,10 +136,11 @@ typedef double capture;
 #define CFONSTOP() (self.CFONSTOP = true); // Carry forward on stop
 #define SYSTEMNOTADVANCING (self.SYSTEMOFF)
 #define SOLVINGPROBLEM (self.solving)
-#define _SETINIT if(self.newind <=1) // Convenience
-#define _STOP_ID() (self.SYSTEMOFF=2);
-#define _STOP_ID_CF() (self.SYSTEMOFF=1);
-#define _STOP_ERROR() (self.SYSTEMOFF=9);
+#define _SETINIT if(self.newind <= 1) // Convenience
+#define _STOP_ID() (self.SYSTEMOFF = 1); // Stop this ID, log record, and fill NA after that
+#define _STOP_ID_CF() (self.SYSTEMOFF = 2); // Stop this ID and carry forward
+#define _STOP_ID_NA() (self.SYSTEMOFF = 3); // Fill na
+#define _STOP_ERROR() (self.SYSTEMOFF = 9); // CRUMP
 
 // Macro to insert dxdt_CMT = 0; for all compartments
 #define DXDTZERO() for(int _i_ = 0; _i_ < _nEQ; ++_i_) _DADT_[_i_] = 0;

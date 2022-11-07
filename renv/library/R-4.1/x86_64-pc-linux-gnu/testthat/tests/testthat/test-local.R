@@ -30,3 +30,23 @@ test_that("can override usual options", {
   local_test_directory(tempdir(), "methods")
   expect_equal(testing_package(), "methods")
 })
+
+test_that("can override translation of error messages", {
+  skip_on_cran()
+
+  local_reproducible_output(lang = "fr")
+  expect_error(mean[[1]], "objet de type")
+  local_reproducible_output(lang = "es")
+  expect_error(mean[[1]], "objeto de tipo")
+})
+
+test_that("can force cli to display RStudio style hyperlinks", {
+  expect_snapshot({
+    str(cli::ansi_hyperlink_types())
+  })
+
+  local_reproducible_output(crayon = TRUE, hyperlinks = TRUE, rstudio = TRUE)
+  expect_snapshot({
+    str(cli::ansi_hyperlink_types())
+  })
+})

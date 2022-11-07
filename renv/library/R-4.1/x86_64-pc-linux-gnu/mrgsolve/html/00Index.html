@@ -12,7 +12,7 @@
 <div style="text-align: center;">
 <a href="../../../doc/html/packages.html"><img class="arrow" src="../../../doc/html/left.jpg" alt="[Up]" /></a>
 <a href="../../../doc/html/index.html"><img class="arrow" src="../../../doc/html/up.jpg" alt="[Top]" /></a>
-</div><h2>Documentation for package &lsquo;mrgsolve&rsquo; version 0.11.2</h2>
+</div><h2>Documentation for package &lsquo;mrgsolve&rsquo; version 1.0.6</h2>
 
 <ul><li><a href="../DESCRIPTION">DESCRIPTION file</a>.</li>
 </ul>
@@ -58,6 +58,8 @@
 <td>Coerce an object to class ev</td></tr>
 <tr><td style="width: 25%;"><a href="as.ev.html">as.ev-method</a></td>
 <td>Coerce an object to class ev</td></tr>
+<tr><td style="width: 25%;"><a href="evd.html">as.evd</a></td>
+<td>Create an event object with data-like names</td></tr>
 <tr><td style="width: 25%;"><a href="as.list-mrgmod-method.html">as.list-method</a></td>
 <td>Coerce a model object to list</td></tr>
 <tr><td style="width: 25%;"><a href="as.list-mrgsims-method.html">as.list-method</a></td>
@@ -124,6 +126,12 @@
 <td>Get the compartment number from a compartment name</td></tr>
 <tr><td style="width: 25%;"><a href="code.html">code</a></td>
 <td>Extract the code from a model</td></tr>
+<tr><td style="width: 25%;"><a href="collapse_matrix.html">collapse_matrix</a></td>
+<td>Collapse the matrices of a matlist object</td></tr>
+<tr><td style="width: 25%;"><a href="collapse_matrices.html">collapse_omega</a></td>
+<td>Collapse OMEGA or SIGMA matrix lists</td></tr>
+<tr><td style="width: 25%;"><a href="collapse_matrices.html">collapse_sigma</a></td>
+<td>Collapse OMEGA or SIGMA matrix lists</td></tr>
 </table>
 
 <h2><a name="D">-- D --</a></h2>
@@ -166,6 +174,12 @@
 <td>Event objects for simulating PK and other interventions</td></tr>
 <tr><td style="width: 25%;"><a href="ev.html">ev-method</a></td>
 <td>Event objects for simulating PK and other interventions</td></tr>
+<tr><td style="width: 25%;"><a href="evd.html">evd</a></td>
+<td>Create an event object with data-like names</td></tr>
+<tr><td style="width: 25%;"><a href="evd.html">evd-method</a></td>
+<td>Create an event object with data-like names</td></tr>
+<tr><td style="width: 25%;"><a href="expand.idata.html">evd_expand</a></td>
+<td>Create template data sets for simulation</td></tr>
 <tr><td style="width: 25%;"><a href="ev_assign.html">ev_assign</a></td>
 <td>Replicate a list of events into a data set</td></tr>
 <tr><td style="width: 25%;"><a href="ev_days.html">ev_days</a></td>
@@ -189,6 +203,8 @@
 <tr><td style="width: 25%;"><a href="exdatasets.html">exidata</a></td>
 <td>Example input data sets</td></tr>
 <tr><td style="width: 25%;"><a href="expand.idata.html">expand.ev</a></td>
+<td>Create template data sets for simulation</td></tr>
+<tr><td style="width: 25%;"><a href="expand.idata.html">expand.evd</a></td>
 <td>Create template data sets for simulation</td></tr>
 <tr><td style="width: 25%;"><a href="expand.idata.html">expand.idata</a></td>
 <td>Create template data sets for simulation</td></tr>
@@ -256,7 +272,11 @@
 
 <table width="100%">
 <tr><td style="width: 25%;"><a href="lctran.html">lctran</a></td>
-<td>Convert select upper case column names to lower case to conform to mrgsolve data expectations</td></tr>
+<td>Change the case of nmtran-like data items</td></tr>
+<tr><td style="width: 25%;"><a href="lctran.html">lctran.data.frame</a></td>
+<td>Change the case of nmtran-like data items</td></tr>
+<tr><td style="width: 25%;"><a href="lctran.html">lctran.ev</a></td>
+<td>Change the case of nmtran-like data items</td></tr>
 <tr><td style="width: 25%;"><a href="loadso.html">loadso</a></td>
 <td>Load the model shared object</td></tr>
 <tr><td style="width: 25%;"><a href="loadso.html">loadso.mrgmod</a></td>
@@ -480,6 +500,12 @@
 <h2><a name="U">-- U --</a></h2>
 
 <table width="100%">
+<tr><td style="width: 25%;"><a href="lctran.html">uctran</a></td>
+<td>Change the case of nmtran-like data items</td></tr>
+<tr><td style="width: 25%;"><a href="lctran.html">uctran.data.frame</a></td>
+<td>Change the case of nmtran-like data items</td></tr>
+<tr><td style="width: 25%;"><a href="lctran.html">uctran.ev</a></td>
+<td>Change the case of nmtran-like data items</td></tr>
 <tr><td style="width: 25%;"><a href="update.html">update</a></td>
 <td>Update the model object</td></tr>
 <tr><td style="width: 25%;"><a href="update.html">update-method</a></td>

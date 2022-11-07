@@ -3,7 +3,7 @@ start_app()
 on.exit(stop_app(), add = TRUE)
 
 test_that_cli("add/remove/list themes", {
-  local_rng_version("3.3.0")
+  withr::local_rng_version("3.3.0")
   set.seed(24)
 
   id <- default_app()$add_theme(list(".green" = list(color = "green")))
@@ -110,11 +110,12 @@ test_that_cli(configs = "ansi", "NULL will undo color", {
 })
 
 withr::local_options(cli.theme = NULL, cli.user_theme = NULL)
-withr::local_options(cli_theme_dark = FALSE, cli.num_colors = 256)
+withr::local_options(cli.theme_dark = FALSE, cli.num_colors = 256)
 start_app()
 on.exit(stop_app(), add = TRUE)
 
 test_that_cli(configs = "ansi", "NULL will undo background color", {
+  skip_if_not_installed("testthat", "3.1.2")
   expect_snapshot(local({
     cli_alert("{.emph {.code this has bg color}}")
     cli_div(theme = list(span = list("background-color" = NULL)))

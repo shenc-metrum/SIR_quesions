@@ -1,11 +1,7 @@
 # sanity check (1)
 
     Code
-      crayon::has_color()
-    Output
-      [1] FALSE
-    Code
-      crayon::num_colors()
+      cli::num_ansi_colors()
     Output
       [1] 1
     Code
@@ -25,9 +21,28 @@
 
     Code
       colonnade(x, width = 4)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
+    Code
       colonnade(x, width = 5)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
+    Code
       colonnade(x, width = 6)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
+    Code
       colonnade(x, width = 7)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
         colu~
         <dbl>
@@ -36,6 +51,10 @@
       3  3.23
     Code
       colonnade(x, width = 8)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
         colum~
          <dbl>
@@ -44,6 +63,10 @@
       3   3.23
     Code
       colonnade(x, width = 9)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
         column~
           <dbl>
@@ -52,6 +75,10 @@
       3    3.23
     Code
       colonnade(x, width = 10)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
         column_~
            <dbl>
@@ -60,6 +87,10 @@
       3     3.23
     Code
       colonnade(x, width = 11)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
         column_z~
             <dbl>
@@ -68,6 +99,10 @@
       3      3.23
     Code
       colonnade(x, width = 12)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
         column_ze~
              <dbl>
@@ -76,206 +111,310 @@
       3       3.23
     Code
       colonnade(x, width = 13)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
-        column_zer~
-              <dbl>
-      1        1.23
-      2        2.23
-      3        3.23
+        column~
+          <dbl>
+      1    1.23
+      2    2.23
+      3    3.23
     Code
       colonnade(x, width = 14)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
-        column_zero~
-               <dbl>
-      1         1.23
-      2         2.23
-      3         3.23
+        column~
+          <dbl>
+      1    1.23
+      2    2.23
+      3    3.23
     Code
       colonnade(x, width = 15)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
-        column_zero_~
-                <dbl>
-      1          1.23
-      2          2.23
-      3          3.23
+        column~
+          <dbl>
+      1    1.23
+      2    2.23
+      3    3.23
     Code
       colonnade(x, width = 16)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
-        column_zero_o~
-                 <dbl>
-      1           1.23
-      2           2.23
-      3           3.23
+        column~ col_02
+          <dbl> <chr> 
+      1    1.23 a     
+      2    2.23 b     
+      3    3.23 c     
     Code
       colonnade(x, width = 17)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
-        column_zero_one
-                  <dbl>
-      1            1.23
-      2            2.23
-      3            3.23
+        column_~ col_02
+           <dbl> <chr> 
+      1     1.23 a     
+      2     2.23 b     
+      3     3.23 c     
     Code
       colonnade(x, width = 18)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
-        column_zero_one
-                  <dbl>
-      1            1.23
-      2            2.23
-      3            3.23
+        column_z~ col_02
+            <dbl> <chr> 
+      1      1.23 a     
+      2      2.23 b     
+      3      3.23 c     
     Code
       colonnade(x, width = 19)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
-        column_zero_one
-                  <dbl>
-      1            1.23
-      2            2.23
-      3            3.23
+        column~ col_02
+          <dbl> <chr> 
+      1    1.23 a     
+      2    2.23 b     
+      3    3.23 c     
     Code
       colonnade(x, width = 20)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
-        column_zero_one
-                  <dbl>
-      1            1.23
-      2            2.23
-      3            3.23
+        column~ col_02
+          <dbl> <chr> 
+      1    1.23 a     
+      2    2.23 b     
+      3    3.23 c     
     Code
       colonnade(x, width = 21)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
-        column_zero_one
-                  <dbl>
-      1            1.23
-      2            2.23
-      3            3.23
+        column~ col_02
+          <dbl> <chr> 
+      1    1.23 a     
+      2    2.23 b     
+      3    3.23 c     
     Code
       colonnade(x, width = 22)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
-        column_zero_one
-                  <dbl>
-      1            1.23
-      2            2.23
-      3            3.23
+        column~ col_02
+          <dbl> <chr> 
+      1    1.23 a     
+      2    2.23 b     
+      3    3.23 c     
     Code
       colonnade(x, width = 23)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
-        column_zero_one
-                  <dbl>
-      1            1.23
-      2            2.23
-      3            3.23
+        column~ col_02 col_03
+          <dbl> <chr>  <fct> 
+      1    1.23 a      a     
+      2    2.23 b      b     
+      3    3.23 c      c     
     Code
       colonnade(x, width = 24)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
-        column_zero_one col_02
-                  <dbl> <chr> 
-      1            1.23 a     
-      2            2.23 b     
-      3            3.23 c     
+        column_~ col_02 col_03
+           <dbl> <chr>  <fct> 
+      1     1.23 a      a     
+      2     2.23 b      b     
+      3     3.23 c      c     
     Code
       colonnade(x, width = 25)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
-        column_zero_one col_02
-                  <dbl> <chr> 
-      1            1.23 a     
-      2            2.23 b     
-      3            3.23 c     
+        column~ col_02 col_03
+          <dbl> <chr>  <fct> 
+      1    1.23 a      a     
+      2    2.23 b      b     
+      3    3.23 c      c     
     Code
       colonnade(x, width = 26)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
-        column_zero_one col_02
-                  <dbl> <chr> 
-      1            1.23 a     
-      2            2.23 b     
-      3            3.23 c     
+        column~ col_02 col_03
+          <dbl> <chr>  <fct> 
+      1    1.23 a      a     
+      2    2.23 b      b     
+      3    3.23 c      c     
     Code
       colonnade(x, width = 27)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
-        column_zero_one col_02
-                  <dbl> <chr> 
-      1            1.23 a     
-      2            2.23 b     
-      3            3.23 c     
+        column~ col_02 col_03
+          <dbl> <chr>  <fct> 
+      1    1.23 a      a     
+      2    2.23 b      b     
+      3    3.23 c      c     
     Code
       colonnade(x, width = 28)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
-        column_zero_one col_02
-                  <dbl> <chr> 
-      1            1.23 a     
-      2            2.23 b     
-      3            3.23 c     
+        column~ col_02 col_03
+          <dbl> <chr>  <fct> 
+      1    1.23 a      a     
+      2    2.23 b      b     
+      3    3.23 c      c     
     Code
       colonnade(x, width = 29)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
-        column_zero_one col_02
-                  <dbl> <chr> 
-      1            1.23 a     
-      2            2.23 b     
-      3            3.23 c     
+        column~ col_02 col_03
+          <dbl> <chr>  <fct> 
+      1    1.23 a      a     
+      2    2.23 b      b     
+      3    3.23 c      c     
     Code
       colonnade(x, width = 30)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
-        column_zero_one col_02
-                  <dbl> <chr> 
-      1            1.23 a     
-      2            2.23 b     
-      3            3.23 c     
+        column~ col_02 col_03 col_04
+          <dbl> <chr>  <fct>  <ord> 
+      1    1.23 a      a      a     
+      2    2.23 b      b      b     
+      3    3.23 c      c      c     
     Code
       colonnade(x, width = 31)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
-        column_zero_one col_02 col_03
-                  <dbl> <chr>  <fct> 
-      1            1.23 a      a     
-      2            2.23 b      b     
-      3            3.23 c      c     
+        column_~ col_02 col_03 col_04
+           <dbl> <chr>  <fct>  <ord> 
+      1     1.23 a      a      a     
+      2     2.23 b      b      b     
+      3     3.23 c      c      c     
     Code
       colonnade(x, width = 32)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
-        column_zero_one col_02 col_03
-                  <dbl> <chr>  <fct> 
-      1            1.23 a      a     
-      2            2.23 b      b     
-      3            3.23 c      c     
+        column_z~ col_02 col_03 col_04
+            <dbl> <chr>  <fct>  <ord> 
+      1      1.23 a      a      a     
+      2      2.23 b      b      b     
+      3      3.23 c      c      c     
     Code
       colonnade(x, width = 33)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
-        column_zero_one col_02 col_03
-                  <dbl> <chr>  <fct> 
-      1            1.23 a      a     
-      2            2.23 b      b     
-      3            3.23 c      c     
+        column_ze~ col_02 col_03 col_04
+             <dbl> <chr>  <fct>  <ord> 
+      1       1.23 a      a      a     
+      2       2.23 b      b      b     
+      3       3.23 c      c      c     
     Code
       colonnade(x, width = 34)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
-        column_zero_one col_02 col_03
-                  <dbl> <chr>  <fct> 
-      1            1.23 a      a     
-      2            2.23 b      b     
-      3            3.23 c      c     
+        column_zer~ col_02 col_03 col_04
+              <dbl> <chr>  <fct>  <ord> 
+      1        1.23 a      a      a     
+      2        2.23 b      b      b     
+      3        3.23 c      c      c     
     Code
       colonnade(x, width = 35)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
-        column_zero_one col_02 col_03
-                  <dbl> <chr>  <fct> 
-      1            1.23 a      a     
-      2            2.23 b      b     
-      3            3.23 c      c     
+        column_zero~ col_02 col_03 col_04
+               <dbl> <chr>  <fct>  <ord> 
+      1         1.23 a      a      a     
+      2         2.23 b      b      b     
+      3         3.23 c      c      c     
     Code
       colonnade(x, width = 36)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
-        column_zero_one col_02 col_03
-                  <dbl> <chr>  <fct> 
-      1            1.23 a      a     
-      2            2.23 b      b     
-      3            3.23 c      c     
+        column_zero_~ col_02 col_03 col_04
+                <dbl> <chr>  <fct>  <ord> 
+      1          1.23 a      a      a     
+      2          2.23 b      b      b     
+      3          3.23 c      c      c     
     Code
       colonnade(x, width = 37)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
-        column_zero_one col_02 col_03
-                  <dbl> <chr>  <fct> 
-      1            1.23 a      a     
-      2            2.23 b      b     
-      3            3.23 c      c     
+        column_zero_o~ col_02 col_03 col_04
+                 <dbl> <chr>  <fct>  <ord> 
+      1           1.23 a      a      a     
+      2           2.23 b      b      b     
+      3           3.23 c      c      c     
     Code
       colonnade(x, width = 38)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
         column_zero_one col_02 col_03 col_04
                   <dbl> <chr>  <fct>  <ord> 
@@ -284,6 +423,10 @@
       3            3.23 c      c      c     
     Code
       colonnade(x, width = 39)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
         column_zero_one col_02 col_03 col_04
                   <dbl> <chr>  <fct>  <ord> 
@@ -292,6 +435,10 @@
       3            3.23 c      c      c     
     Code
       colonnade(x, width = Inf)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
         column_zero_one col_02 col_03 col_04
                   <dbl> <chr>  <fct>  <ord> 
@@ -303,6 +450,10 @@
 
     Code
       colonnade(rep(list(paste(letters, collapse = " ")), 4), width = Inf)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
         <chr>                                              
       1 a b c d e f g h i j k l m n o p q r s t u v w x y z
@@ -316,7 +467,11 @@
 ---
 
     Code
-      new_vertical(extra_cols_impl(squeeze_impl(colonnade(x), width = 10)))
+      as_glue(extra_cols_impl(squeeze_impl(colonnade(x), width = 10)))
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
       col_02 <chr>
       col_03 <fct>
@@ -325,16 +480,11 @@
 ---
 
     Code
-      new_vertical(extra_cols_impl(squeeze_impl(colonnade(x), width = 20)))
-    Output
-      col_02 <chr>
-      col_03 <fct>
-      col_04 <ord>
-
----
-
-    Code
-      new_vertical(extra_cols_impl(squeeze_impl(colonnade(x), width = 30)))
+      as_glue(extra_cols_impl(squeeze_impl(colonnade(x), width = 20)))
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
       col_03 <fct>
       col_04 <ord>
@@ -342,19 +492,38 @@
 ---
 
     Code
-      new_vertical(extra_cols_impl(squeeze_impl(colonnade(x), width = 35)))
-    Output
-      col_04 <ord>
+      as_glue(extra_cols_impl(squeeze_impl(colonnade(x), width = 30)))
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
 
 ---
 
     Code
-      new_vertical(extra_cols_impl(squeeze_impl(colonnade(x), width = 40)))
+      as_glue(extra_cols_impl(squeeze_impl(colonnade(x), width = 35)))
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
+
+---
+
+    Code
+      as_glue(extra_cols_impl(squeeze_impl(colonnade(x), width = 40)))
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
 
 # tests from tibble
 
     Code
       colonnade(mtcars[1:8, ], has_row_id = "*", width = 30)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
           mpg   cyl  disp    hp
       * <dbl> <dbl> <dbl> <dbl>
@@ -367,25 +536,37 @@
       7  14.3     8  360    245
       8  24.4     4  147.    62
     Code
-      colonnade(iris[1:5, ], width = 30)
+      colonnade(trees[1:5, ], width = 20)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
-        Sepal.Length Sepal.Width
-               <dbl>       <dbl>
-      1          5.1         3.5
-      2          4.9         3  
-      3          4.7         3.2
-      4          4.6         3.1
-      5          5           3.6
+        Girth Height
+        <dbl>  <dbl>
+      1   8.3     70
+      2   8.6     65
+      3   8.8     63
+      4  10.5     72
+      5  10.7     81
     Code
-      colonnade(iris[1:3, ], width = 20)
+      colonnade(trees[1:3, ], width = 10)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
-        Sepal.Length
-               <dbl>
-      1          5.1
-      2          4.9
-      3          4.7
+        Girth
+        <dbl>
+      1   8.3
+      2   8.6
+      3   8.8
     Code
       colonnade(df_all, width = 30)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
             a     b c     d    
         <dbl> <int> <lgl> <chr>
@@ -394,6 +575,10 @@
       3  NA      NA NA    <NA> 
     Code
       colonnade(df_all, width = 300)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
             a     b c     d     e     f          g                   h        
         <dbl> <int> <lgl> <chr> <fct> <date>     <dttm>              <list>   
@@ -408,6 +593,10 @@
     Code
       options(width = 70)
       colonnade(df_all, width = 300)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
             a     b c     d     e     f          g                  
         <dbl> <int> <lgl> <chr> <fct> <date>     <dttm>             
@@ -422,6 +611,10 @@
     Code
       options(width = 60)
       colonnade(df_all, width = 300)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
             a     b c     d     e     f         
         <dbl> <int> <lgl> <chr> <fct> <date>    
@@ -436,6 +629,10 @@
     Code
       options(width = 50)
       colonnade(df_all, width = 300)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
             a     b c     d     e     f         
         <dbl> <int> <lgl> <chr> <fct> <date>    
@@ -450,6 +647,10 @@
     Code
       options(width = 40)
       colonnade(df_all, width = 300)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
             a     b c     d     e    
         <dbl> <int> <lgl> <chr> <fct>
@@ -469,6 +670,10 @@
     Code
       options(width = 30)
       colonnade(df_all, width = 300)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
             a     b c     d    
         <dbl> <int> <lgl> <chr>
@@ -493,6 +698,10 @@
     Code
       options(width = 20)
       colonnade(df_all, width = 300)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
             a     b c    
         <dbl> <int> <lgl>
@@ -525,7 +734,13 @@
       2 <list [1]>
       3 <list [1]>
     Code
-      colonnade(list(`\n` = c("\n", "\""), `\r` = factor("\n")), width = 30)
+      list_with_ctl <- list(c("\n", "\""), factor(c("\n", "\n")))
+      names(list_with_ctl) <- c("\n", "\r")
+      colonnade(list_with_ctl, width = 30)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
         `\n`  `\r` 
         <chr> <fct>
@@ -533,6 +748,10 @@
       2 "\""  "\n" 
     Code
       colonnade(list(a = c("", " ", "a ", " a")), width = 30)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
         a    
         <chr>
@@ -542,6 +761,10 @@
       4 " a" 
     Code
       colonnade(list(`mean(x)` = 5, `var(x)` = 3), width = 30)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
         `mean(x)` `var(x)`
             <dbl>    <dbl>
@@ -551,6 +774,10 @@
 
     Code
       colonnade(x, width = 30)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
          `NA` <int>
         <int> <int>
@@ -562,6 +789,10 @@
 
     Code
       colonnade(x, width = 30)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
           sep
         <int>
@@ -571,274 +802,10 @@
     Code
       # dummy
 
-# color, options: UTF-8 is TRUE
-
-    Code
-      crayon::has_color()
-    Output
-      [1] TRUE
-    Code
-      crayon::num_colors()
-    Output
-      [1] 16
-    Code
-      has_color()
-    Output
-      [1] TRUE
-    Code
-      num_colors()
-    Output
-      [1] 16
-    Code
-      style_na("NA")
-    Output
-      [1] "\033[31mNA\033[39m"
-    Code
-      style_neg("-1")
-    Output
-      [1] "\033[31m-1\033[39m"
-
----
-
-    Code
-      style_na("NA")
-    Output
-      [1] "\033[31mNA\033[39m"
-
----
-
-    Code
-      print(xf)
-    Output
-                x
-            [3m[90m<dbl>[39m[23m
-      [90m1[39m    -[31m0[39m[31m.[39m[31m00[39m[31m1[39m
-      [90m2[39m     0.01 
-      [90m3[39m    -[31m0[39m[31m.[39m[31m1[39m  
-      [90m4[39m     1    
-      [90m5[39m   -[31m10[39m    
-      [90m6[39m   100    
-      [90m7[39m -[31m[4m1[24m00[39m[31m0[39m    
-      [90m8[39m [4m1[24m[4m0[24m000    
-      [90m9[39m    [31mNA[39m    
-    Code
-      with_options(pillar.subtle_num = TRUE, print(xf))
-    Output
-                x
-            [3m[90m<dbl>[39m[23m
-      [90m1[39m    -[90m0[39m[90m.[39m[90m00[39m[31m1[39m
-      [90m2[39m     [90m0[39m[90m.[39m[90m0[39m1 
-      [90m3[39m    -[90m0[39m[90m.[39m[31m1[39m  
-      [90m4[39m     1    
-      [90m5[39m   -[31m10[39m    
-      [90m6[39m   100    
-      [90m7[39m -[31m[4m1[24m00[39m[90m0[39m    
-      [90m8[39m [4m1[24m[4m0[24m0[90m00[39m    
-      [90m9[39m    [31mNA[39m    
-    Code
-      with_options(pillar.subtle = FALSE, print(xf))
-    Output
-                x
-            [3m<dbl>[23m
-      1    -[31m0[39m[31m.[39m[31m00[39m[31m1[39m
-      2     0.01 
-      3    -[31m0[39m[31m.[39m[31m1[39m  
-      4     1    
-      5   -[31m10[39m    
-      6   100    
-      7 -[31m[4m1[24m00[39m[31m0[39m    
-      8 [4m1[24m[4m0[24m000    
-      9    [31mNA[39m    
-    Code
-      with_options(pillar.neg = FALSE, print(xf))
-    Output
-                x
-            [3m[90m<dbl>[39m[23m
-      [90m1[39m    -0.001
-      [90m2[39m     0.01 
-      [90m3[39m    -0.1  
-      [90m4[39m     1    
-      [90m5[39m   -10    
-      [90m6[39m   100    
-      [90m7[39m -[4m1[24m000    
-      [90m8[39m [4m1[24m[4m0[24m000    
-      [90m9[39m    [31mNA[39m    
-    Code
-      with_options(pillar.subtle = FALSE, pillar.neg = FALSE, print(xf))
-    Output
-                x
-            [3m<dbl>[23m
-      1    -0.001
-      2     0.01 
-      3    -0.1  
-      4     1    
-      5   -10    
-      6   100    
-      7 -[4m1[24m000    
-      8 [4m1[24m[4m0[24m000    
-      9    [31mNA[39m    
-    Code
-      with_options(pillar.bold = TRUE, print(xf))
-    Output
-                [1mx[22m
-            [3m[90m<dbl>[39m[23m
-      [90m1[39m    -[31m0[39m[31m.[39m[31m00[39m[31m1[39m
-      [90m2[39m     0.01 
-      [90m3[39m    -[31m0[39m[31m.[39m[31m1[39m  
-      [90m4[39m     1    
-      [90m5[39m   -[31m10[39m    
-      [90m6[39m   100    
-      [90m7[39m -[31m[4m1[24m00[39m[31m0[39m    
-      [90m8[39m [4m1[24m[4m0[24m000    
-      [90m9[39m    [31mNA[39m    
-
----
-
-    Code
-      colonnade(list(a_very_long_column_name = 0), width = 15)
-    Output
-        a_very_long_…
-                [3m[90m<dbl>[39m[23m
-      [90m1[39m             0
-
-# color, options: UTF-8 is FALSE
-
-    Code
-      crayon::has_color()
-    Output
-      [1] TRUE
-    Code
-      crayon::num_colors()
-    Output
-      [1] 16
-    Code
-      has_color()
-    Output
-      [1] TRUE
-    Code
-      num_colors()
-    Output
-      [1] 16
-    Code
-      style_na("NA")
-    Output
-      [1] "\033[31mNA\033[39m"
-    Code
-      style_neg("-1")
-    Output
-      [1] "\033[31m-1\033[39m"
-
----
-
-    Code
-      style_na("NA")
-    Output
-      [1] "\033[31mNA\033[39m"
-
----
-
-    Code
-      print(xf)
-    Output
-                x
-            [3m[90m<dbl>[39m[23m
-      [90m1[39m    -[31m0[39m[31m.[39m[31m00[39m[31m1[39m
-      [90m2[39m     0.01 
-      [90m3[39m    -[31m0[39m[31m.[39m[31m1[39m  
-      [90m4[39m     1    
-      [90m5[39m   -[31m10[39m    
-      [90m6[39m   100    
-      [90m7[39m -[31m[4m1[24m00[39m[31m0[39m    
-      [90m8[39m [4m1[24m[4m0[24m000    
-      [90m9[39m    [31mNA[39m    
-    Code
-      with_options(pillar.subtle_num = TRUE, print(xf))
-    Output
-                x
-            [3m[90m<dbl>[39m[23m
-      [90m1[39m    -[90m0[39m[90m.[39m[90m00[39m[31m1[39m
-      [90m2[39m     [90m0[39m[90m.[39m[90m0[39m1 
-      [90m3[39m    -[90m0[39m[90m.[39m[31m1[39m  
-      [90m4[39m     1    
-      [90m5[39m   -[31m10[39m    
-      [90m6[39m   100    
-      [90m7[39m -[31m[4m1[24m00[39m[90m0[39m    
-      [90m8[39m [4m1[24m[4m0[24m0[90m00[39m    
-      [90m9[39m    [31mNA[39m    
-    Code
-      with_options(pillar.subtle = FALSE, print(xf))
-    Output
-                x
-            [3m<dbl>[23m
-      1    -[31m0[39m[31m.[39m[31m00[39m[31m1[39m
-      2     0.01 
-      3    -[31m0[39m[31m.[39m[31m1[39m  
-      4     1    
-      5   -[31m10[39m    
-      6   100    
-      7 -[31m[4m1[24m00[39m[31m0[39m    
-      8 [4m1[24m[4m0[24m000    
-      9    [31mNA[39m    
-    Code
-      with_options(pillar.neg = FALSE, print(xf))
-    Output
-                x
-            [3m[90m<dbl>[39m[23m
-      [90m1[39m    -0.001
-      [90m2[39m     0.01 
-      [90m3[39m    -0.1  
-      [90m4[39m     1    
-      [90m5[39m   -10    
-      [90m6[39m   100    
-      [90m7[39m -[4m1[24m000    
-      [90m8[39m [4m1[24m[4m0[24m000    
-      [90m9[39m    [31mNA[39m    
-    Code
-      with_options(pillar.subtle = FALSE, pillar.neg = FALSE, print(xf))
-    Output
-                x
-            [3m<dbl>[23m
-      1    -0.001
-      2     0.01 
-      3    -0.1  
-      4     1    
-      5   -10    
-      6   100    
-      7 -[4m1[24m000    
-      8 [4m1[24m[4m0[24m000    
-      9    [31mNA[39m    
-    Code
-      with_options(pillar.bold = TRUE, print(xf))
-    Output
-                [1mx[22m
-            [3m[90m<dbl>[39m[23m
-      [90m1[39m    -[31m0[39m[31m.[39m[31m00[39m[31m1[39m
-      [90m2[39m     0.01 
-      [90m3[39m    -[31m0[39m[31m.[39m[31m1[39m  
-      [90m4[39m     1    
-      [90m5[39m   -[31m10[39m    
-      [90m6[39m   100    
-      [90m7[39m -[31m[4m1[24m00[39m[31m0[39m    
-      [90m8[39m [4m1[24m[4m0[24m000    
-      [90m9[39m    [31mNA[39m    
-
----
-
-    Code
-      colonnade(list(a_very_long_column_name = 0), width = 15)
-    Output
-        a_very_long_~
-                [3m[90m<dbl>[39m[23m
-      [90m1[39m             0
-
 # sanity check (2)
 
     Code
-      crayon::has_color()
-    Output
-      [1] FALSE
-    Code
-      crayon::num_colors()
+      cli::num_ansi_colors()
     Output
       [1] 1
     Code
@@ -858,6 +825,10 @@
 
     Code
       colonnade(x, width = 30)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
             a   b$c    $d
         <int> <int> <int>
@@ -869,6 +840,10 @@
 
     Code
       colonnade(x, width = 40)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
             a   b$c    $d  $e$f   $$g
         <int> <int> <int> <int> <int>
@@ -880,6 +855,10 @@
 
     Code
       colonnade(x, width = 40)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
             a   b$c    $d $e          $f
         <int> <int> <int> <df[,0]> <int>
@@ -891,6 +870,10 @@
 
     Code
       colonnade(x, width = 30)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
             a b[,1]  [,2]
         <int> <int> <int>
@@ -902,6 +885,10 @@
 
     Code
       colonnade(x, width = 30)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
             a b[,"c"] [,"d"]
         <int>   <int>  <int>
@@ -913,6 +900,10 @@
 
     Code
       colonnade(x, width = 30)
+    Condition
+      Warning:
+      `colonnade()` was deprecated in pillar 1.7.0.
+      Please use `tbl_format_setup()` instead.
     Output
             a b             c
         <int> <int[,0]> <int>

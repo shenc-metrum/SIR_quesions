@@ -46,6 +46,7 @@ geom_3s	geom_3s
 gh	layer
 gs	layer
 label_parse_label	parse_label
+label_tex	parse_label
 layer	layer
 layer_3s	geom_3s
 layer_a	layer
@@ -64,6 +65,7 @@ list_plot_yx	list_plot
 logbr	logbr
 logbr3	logbr
 log_scale	log_scale
+look_for_tex	parse_label
 npde_cat	res_cat
 npde_cont	res_cont
 npde_hist	res_hist

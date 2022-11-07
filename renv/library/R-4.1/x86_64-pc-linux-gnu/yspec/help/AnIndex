@@ -56,8 +56,10 @@ ys_add_factors	ys_add_factors
 ys_add_labels	ys_add_labels
 ys_check	ys_check
 ys_check_file	ys_check
+ys_col_note	ys_col_note
 ys_document	ys_document
 ys_dont_sanitize	ys_sanitize
+ys_extend	ys_extend
 ys_fill_dots	ys_fill_dots
 ys_filter	ys_filter
 ys_get_label	ys_get_label
@@ -78,8 +80,13 @@ ys_mutate	ys_mutate
 ys_namespace	ys_namespace
 ys_project	ys_project
 ys_project_file	ys_project
+ys_prune	ys_prune
+ys_recode	ys_recode
 ys_rename	ys_rename
+ys_rename.data.frame	ys_rename
+ys_rename.yspec	ys_rename
 ys_render	ys_render
 ys_sanitize	ys_sanitize
 ys_select	ys_select
 ys_spec_file	ys_spec_file
+ys_table	ys_table

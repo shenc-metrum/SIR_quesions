@@ -1,4 +1,30 @@
 
+Changes in version 1.28.0:
+
+  o New fct correlratio()
+  
+  o Many bugs corrected in fct sensiHSIC()
+  
+  o Many additional options added in fct sensiHSIC(), especially HSIC-ANOVA indices
+  
+  o New fct testHSIC() for independence testing based on HSIC indices
+  
+  o New benchmark matyas.fun() added in "testmodels.R"
+
+Changes in version 1.27.1:
+
+  o Adding the topic of 'interpretability of machine learning models' 
+  in the description of the package
+
+  o emvd() fct and names have been changed to pmvd()
+
+  o Several bugs corrected in pme_knn()
+  
+  o R requirements: Changes from 'class()' to 'inherits()' in several fcts
+  
+  o Corrections in parameterSets(), 
+  see https://github.com/cran/sensitivity/pull/2
+  
 Changes in version 1.27.0:
 
   o New fct pme_knn() for proportional marginal effects computation

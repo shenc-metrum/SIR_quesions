@@ -37,7 +37,7 @@ Author: Taiyun Wei [cre, aut],
 OriginalRepository: CRAN
 Repository: MPN
 Date/Publication: 2021-11-18 13:20:02 UTC
-Built: R 4.1.1; ; 2022-01-25 21:33:15 UTC; unix
+Built: R 4.1.1; ; 2022-10-28 16:08:51 UTC; unix
 PkgrVersion: v3.0.0-rc1
 PkgrInstallType: binary
-PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2021-11-19/
+PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2022-10-20

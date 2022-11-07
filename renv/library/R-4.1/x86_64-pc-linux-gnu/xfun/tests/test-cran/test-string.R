@@ -1,5 +1,13 @@
 library(testit)
 
+assert('is_blank() tests if a vector is blank', {
+  (is_blank(''))
+  (is_blank(NULL))
+  (is_blank(c('', '   ', '\n', '\t')))
+  (!is_blank('abc'))
+  (!is_blank(c('', 'abc')))
+})
+
 assert('n2w converts numbers to words', {
   (n2w(0) %==% 'zero')
   # cap capitalizes the first letter
@@ -48,4 +56,10 @@ assert('valid_syntax() tells if a code fragment is syntactically valid', {
   (valid_syntax('if(TRUE)1'))
   (!valid_syntax(c('if(T){', 'F')))
   (valid_syntax(c('if(T){', 'F}')))
+})
+
+assert('alnum_id() generates ID strings', {
+  x = c('Hello world 123!', 'a  &b*^##c 456')
+  (alnum_id(x) %==% c('hello-world-123', 'a-b-c-456'))
+  (alnum_id(x, '[^[:alpha:]]+') %==% c('hello-world', 'a-b-c'))
 })

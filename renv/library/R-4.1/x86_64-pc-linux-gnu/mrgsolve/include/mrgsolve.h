@@ -32,6 +32,8 @@ arma::mat MVGAUSS(Rcpp::NumericMatrix& OMEGA_, int n);
 
 arma::mat MVGAUSS(arma::mat& OMEGA_,int n);
 
+arma::mat MAKEMATRIX(const Rcpp::S4& matlist);
+
 template <class T>
 void sort_unique(T& a) {
   std::sort(a.begin(), a.end());
@@ -39,8 +41,8 @@ void sort_unique(T& a) {
   a.erase(last, a.end());
 }
 
-int find_position(const Rcpp::CharacterVector& what,  
-                  const Rcpp::CharacterVector& table);
+int find_position(const std::string what,  
+                  Rcpp::CharacterVector& table);
 
 double digits(const double& a, const double& b);
 

@@ -1,6 +1,6 @@
 
-test_that("ansi_string", {
-  right <- c("ansi_string", "character")
+test_that("cli_ansi_string", {
+  right <- c("cli_ansi_string", "ansi_string", "character")
   expect_equal(class(ansi_string("foobar")), right)
   expect_equal(class(ansi_string(133)), right)
   expect_equal(class(ansi_string(ansi_string(134))), right)
@@ -75,13 +75,17 @@ test_that("ansi_nchar wide characters", {
 })
 
 test_that("ansi_substr bad input", {
-  expect_error(
-    ansi_substr("foobar", NULL, 10),
-    "invalid substring arguments"
+  expect_snapshot(
+    error = TRUE,
+    ansi_substr("foobar", NULL, 10)
   )
-  expect_error(
-    ansi_substr("foobar", 10, NULL),
-    "invalid substring arguments"
+  expect_snapshot(
+    error = TRUE,
+    ansi_substr("foobar", 10, NULL)
+  )
+  expect_snapshot(
+    error = TRUE,
+    ansi_substr("foobar", "bad", "bad")
   )
 })
 
@@ -181,10 +185,10 @@ test_that("ansi_substr corner cases", {
 
   # non-numeric arguments cause errors; NOTE: this actually "works"
   # with 'substr' but not implemented in 'ansi_substr'
-  suppressWarnings(
-    expect_error(ansi_substr("abc", "hello", 1), "non-numeric")
+  expect_snapshot(
+    error = TRUE,
+    ansi_substr("abc", "hello", 1)
   )
-
 })
 
 test_that("ansi_substring", {
@@ -324,9 +328,9 @@ test_that("ansi_strsplit edge cases", {
 
 test_that("Weird length 'split'", {
   withr::local_options(list(cli.num_colors = 256L))
-  expect_error(
-    ansi_strsplit(c("ab", "bd"), c("b", "d")),
-    "must be character"
+  expect_snapshot(
+    error = TRUE,
+    ansi_strsplit(c("ab", "bd"), c("b", "d"))
   )
   expect_identical(
     ansi_strsplit("ab", NULL),
@@ -387,7 +391,6 @@ test_that("ansi_align", {
 })
 
 test_that("stripping hyperlinks", {
-  skip("Temporarily defunct")
   withr::local_options(list(cli.hyperlink = TRUE))
   x <- unclass(style_hyperlink("foo", "https://r-pkg.org"))
   expect_equal(
@@ -526,7 +529,7 @@ test_that("ansi_strwrap and \f edge cases", {
   )
   expect_equal(
     ansi_strwrap("\033[32m\ffoo\f\033[39m"),
-    ansi_string(c("", "\033[32mfoo\033[39m"))
+    ansi_string(c("", "\033[32mfoo\033[39m", ""))
   )
 })
 

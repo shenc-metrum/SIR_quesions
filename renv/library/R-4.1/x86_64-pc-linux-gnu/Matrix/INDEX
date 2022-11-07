@@ -21,8 +21,8 @@ CAex                    Albers' example Matrix with "Difficult" Eigen
 cBind                   'cbind()' and 'rbind()' recursively built on
                         cbind2/rbind2
 CHMfactor-class         CHOLMOD-based Cholesky Factorizations
-chol                    Choleski Decomposition - 'Matrix' S4 Generic
-                        and Methods
+chol                    The Cholesky Decomposition - 'Matrix' S4
+                        Generic and Methods
 chol2inv-methods        Inverse from Choleski or QR Decomposition -
                         Matrix Methods
 Cholesky                Cholesky Decomposition of a Sparse Matrix
@@ -51,6 +51,7 @@ diagonalMatrix-class    Class "diagonalMatrix" of Diagonal Matrices
 diagU2N                 Transform Triangular Matrices from Unit
                         Triangular to General Triangular and Back
 dMatrix-class           (Virtual) Class "dMatrix" of "double" Matrices
+dmperm                  Dulmage-Mendelsohn Permutation / Decomposition
 dpoMatrix-class         Positive Semi-definite Dense (Packed |
                         Non-packed) Numeric Matrices
 drop0                   Drop "Explicit Zeroes" from a Sparse Matrix
@@ -59,7 +60,7 @@ dsCMatrix-class         Numeric Symmetric Sparse (column compressed)
 dsparseMatrix-class     Virtual Class "dsparseMatrix" of Numeric Sparse
                         Matrices
 dsRMatrix-class         Symmetric Sparse Compressed Row Matrices
-dsyMatrix-class         Symmetric Dense (Packed | Non-packed) Numeric
+dsyMatrix-class         Symmetric Dense (Packed or Unpacked) Numeric
                         Matrices
 dtCMatrix-class         Triangular, (compressed) sparse column matrices
 dtpMatrix-class         Packed Triangular Dense Matrices - "dtpMatrix"
@@ -84,10 +85,9 @@ invPerm                 Inverse Permutation Vector
 is.na-methods           is.na(), is.infinite() Methods for 'Matrix'
                         Objects
 is.null.DN              Are the Dimnames 'dn' NULL-like ?
-isSymmetric-methods     Methods for Function isSymmetric in Package
+isSymmetric-methods     Methods for Function 'isSymmetric' in Package
                         'Matrix'
-isTriangular            isTriangular() and isDiagonal() Checking if
-                        Matrix is Triangular or Diagonal
+isTriangular            Test whether a Matrix is Triangular or Diagonal
 KhatriRao               Khatri-Rao Matrix Product
 KNex                    Koenker-Ng Example Sparse Model Matrix and
                         Response Vector
@@ -123,6 +123,8 @@ nsparseMatrix-class     Sparse "pattern" Matrices
 nsyMatrix-class         Symmetric Dense Nonzero-Pattern Matrices
 ntrMatrix-class         Triangular Dense Logical Matrices
 number-class            Class "number" of Possibly Complex Numbers
+packedMatrix-class      Virtual Class '"packedMatrix"' of Packed Dense
+                        Matrices
 pMatrix-class           Permutation matrices
 printSpMatrix           Format and Print Sparse Matrices Flexibly
 qr-methods              QR Decomposition - S4 Methods and Generic
@@ -131,7 +133,7 @@ rcond                   Estimate the Reciprocal Condition Number
 readHB                  Read and write external matrix formats
 rep2abI                 Replicate Vectors into 'abIndex' Result
 replValue-class         Virtual Class "replValue" - Simple Class for
-                        subassignment Values
+                        Subassignment Values
 rleDiff-class           Class "rleDiff" of rle(diff(.)) Stored Vectors
 rsparsematrix           Random Sparse Matrix
 RsparseMatrix-class     Class "RsparseMatrix" of Sparse Matrices in
@@ -164,8 +166,10 @@ triangularMatrix-class
 TsparseMatrix-class     Class "TsparseMatrix" of Sparse Matrices in
                         Triplet Form
 uniqTsparse             Unique (Sorted) TsparseMatrix Representations
-unpack                  Representation of Packed and Unpacked (Dense)
+unpack                  Representation of Packed and Unpacked Dense
                         Matrices
+unpackedMatrix-class    Virtual Class '"unpackedMatrix"' of Unpacked
+                        Dense Matrices
 updown                  Up- and Down-Dating a Cholesky Decomposition
 USCounties              USCounties Contiguity Matrix
 wrld_1deg               World 1-degree grid contiguity matrix

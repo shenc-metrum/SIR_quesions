@@ -1,3 +1,14 @@
+# svglite 2.1.0
+
+* Add new graphics engine features:
+  - Path clipping
+  - Masking
+  - Pattern and gradient fills
+
+* Font family names are now quoted (#136)
+
+* svglite now renders leading white-space in <text> nodes. (#131, @hrbrmstr)
+
 # svglite 2.0.0
 
 * svglite now uses systemfonts for text metric calculations and font family 

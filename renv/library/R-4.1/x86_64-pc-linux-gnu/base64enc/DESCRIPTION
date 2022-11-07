@@ -13,7 +13,7 @@ Packaged: 2015-02-04 20:31:00 UTC; svnuser
 OriginalRepository: CRAN
 Repository: MPN
 Date/Publication: 2015-07-28 08:03:37
-Built: R 4.1.1; x86_64-pc-linux-gnu; 2022-05-11 22:15:08 UTC; unix
+Built: R 4.1.1; x86_64-pc-linux-gnu; 2022-10-28 16:10:52 UTC; unix
 PkgrVersion: v3.0.0-rc1
 PkgrInstallType: binary
-PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2021-11-19/
+PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2022-10-20

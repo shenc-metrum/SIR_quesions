@@ -74,7 +74,7 @@ Author: David B. Dahl [aut],
   Sven Garbade [ctb],
   Uwe Ligges [ctb]
 Date/Publication: 2019-04-21 12:20:03 UTC
-Built: R 4.1.1; ; 2022-05-11 22:16:15 UTC; unix
+Built: R 4.1.1; ; 2022-10-28 16:07:46 UTC; unix
 PkgrVersion: v3.0.0-rc1
 PkgrInstallType: binary
-PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2021-11-19/
+PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2022-10-20

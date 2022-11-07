@@ -427,6 +427,8 @@ field<oT>::operator=(field<oT>&& X)
   {
   arma_extra_debug_sigprint(arma_str::format("this = %x   X = %x") % this % &X);
   
+  if(this == &X)  { return *this; }
+  
   reset();
   
   access::rw(n_rows  ) = X.n_rows;
@@ -601,6 +603,34 @@ field<oT>::operator() (const uword in_row, const uword in_col, const uword in_sl
 
 
 
+#if defined(__cpp_multidimensional_subscript)
+  
+  //! element accessor; no bounds check
+  template<typename oT>
+  arma_inline
+  arma_warn_unused
+  oT&
+  field<oT>::operator[] (const uword in_row, const uword in_col)
+    {
+    return (*mem[in_row + in_col*n_rows]);
+    }
+  
+  
+  
+  //! element accessor; no bounds check
+  template<typename oT>
+  arma_inline
+  arma_warn_unused
+  const oT&
+  field<oT>::operator[] (const uword in_row, const uword in_col) const
+    {
+    return (*mem[in_row + in_col*n_rows]);
+    }
+  
+#endif
+
+
+
 //! element accessor; no bounds check
 template<typename oT>
 arma_inline
@@ -622,6 +652,34 @@ field<oT>::at(const uword in_row, const uword in_col) const
   {
   return (*mem[in_row + in_col*n_rows]);
   }
+
+
+
+#if defined(__cpp_multidimensional_subscript)
+  
+  //! element accessor; no bounds check
+  template<typename oT>
+  arma_inline
+  arma_warn_unused
+  oT&
+  field<oT>::operator[] (const uword in_row, const uword in_col, const uword in_slice)
+    {
+    return (*mem[in_row + in_col*n_rows + in_slice*(n_rows*n_cols)]);
+    }
+  
+  
+  
+  //! element accessor; no bounds check
+  template<typename oT>
+  arma_inline
+  arma_warn_unused
+  const oT&
+  field<oT>::operator[] (const uword in_row, const uword in_col, const uword in_slice) const
+    {
+    return (*mem[in_row + in_col*n_rows + in_slice*(n_rows*n_cols)]);
+    }
+  
+#endif
 
 
 
@@ -702,7 +760,7 @@ field<oT>::back() const
 
 
 template<typename oT>
-arma_cold
+arma_deprecated
 inline
 field_injector< field<oT> >
 field<oT>::operator<<(const oT& val)
@@ -713,7 +771,7 @@ field<oT>::operator<<(const oT& val)
 
 
 template<typename oT>
-arma_cold
+arma_deprecated
 inline
 field_injector< field<oT> >
 field<oT>::operator<<(const injector_end_of_row<>& x)
@@ -2960,7 +3018,7 @@ field_aux::load(field< std::string >& x, std::istream& is, const file_type type,
 
 
 
-#ifdef ARMA_EXTRA_FIELD_MEAT
+#if defined(ARMA_EXTRA_FIELD_MEAT)
   #include ARMA_INCFILE_WRAP(ARMA_EXTRA_FIELD_MEAT)
 #endif
 

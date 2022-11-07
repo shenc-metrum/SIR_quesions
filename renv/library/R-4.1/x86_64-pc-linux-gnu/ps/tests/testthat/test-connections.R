@@ -1,6 +1,4 @@
 
-context("connections")
-
 test_that("empty set", {
   px <- processx::process$new(
     px(), c("sleep", "5"),
@@ -12,7 +10,7 @@ test_that("empty set", {
   cl <- ps_connections(p)
   expect_equal(nrow(cl), 0)
   expect_s3_class(cl, "data.frame")
-  expect_s3_class(cl, "tbl_df")
+  expect_s3_class(cl, "tbl")
   expect_equal(
     names(cl),
     c("fd", "family", "type", "laddr", "lport", "raddr", "rport", "state"))
@@ -29,7 +27,7 @@ test_that("UNIX sockets", {
   cl <- ps_connections(p)
   expect_equal(nrow(cl), 1)
   expect_s3_class(cl, "data.frame")
-  expect_s3_class(cl, "tbl_df")
+  expect_s3_class(cl, "tbl")
   expect_equal(cl$fd, 1)
   expect_equal(cl$family, "AF_UNIX")
   expect_equal(cl$type, "SOCK_STREAM")

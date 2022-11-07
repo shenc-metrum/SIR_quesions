@@ -1,8 +1,5 @@
 context("test parsing labels for parameter table")
 
-suppressPackageStartupMessages(library(glue))
-suppressPackageStartupMessages(library(dplyr))
-
 # constants
 PL_MODEL_DIR <- file.path(REF_DIR, "param-labels", "tidynm_extdata")
 MODEL_PICKS <- list(
@@ -18,7 +15,10 @@ MODEL_PICKS <- list(
 # test_that("parse_param_comment() parses correctly ...", {...})
 
 for (.tc in names(MAT_REF)) {
-  test_that(glue("build_matrix_indices() parses correctly {.tc} [BBR-PLB-001]"), {
+  # Remove "ref_" because all names start with "ref_" and mrgvalprep will keep
+  # the common parts, leading to a hard-to-parse test description.
+  label <- stringr::str_remove(.tc, "ref_")
+  test_that(glue::glue("build_matrix_indices() parses correctly: {label} [BBR-PLB-001]"), {
     ref_df <- MAT_REF[[.tc]]
 
     test_ind <- build_matrix_indices(ref_df$is_diag)
@@ -27,8 +27,8 @@ for (.tc in names(MAT_REF)) {
 }
 
 
-for (i in length(BLOCK_REF)) {
-  test_that(glue("block() parses correctly {i} [BBR-PLB-002]"), {
+for (i in seq_along(BLOCK_REF)) {
+  test_that(glue::glue("block() parses correctly {i} [BBR-PLB-002]"), {
     expect_equal(block(i), BLOCK_REF[[i]])
   })
 }
@@ -41,7 +41,10 @@ test_that("param_labels.character errors on vector [BBR-PLB-003]", {
 
 # test parsing labels from different OMEGA and SIGMA blocks
 for (.test_name in names(PARAM_BLOCK_REF)) {
-  test_that(glue("parse_param_comment() called internally {.test_name} [BBR-PLB-004]"), {
+  # Remove "PEX_" because all names start with "PEX_" and mrgvalprep will keep
+  # the common parts, leading to a hard-to-parse test description.
+  label <- stringr::str_remove(.tc, "PEX_")
+  test_that(glue::glue("parse_param_comment() called internally: {label} [BBR-PLB-004]"), {
     .tc <- PARAM_BLOCK_REF[[.test_name]]
     res_df <- .tc$ctl %>% param_labels() %>% apply_indices(.omega = .tc$omega, .sigma = .tc$sigma)
     expect_equal(res_df, .tc$ref)
@@ -68,12 +71,13 @@ for (MODEL_PICK in MODEL_PICKS) {
       select(-param_type)
 
     # join against reference to make sure they're the same
-    ref_df <- ref_df %>% mutate(!!SUMMARY_PARAM_NAMES := ifelse(param == "THETA",
-                                                                paste0(param, var1),
-                                                                paste0(param, "(", var1, ",", var2, ")")))
+    ref_df <- ref_df %>% dplyr::mutate(
+      !!SUMMARY_PARAM_NAMES := ifelse(param == "THETA",
+                                      paste0(param, var1),
+                                      paste0(param, "(", var1, ",", var2, ")")))
 
     join_df <- ref_df %>%
-      full_join(.label_df, by = names(.label_df))
+      dplyr::full_join(.label_df, by = names(.label_df))
 
     # test that the full join didn't add any rows (i.e. there are no mismatches)
     expect_equal(nrow(join_df), nrow(ref_df))
@@ -101,7 +105,7 @@ withr::with_options(list(bbr.bbi_exe_path = read_bbi_path()), {
 
       on.exit({ if (fs::file_exists(file.path(PL_MODEL_DIR, glue("{.mod_id}.yaml")))) fs::file_delete(file.path(PL_MODEL_DIR, glue("{.mod_id}.yaml"))) })
 
-      .param_df <- .mod %>% bbr::model_summary() %>% param_estimates()
+      .param_df <- .mod %>% model_summary() %>% param_estimates()
       names(.param_df) <- names(.param_df) %>% tolower()
 
       # make label df
@@ -109,18 +113,22 @@ withr::with_options(list(bbr.bbi_exe_path = read_bbi_path()), {
 
       # join to constuct full parameter table
       suppressSpecificWarning({
-        .new_df <- inner_join(.param_df,
-                              .label_df %>% apply_indices(.omega = MODEL_PICK$omega, .sigma = MODEL_PICK$sigma) %>% select(-param_type),
-                              by = SUMMARY_PARAM_NAMES)
+        .new_df <- dplyr::inner_join(
+          .param_df,
+          .label_df %>%
+            apply_indices(.omega = MODEL_PICK$omega, .sigma = MODEL_PICK$sigma) %>%
+            dplyr::select(-param_type),
+          by = SUMMARY_PARAM_NAMES)
       }, .regexpr = "Column .+ has different attributes on LHS and RHS of join")
 
       # join against reference to make sure they're the same
-      ref_df <- ref_df %>% mutate(!!SUMMARY_PARAM_NAMES := ifelse(param == "THETA",
-                                                                  paste0(param, var1),
-                                                                  paste0(param, "(", var1, ",", var2, ")")))
+      ref_df <- ref_df %>% dplyr::mutate(
+        !!SUMMARY_PARAM_NAMES := ifelse(param == "THETA",
+                                        paste0(param, var1),
+                                        paste0(param, "(", var1, ",", var2, ")")))
 
       join_df <- ref_df %>%
-        full_join(.new_df, by = names(.label_df))
+        dplyr::full_join(.new_df, by = names(.label_df))
 
       # tests
       expect_equal(nrow(join_df), nrow(ref_df))

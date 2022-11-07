@@ -1,6 +1,6 @@
 
 test_that("get_deps", {
-  desc <- description$new("D1")
+  desc <- description$new(test_path("D1"))
 
   res <- data.frame(
     stringsAsFactors = FALSE,
@@ -72,17 +72,18 @@ test_that("set_dep preserves order", {
 
   desc$set_deps(data.frame(
     stringsAsFactors = FALSE,
-    type = "Imports",
-    package = c("covr", "testthat"),
+    type = c("Depends", "Imports", "Imports"),
+    package = c("R", "covr", "testthat"),
     version = "*"
   ))
   desc$set_dep("R6", "Imports")
 
   expect_equal(
     desc$get_deps()$package,
-    c("covr", "R6", "testthat")
+    c("R", "covr", "R6", "testthat")
   )
 })
+
 test_that("set_dep inserts at end if not ordered", {
   desc <- description$new("!new")
 
@@ -101,7 +102,7 @@ test_that("set_dep inserts at end if not ordered", {
 })
 
 test_that("del_dep", {
-  desc <- description$new("D1")
+  desc <- description$new(test_path("D1"))
 
   desc$set_dep("igraph")
   desc$set_dep("igraph", type = "Depends", version = ">= 1.0.0")
@@ -116,7 +117,7 @@ test_that("del_dep", {
 
   expect_equal(desc$get_deps(), res)
 
-  desc <- description$new("D1")
+  desc <- description$new(test_path("D1"))
 
   desc$set_dep("igraph")
   desc$set_dep("igraph", type = "Depends", version = ">= 1.0.0")
@@ -135,7 +136,7 @@ test_that("del_dep", {
 
 test_that("deleting all dependencies", {
 
-  desc <- description$new("D1")
+  desc <- description$new(test_path("D1"))
   desc$del_deps()
   expect_equal(desc$get("Imports"), c(Imports = NA_character_))
   expect_equal(desc$get("Suggests"), c(Suggests = NA_character_))
@@ -144,7 +145,7 @@ test_that("deleting all dependencies", {
 
 test_that("deleting a non-dependency is OK", {
 
-  desc <- description$new("D1")
+  desc <- description$new(test_path("D1"))
   before <- desc$get("Imports")
   desc$del_dep("foobar", "Imports")
   after <- desc$get("Imports")
@@ -153,7 +154,7 @@ test_that("deleting a non-dependency is OK", {
 
 test_that("has_dep", {
 
-  desc <- description$new("D1")
+  desc <- description$new(test_path("D1"))
   expect_true(desc$has_dep("R6"))
   expect_true(desc$has_dep("testthat"))
 
@@ -169,7 +170,7 @@ test_that("has_dep", {
 })
 
 test_that("has_dep works when package listed twice", {
-  desc <- description$new("D2")
+  desc <- description$new(test_path("D2"))
   expect_true(desc$has_dep("Rcpp"))
   expect_true(desc$has_dep("Rcpp", "Imports"))
   expect_true(desc$has_dep("Rcpp", "LinkingTo"))
@@ -185,7 +186,7 @@ test_that("issue #34 is fine (empty dep fields)", {
     version = character()
   )
 
-  desc <- description$new("D4")
+  desc <- description$new(test_path("D4"))
   expect_silent(deps <- desc$get_deps())
   expect_equal(deps, empty_deps)
 
@@ -207,7 +208,7 @@ test_that("no dependencies at all", {
     version = character()
   )
 
-  desc <- description$new("D6")
+  desc <- description$new(test_path("D6"))
   expect_silent(deps <- desc$get_deps())
   expect_equal(deps, empty_deps)
 

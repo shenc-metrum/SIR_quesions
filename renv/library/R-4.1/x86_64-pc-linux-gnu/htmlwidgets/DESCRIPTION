@@ -37,7 +37,7 @@ Maintainer: Carson Sievert <carson@rstudio.com>
 OriginalRepository: CRAN
 Repository: MPN
 Date/Publication: 2021-09-08 14:00:02 UTC
-Built: R 4.1.1; ; 2022-05-11 22:21:13 UTC; unix
+Built: R 4.1.1; ; 2022-10-28 16:16:07 UTC; unix
 PkgrVersion: v3.0.0-rc1
 PkgrInstallType: binary
-PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2021-11-19/
+PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2022-10-20

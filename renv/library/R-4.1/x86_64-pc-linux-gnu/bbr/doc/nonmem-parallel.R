@@ -8,21 +8,30 @@ knitr::opts_chunk$set(
 #  library(bbr)
 #  
 #  MODEL_DIR <- system.file("model", "nonmem" , "pk-parallel", package = "bbr")
+#  DATA_DIR <- system.file("extdata" , package = "bbr")
 
 ## ---- include=F---------------------------------------------------------------
 #  # setup
 #  library(fs)
-#  ORIG_MODELS <- c(100, 200)
+#  library(dplyr)
+#  library(readr)
+#  ORIG_MODELS <- c(200)
 #  COPIED_MODELS <- c(300, 400)
 #  
 #  # clear old bbi.yaml
 #  if (file_exists(file.path(MODEL_DIR, "bbi.yaml"))) file_delete(file.path(MODEL_DIR, "bbi.yaml"))
 #  
+#  bbi_init(
+#    .dir = MODEL_DIR,
+#    .nonmem_dir = "/opt/NONMEM",
+#    .nonmem_version = "nm75"
+#  )
+#  
 #  # clear output dirs
 #  walk(c(ORIG_MODELS, COPIED_MODELS), ~{
 #    if (dir_exists(file.path(MODEL_DIR, .x))) dir_delete(file.path(MODEL_DIR, .x))
 #  
-#      for (.n in c(8, 16, 24)) {
+#      for (.n in c(2, 4, 8, 16, 24)) {
 #      if (file_exists(file.path(MODEL_DIR, paste0(.x, "_", .n, "threads.ctl")))) file_delete(file.path(MODEL_DIR, paste0(.x, "_", .n, "threads.ctl")))
 #      if (file_exists(file.path(MODEL_DIR, paste0(.x, "_", .n, "threads.yaml")))) file_delete(file.path(MODEL_DIR, paste0(.x, "_", .n, "threads.yaml")))
 #      if (dir_exists(file.path(MODEL_DIR, paste0(.x, "_", .n, "threads")))) dir_delete(file.path(MODEL_DIR, paste0(.x, "_", .n, "threads")))
@@ -37,6 +46,59 @@ knitr::opts_chunk$set(
 #    file_copy(file.path(MODEL_DIR, paste0(200, ".yaml")), file.path(MODEL_DIR, paste0(.x, ".yaml")))
 #  })
 #  
+#  
+#  # Generate new dataset with necessary columns (ranges, means, and sds taken from example project)
+#  acop_baseline <- read_csv(file.path(DATA_DIR, "acop.csv"))
+#  
+#  # Create distributions from original data
+#  # egfr_range <- c(15.42, 126.07)
+#  egfr_dist <- rnorm(n_distinct(acop_baseline$id), mean = 88.67535, sd = 27.42009)
+#  egfr_dist <- egfr_dist[egfr_dist > 0]
+#  # alb_range <- c(1.28, 5.39)
+#  alb_dist <- rnorm(n_distinct(acop_baseline$id), mean = 4.295211, sd = 0.7071837)
+#  alb_dist <- alb_dist[alb_dist > 0]
+#  # age_range <- c(18.92, 49.53)
+#  age_dist <- rnorm(n_distinct(acop_baseline$id), mean = 33.81955, sd = 8.603712)
+#  age_dist <- age_dist[age_dist > 0]
+#  
+#  # Randomly assign sampled values to unique patients
+#  acop_adjusted <- acop_baseline %>%
+#    group_by(id) %>%
+#    mutate(
+#      EGFR = sample(egfr_dist, 1),
+#      ALB = sample(alb_dist, 1),
+#      AGE = sample(age_dist, 1)) %>%
+#    ungroup()
+#  
+#  # First id is missing evid/amt
+#  # Also need to change compartment and dosing information
+#  missing_row <- acop_adjusted[1,] %>% mutate(dv = 0, evid = 1, amt = 10000, mdv = 1)
+#  acop_adjusted <- bind_rows(missing_row, acop_adjusted) %>%
+#    mutate(CMT = if_else(evid == 1, 1, 2),
+#           amt = if_else(amt == 10000, "5", "."),
+#           SEQ = if_else(evid == 1, 0, 1),
+#           C = ".") %>%
+#    filter(!(time == 0 & evid == 0)) %>%
+#    mutate(num = 1:n())
+#  
+#  names(acop_adjusted) <- toupper(names(acop_adjusted))
+#  acop_adjusted <- acop_adjusted %>%
+#    relocate("C", "NUM", "ID", "TIME", "SEQ", "CMT", "EVID", "AMT", "DV", "AGE", "WT", "EGFR", "ALB")
+#  
+#  
+#  
+#  analysis3_path <- file.path(DATA_DIR, "acop_adjusted.csv")
+#  write_csv(acop_adjusted, analysis3_path)
+
+## -----------------------------------------------------------------------------
+#  mod <- read_model(file.path(MODEL_DIR, 200))
+#  submit_model(
+#    mod,
+#    .bbi_args = list(parallel = TRUE, threads = 4)
+#  )
+
+## -----------------------------------------------------------------------------
+#  mod <- add_bbi_args(mod, list(parallel = TRUE, threads = 4))
 
 ## -----------------------------------------------------------------------------
 #  bbi_init(
@@ -50,11 +112,10 @@ knitr::opts_chunk$set(
 #  )
 
 ## -----------------------------------------------------------------------------
-#  mod <- read_model(file.path(MODEL_DIR, 100))
 #  submit_model(
 #    mod,
 #    .mode = "local",
-#    .bbi_args = list(parallel = TRUE, threads = 4) # not needed if set in bbi.yaml
+#    .bbi_args = list(parallel = TRUE, threads = 4, overwrite = TRUE) # not needed if set in bbi.yaml
 #  )
 
 ## -----------------------------------------------------------------------------
@@ -135,47 +196,18 @@ knitr::opts_chunk$set(
 #  system(paste("qdel -u", this_user))
 
 ## -----------------------------------------------------------------------------
-#  #' Takes a model object and runs it with various threads values
-#  #'
-#  #' @param .mod bbi_model object to copy/test
-#  #' @param thread_opts Integer vector of threads values to test
-#  #' @param .mode Passed through to bbr::submit_models(.mode)
-#  #'
-#  #' @return A list of the model objects for the submitted models.
-#  test_threads <- function(.mod, threads_opts, .mode = "sge") {
-#    mods <- map(threads_opts, ~ {
-#      .m <- copy_model_from(
-#        .mod,
-#        paste0(get_model_id(.mod), "_", .x, "threads")
-#      ) %>%
-#        add_bbi_args(list(parallel = TRUE, threads = .x))
-#    })
-#  
-#    submit_models(mods, .mode = .mode, .wait = FALSE)
-#  
-#    mods
-#  }
-#  
 #  # running it
-#  mod <- read_model(file.path(MODEL_DIR, 200)) # this should be the copy with capped iterations
-#  mods <- test_threads(mod, c(8, 16, 24))
+#  mod <- read_model(file.path(MODEL_DIR, 200))
+#  mods_test <- test_threads(mod, .threads = c(2, 4, 8))
 
 ## -----------------------------------------------------------------------------
-#  #' Check estimation time for models run with various threads values
-#  #'
-#  #' @param mods list of bbi model objects created by `test_threads()`
-#  #'
-#  #' @return A tibble with columns `threads` (number of threads) and `time`
-#  #'   (elapsed estimation time in seconds for test models).
-#  check_threads <- function(mods) {
-#    purrr::map_dfr(mods, ~ {
-#      s <- model_summary(.x)
-#      threads <- as.numeric(stringr::str_extract(s$absolute_model_path, "\\d+(?=threads$)"))
-#      tibble::tibble(threads = threads, time = s$run_details$estimation_time)
-#    })
-#  }
-#  
-#  check_threads(mods)
+#  system("qstat -f")
+
+## -----------------------------------------------------------------------------
+#  check_run_times(mods_test)
+
+## -----------------------------------------------------------------------------
+#  delete_models(mods_test)
 
 ## ---- include=F---------------------------------------------------------------
 #  # cleanup
@@ -187,12 +219,16 @@ knitr::opts_chunk$set(
 #    if (file_exists(file.path(MODEL_DIR, paste0(.x, ".ctl")))) file_delete(file.path(MODEL_DIR, paste0(.x, ".ctl")))
 #    if (file_exists(file.path(MODEL_DIR, paste0(.x, ".yaml")))) file_delete(file.path(MODEL_DIR, paste0(.x, ".yaml")))
 #  
-#    for (.n in c(8, 16, 24)) {
+#    for (.n in c(2, 4, 8, 16, 24)) {
 #      if (file_exists(file.path(MODEL_DIR, paste0(.x, "_", .n, "threads.ctl")))) file_delete(file.path(MODEL_DIR, paste0(.x, "_", .n, "threads.ctl")))
 #      if (file_exists(file.path(MODEL_DIR, paste0(.x, "_", .n, "threads.yaml")))) file_delete(file.path(MODEL_DIR, paste0(.x, "_", .n, "threads.yaml")))
 #      if (dir_exists(file.path(MODEL_DIR, paste0(.x, "_", .n, "threads")))) dir_delete(file.path(MODEL_DIR, paste0(.x, "_", .n, "threads")))
 #    }
-#  
 #  })
+#  
+#  if (fs::file_exists(analysis3_path)) fs::file_delete(analysis3_path)
+#  
+#  # clear old bbi.yaml
+#  if (file_exists(file.path(MODEL_DIR, "bbi.yaml"))) file_delete(file.path(MODEL_DIR, "bbi.yaml"))
 #  
 

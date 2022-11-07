@@ -1,7 +1,7 @@
 Package: RcppParallel
 Type: Package
 Title: Parallel Programming Tools for 'Rcpp'
-Version: 5.1.4
+Version: 5.1.5
 Authors@R: c(
     person("JJ", "Allaire", role = c("aut"), email = "jj@rstudio.com"),
     person("Romain", "Francois", role = c("aut", "cph")),
@@ -26,7 +26,7 @@ Depends: R (>= 3.0.2)
 Suggests: Rcpp, RUnit, knitr, rmarkdown
 SystemRequirements: GNU make, Intel TBB, Windows: cmd.exe and
         cscript.exe, Solaris: g++ is required
-License: GPL (>= 2)
+License: GPL (>= 3)
 URL: https://rcppcore.github.io/RcppParallel/,
         https://github.com/RcppCore/RcppParallel
 BugReports: https://github.com/RcppCore/RcppParallel/issues
@@ -34,7 +34,7 @@ Biarch: TRUE
 RoxygenNote: 7.1.1
 Encoding: UTF-8
 NeedsCompilation: yes
-Packaged: 2021-05-03 16:57:44 UTC; kevinushey
+Packaged: 2022-01-04 19:55:32 UTC; kevin
 Author: JJ Allaire [aut],
   Romain Francois [aut, cph],
   Kevin Ushey [aut, cre],
@@ -49,8 +49,8 @@ Author: JJ Allaire [aut],
 Maintainer: Kevin Ushey <kevin@rstudio.com>
 OriginalRepository: CRAN
 Repository: MPN
-Date/Publication: 2021-05-04 07:00:20 UTC
-Built: R 4.1.1; x86_64-pc-linux-gnu; 2022-05-20 03:19:50 UTC; unix
+Date/Publication: 2022-01-05 10:50:07 UTC
+Built: R 4.1.1; x86_64-pc-linux-gnu; 2022-10-28 16:07:31 UTC; unix
 PkgrVersion: v3.0.0-rc1
 PkgrInstallType: binary
-PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2021-11-19/
+PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2022-10-20

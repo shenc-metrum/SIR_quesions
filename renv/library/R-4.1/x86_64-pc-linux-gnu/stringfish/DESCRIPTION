@@ -1,7 +1,7 @@
 Package: stringfish
 Title: Alt String Implementation
-Version: 0.15.4
-Date: 2021-10-14
+Version: 0.15.7
+Date: 2022-4-12
 Authors@R: c(
     person("Travers", "Ching", email = "traversc@gmail.com", role = c("aut", "cre", "cph")),
     person("Phillip", "Hazel", role = c("ctb"), comment = "Bundled PCRE2 code"),
@@ -16,11 +16,11 @@ Biarch: true
 Encoding: UTF-8
 Depends: R (>= 3.0.2)
 SystemRequirements: C++11, GNU make
-LinkingTo: Rcpp (>= 0.12.18.3), RcppParallel
+LinkingTo: Rcpp (>= 0.12.18.3), RcppParallel (>= 5.1.4)
 Imports: Rcpp, RcppParallel
 Suggests: qs, knitr, rmarkdown, usethis, dplyr, stringr, rlang
 VignetteBuilder: knitr
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Copyright: Copyright for the bundled 'PCRE2' library is held by
         University of Cambridge, Zoltan Herczeg and Tilera Coporation
         (Stack-less Just-In-Time compiler); Copyright for the bundled
@@ -28,7 +28,7 @@ Copyright: Copyright for the bundled 'PCRE2' library is held by
 URL: https://github.com/traversc/stringfish
 BugReports: https://github.com/traversc/stringfish/issues
 NeedsCompilation: yes
-Packaged: 2021-10-15 08:19:57 UTC; tching
+Packaged: 2022-04-13 05:55:24 UTC; tching
 Author: Travers Ching [aut, cre, cph],
   Phillip Hazel [ctb] (Bundled PCRE2 code),
   Zoltan Herczeg [ctb, cph] (Bundled PCRE2 code),
@@ -39,8 +39,8 @@ Author: Travers Ching [aut, cre, cph],
     code)
 OriginalRepository: CRAN
 Repository: MPN
-Date/Publication: 2021-10-15 10:40:02 UTC
-Built: R 4.1.1; x86_64-pc-linux-gnu; 2022-05-20 03:20:34 UTC; unix
+Date/Publication: 2022-04-13 07:00:02 UTC
+Built: R 4.1.1; x86_64-pc-linux-gnu; 2022-11-07 16:39:55 UTC; unix
 PkgrVersion: v3.0.0-rc1
 PkgrInstallType: binary
-PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2021-11-19/
+PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2022-10-20

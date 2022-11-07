@@ -59,7 +59,7 @@ Maintainer: Barret Schloerke <schloerke@gmail.com>
 OriginalRepository: CRAN
 Repository: MPN
 Date/Publication: 2021-06-21 04:40:10 UTC
-Built: R 4.1.1; ; 2022-05-11 22:26:28 UTC; unix
+Built: R 4.1.1; ; 2022-10-28 21:38:06 UTC; unix
 PkgrVersion: v3.0.0-rc1
 PkgrInstallType: binary
-PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2021-11-19/
+PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2022-10-20

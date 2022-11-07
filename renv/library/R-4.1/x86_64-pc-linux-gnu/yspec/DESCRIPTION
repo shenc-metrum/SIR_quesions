@@ -1,17 +1,28 @@
 Package: yspec
 Type: Package
 Title: Data Specification for Pharmacometrics
-Version: 0.5.1
+Version: 0.5.3
 Authors@R: c(
-       person("Kyle T", "Baron", "", "kyleb@metrumrg.com", c("aut", "cre"), comment=c(ORCID="0000-0001-7252-5656")),
+       person("Kyle T", "Baron", "", 
+              "kyleb@metrumrg.com", 
+              c("aut", "cre"), 
+              comment=c(ORCID="0000-0001-7252-5656")),
        person(given = "Katherine", 
-           family = "Kay",
-           role = "ctb",
-           email = "katherinek@metrumrg.com"),  
+              family = "Kay",
+              role = "ctb",
+              email = "katherinek@metrumrg.com"),  
        person(given = "Eric", 
-           family = "Anderson",
-           role = "ctb",
-           email = "andersone@metrumrg.com"),  
+              family = "Anderson",
+              role = "ctb",
+              email = "andersone@metrumrg.com"),  
+       person(given = "Sean",
+              family = "Wilson",
+              role = "ctb",
+              email = "copernican@gmail.com"),
+       person(given = "Samuel",
+              family = "Callisto",
+              role = "ctb",
+              email = "samc@metrumrg.com"),
        person("Metrum Research Group", role = "cph")
        )
 Maintainer: Kyle Baron <kyleb@metrumrg.com>
@@ -22,32 +33,34 @@ License: GPL (>=2)
 Encoding: UTF-8
 Language: en-US
 Depends: R (>= 3.5.0)
-Imports: yaml (>= 2.2), dplyr (>= 0.8.0), rmarkdown (>= 1.12), knitr
-        (>= 1.22), xtable (>= 1.8), rlang (>= 0.3.4), assertthat, purrr
-        (>= 0.3.2), glue (>= 1.3.1), rstudioapi, crayon (>= 1.3.4),
+Imports: yaml (>= 2.2), dplyr (>= 1.0.8), rmarkdown (>= 1.12), knitr
+        (>= 1.22), xtable (>= 1.8), rlang (>= 1.0.1), assertthat, purrr
+        (>= 0.3.4), glue (>= 1.6.1), rstudioapi, crayon (>= 1.3.4),
         tibble, tidyselect, fs, stringr
 Suggests: pander, testthat
 VignetteBuilder: knitr
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Collate: 'utils.R' 'Aaaa.R' 'addin.R' 'axis_data.R' 'check_spec.R'
-        'class-ycol.R' 'class-yproject.R' 'class-yspec.R'
+        'class-ycol.R' 'class-yproject.R' 'class-yspec.R' 'col-note.R'
         'col_factor.R' 'define.R' 'definetemplate.R' 'err_log.R'
-        'exspec.R' 'fda_define.R' 'flags.R' 'handlers.R' 'help.R'
-        'load_spec.R' 'lookup.R' 'md_outline.R' 'namespace.R'
+        'exspec.R' 'extend.R' 'fda_define.R' 'flags.R' 'handlers.R'
+        'help.R' 'load_spec.R' 'lookup.R' 'md_outline.R' 'namespace.R'
         'nm_input.R' 'pander_table.R' 'spec_validate.R' 'split_col.R'
         'x_table_2.R' 'ys-get.R' 'ys-tidy.R'
 OriginalRepository: MPNDEV
 Repository: MPN
 Origin: github.com/metrumresearchgroup/yspec
-git_tag: 0.5.1
-git_commit: c8685ba3f49b0b0512941acf3009cefa5da68884
+git_tag: 0.5.3
+git_commit: 70903fe27b1363d8011952cdd17456e335db1d41
 NeedsCompilation: no
-Packaged: 2021-09-07 20:05:54 UTC; root
+Packaged: 2022-05-13 13:32:48 UTC; root
 Author: Kyle T Baron [aut, cre] (<https://orcid.org/0000-0001-7252-5656>),
   Katherine Kay [ctb],
   Eric Anderson [ctb],
+  Sean Wilson [ctb],
+  Samuel Callisto [ctb],
   Metrum Research Group [cph]
-Built: R 4.1.1; ; 2022-05-11 22:25:21 UTC; unix
+Built: R 4.1.1; ; 2022-10-28 16:24:52 UTC; unix
 PkgrVersion: v3.0.0-rc1
 PkgrInstallType: binary
-PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2021-11-19/
+PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2022-10-20

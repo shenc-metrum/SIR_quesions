@@ -17,7 +17,7 @@ Packaged: 2016-07-19 15:24:25 UTC; tap
 OriginalRepository: CRAN
 Repository: MPN
 Date/Publication: 2016-07-21 19:18:05
-Built: R 4.1.1; ; 2022-05-11 22:17:30 UTC; unix
+Built: R 4.1.1; ; 2022-10-28 16:09:41 UTC; unix
 PkgrVersion: v3.0.0-rc1
 PkgrInstallType: binary
-PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2021-11-19/
+PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2022-10-20

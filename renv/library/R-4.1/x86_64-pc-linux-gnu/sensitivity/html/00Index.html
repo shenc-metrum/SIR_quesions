@@ -12,7 +12,7 @@
 <div style="text-align: center;">
 <a href="../../../doc/html/packages.html"><img class="arrow" src="../../../doc/html/left.jpg" alt="[Up]" /></a>
 <a href="../../../doc/html/index.html"><img class="arrow" src="../../../doc/html/up.jpg" alt="[Top]" /></a>
-</div><h2>Documentation for package &lsquo;sensitivity&rsquo; version 1.27.0</h2>
+</div><h2>Documentation for package &lsquo;sensitivity&rsquo; version 1.28.0</h2>
 
 <ul><li><a href="../DESCRIPTION">DESCRIPTION file</a>.</li>
 <li><a href="../NEWS">Package NEWS</a>.</li>
@@ -68,6 +68,8 @@
 <table width="100%">
 <tr><td style="width: 25%;"><a href="testmodels.html">campbell1D.fun</a></td>
 <td>Test Models for Sensitivity Analysis</td></tr>
+<tr><td style="width: 25%;"><a href="correlRatio.html">correlRatio</a></td>
+<td>Correlation Ratio</td></tr>
 </table>
 
 <h2><a name="D">-- D --</a></h2>
@@ -88,8 +90,6 @@
 <h2><a name="E">-- E --</a></h2>
 
 <table width="100%">
-<tr><td style="width: 25%;"><a href="emvd.html">emvd</a></td>
-<td>Exclusion-respecting Marginal explained-Variance Decomposition indices for linear and logistic models</td></tr>
 <tr><td style="width: 25%;"><a href="decoupling.html">extract</a></td>
 <td>Decoupling Simulations and Estimations</td></tr>
 <tr><td style="width: 25%;"><a href="shapleysobol_knn.html">extract.shapleysobol_knn</a></td>
@@ -118,8 +118,6 @@
 <td>Quantile-oriented sensitivity analysis</td></tr>
 <tr><td style="width: 25%;"><a href="sensiFdiv.html">ggplot.sensiFdiv</a></td>
 <td>Sensitivity Indices based on Csiszar f-divergence</td></tr>
-<tr><td style="width: 25%;"><a href="sensiHSIC.html">ggplot.sensiHSIC</a></td>
-<td>Sensitivity Indices based on Hilbert-Schmidt Independence Criterion (HSIC)</td></tr>
 <tr><td style="width: 25%;"><a href="shapleyPermEx.html">ggplot.shapleyPermEx</a></td>
 <td>Estimation of Shapley effects by examining all permutations of inputs (Agorithm of Song et al, 2016), in cases of independent or dependent inputs</td></tr>
 <tr><td style="width: 25%;"><a href="shapleyPermRand.html">ggplot.shapleyPermRand</a></td>
@@ -190,6 +188,8 @@
 <h2><a name="M">-- M --</a></h2>
 
 <table width="100%">
+<tr><td style="width: 25%;"><a href="testmodels.html">matyas.fun</a></td>
+<td>Test Models for Sensitivity Analysis</td></tr>
 <tr><td style="width: 25%;"><a href="maximin_cplus.html">maximin_cplus</a></td>
 <td>Maximin criterion</td></tr>
 <tr><td style="width: 25%;"><a href="morris.html">morris</a></td>
@@ -223,8 +223,6 @@
 <td>Support index functions: Measuring the effect of input variables over their support</td></tr>
 <tr><td style="width: 25%;"><a href="delsa.html">plot.delsa</a></td>
 <td>Distributed Evaluation of Local Sensitivity Analysis</td></tr>
-<tr><td style="width: 25%;"><a href="emvd.html">plot.emvd</a></td>
-<td>Exclusion-respecting Marginal explained-Variance Decomposition indices for linear and logistic models</td></tr>
 <tr><td style="width: 25%;"><a href="fast99.html">plot.fast99</a></td>
 <td>Extended Fourier Amplitude Sensitivity Test</td></tr>
 <tr><td style="width: 25%;"><a href="lmg.html">plot.lmg</a></td>
@@ -235,6 +233,8 @@
 <td>Partial Correlation Coefficients</td></tr>
 <tr><td style="width: 25%;"><a href="pme.html">plot.pme_knn</a></td>
 <td>Data-given proportional marginal effects estimation via nearest-neighbors procedure</td></tr>
+<tr><td style="width: 25%;"><a href="pmvd.html">plot.pmvd</a></td>
+<td>Proportional Marginal Variance Decomposition indices for linear and logistic models</td></tr>
 <tr><td style="width: 25%;"><a href="qosa.html">plot.qosa</a></td>
 <td>Quantile-oriented sensitivity analysis</td></tr>
 <tr><td style="width: 25%;"><a href="sb.html">plot.sb</a></td>
@@ -242,7 +242,7 @@
 <tr><td style="width: 25%;"><a href="sensiFdiv.html">plot.sensiFdiv</a></td>
 <td>Sensitivity Indices based on Csiszar f-divergence</td></tr>
 <tr><td style="width: 25%;"><a href="sensiHSIC.html">plot.sensiHSIC</a></td>
-<td>Sensitivity Indices based on Hilbert-Schmidt Independence Criterion (HSIC)</td></tr>
+<td>Sensitivity Indices based on the Hilbert-Schmidt Independence Criterion (HSIC)</td></tr>
 <tr><td style="width: 25%;"><a href="shapleyPermEx.html">plot.shapleyPermEx</a></td>
 <td>Estimation of Shapley effects by examining all permutations of inputs (Agorithm of Song et al, 2016), in cases of independent or dependent inputs</td></tr>
 <tr><td style="width: 25%;"><a href="shapleyPermRand.html">plot.shapleyPermRand</a></td>
@@ -297,6 +297,8 @@
 <td>Standardized Regression Coefficients</td></tr>
 <tr><td style="width: 25%;"><a href="plot.support.html">plot.support</a></td>
 <td>Support index functions: Measuring the effect of input variables over their support</td></tr>
+<tr><td style="width: 25%;"><a href="testHSIC.html">plot.testHSIC</a></td>
+<td>Tests of Independence based on the Hilbert-Schmidt Independence Criterion (HSIC)</td></tr>
 <tr><td style="width: 25%;"><a href="morris.html">plot3d.morris</a></td>
 <td>Morris's Elementary Effects Screening Method</td></tr>
 <tr><td style="width: 25%;"><a href="sobolTIIpf.html">plotFG</a></td>
@@ -321,6 +323,8 @@
 <td>Monte Carlo Estimation of Aggregated Sobol' Indices for multiple and functional outputs</td></tr>
 <tr><td style="width: 25%;"><a href="pme.html">pme_knn</a></td>
 <td>Data-given proportional marginal effects estimation via nearest-neighbors procedure</td></tr>
+<tr><td style="width: 25%;"><a href="pmvd.html">pmvd</a></td>
+<td>Proportional Marginal Variance Decomposition indices for linear and logistic models</td></tr>
 <tr><td style="width: 25%;"><a href="truncateddistrib.html">pnorm.trunc</a></td>
 <td>Truncated distributions</td></tr>
 <tr><td style="width: 25%;"><a href="PoincareChaosSqCoef.html">PoincareChaosSqCoef</a></td>
@@ -331,8 +335,6 @@
 <td>Optimal Poincare constants for Derivative-based Global Sensitivity Measures (DGSM)</td></tr>
 <tr><td style="width: 25%;"><a href="delsa.html">print.delsa</a></td>
 <td>Distributed Evaluation of Local Sensitivity Analysis</td></tr>
-<tr><td style="width: 25%;"><a href="emvd.html">print.emvd</a></td>
-<td>Exclusion-respecting Marginal explained-Variance Decomposition indices for linear and logistic models</td></tr>
 <tr><td style="width: 25%;"><a href="fast99.html">print.fast99</a></td>
 <td>Extended Fourier Amplitude Sensitivity Test</td></tr>
 <tr><td style="width: 25%;"><a href="lmg.html">print.lmg</a></td>
@@ -343,6 +345,8 @@
 <td>Partial Correlation Coefficients</td></tr>
 <tr><td style="width: 25%;"><a href="pme.html">print.pme_knn</a></td>
 <td>Data-given proportional marginal effects estimation via nearest-neighbors procedure</td></tr>
+<tr><td style="width: 25%;"><a href="pmvd.html">print.pmvd</a></td>
+<td>Proportional Marginal Variance Decomposition indices for linear and logistic models</td></tr>
 <tr><td style="width: 25%;"><a href="qosa.html">print.qosa</a></td>
 <td>Quantile-oriented sensitivity analysis</td></tr>
 <tr><td style="width: 25%;"><a href="sb.html">print.sb</a></td>
@@ -350,7 +354,7 @@
 <tr><td style="width: 25%;"><a href="sensiFdiv.html">print.sensiFdiv</a></td>
 <td>Sensitivity Indices based on Csiszar f-divergence</td></tr>
 <tr><td style="width: 25%;"><a href="sensiHSIC.html">print.sensiHSIC</a></td>
-<td>Sensitivity Indices based on Hilbert-Schmidt Independence Criterion (HSIC)</td></tr>
+<td>Sensitivity Indices based on the Hilbert-Schmidt Independence Criterion (HSIC)</td></tr>
 <tr><td style="width: 25%;"><a href="shapleyPermEx.html">print.shapleyPermEx</a></td>
 <td>Estimation of Shapley effects by examining all permutations of inputs (Agorithm of Song et al, 2016), in cases of independent or dependent inputs</td></tr>
 <tr><td style="width: 25%;"><a href="shapleyPermRand.html">print.shapleyPermRand</a></td>
@@ -401,6 +405,8 @@
 <td>Data given Shapley effects estimation via nearest-neighbors procedure</td></tr>
 <tr><td style="width: 25%;"><a href="src.html">print.src</a></td>
 <td>Standardized Regression Coefficients</td></tr>
+<tr><td style="width: 25%;"><a href="testHSIC.html">print.testHSIC</a></td>
+<td>Tests of Independence based on the Hilbert-Schmidt Independence Criterion (HSIC)</td></tr>
 </table>
 
 <h2><a name="Q">-- Q --</a></h2>
@@ -435,7 +441,7 @@
 <tr><td style="width: 25%;"><a href="sensiFdiv.html">sensiFdiv</a></td>
 <td>Sensitivity Indices based on Csiszar f-divergence</td></tr>
 <tr><td style="width: 25%;"><a href="sensiHSIC.html">sensiHSIC</a></td>
-<td>Sensitivity Indices based on Hilbert-Schmidt Independence Criterion (HSIC)</td></tr>
+<td>Sensitivity Indices based on the Hilbert-Schmidt Independence Criterion (HSIC)</td></tr>
 <tr><td style="width: 25%;"><a href="sensitivity-package.html">sensitivity</a></td>
 <td>Sensitivity Analysis</td></tr>
 <tr><td style="width: 25%;"><a href="shapleyBlockEstimation.html">shapleyBlockEstimation</a></td>
@@ -528,7 +534,7 @@
 <tr><td style="width: 25%;"><a href="sensiFdiv.html">tell.sensiFdiv</a></td>
 <td>Sensitivity Indices based on Csiszar f-divergence</td></tr>
 <tr><td style="width: 25%;"><a href="sensiHSIC.html">tell.sensiHSIC</a></td>
-<td>Sensitivity Indices based on Hilbert-Schmidt Independence Criterion (HSIC)</td></tr>
+<td>Sensitivity Indices based on the Hilbert-Schmidt Independence Criterion (HSIC)</td></tr>
 <tr><td style="width: 25%;"><a href="shapleyPermEx.html">tell.shapleyPermEx</a></td>
 <td>Estimation of Shapley effects by examining all permutations of inputs (Agorithm of Song et al, 2016), in cases of independent or dependent inputs</td></tr>
 <tr><td style="width: 25%;"><a href="shapleyPermRand.html">tell.shapleyPermRand</a></td>
@@ -575,6 +581,8 @@
 <td>Monte Carlo Estimation of Sobol' Indices (formulas of Martinez (2011) and Touati (2016))</td></tr>
 <tr><td style="width: 25%;"><a href="template_replace.html">template.replace</a></td>
 <td>Replace Values in a Template Text</td></tr>
+<tr><td style="width: 25%;"><a href="testHSIC.html">testHSIC</a></td>
+<td>Tests of Independence based on the Hilbert-Schmidt Independence Criterion (HSIC)</td></tr>
 <tr><td style="width: 25%;"><a href="testmodels.html">testmodels</a></td>
 <td>Test Models for Sensitivity Analysis</td></tr>
 <tr><td style="width: 25%;"><a href="truncateddistrib.html">truncateddistrib</a></td>

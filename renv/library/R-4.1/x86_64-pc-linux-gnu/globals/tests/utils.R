@@ -102,6 +102,13 @@ for (pkg in base_pkgs) {
 }
 stopifnot(!is_base_pkg("globals"))
 
+message("* isPackageNamespace() ... Bug #80")
+
+`$.strict_env` <- function(x, name) get(name, envir = x, inherits = FALSE)
+env <- structure(new.env(), class = "strict_env")
+res <- globals:::isPackageNamespace(env)
+stopifnot(!res)
+
 
 message("* is.base() & is_internal() ...")
 stopifnot(is.base(base::library))
@@ -147,7 +154,7 @@ obj <- get("sample2", mode = "function", envir = env, inherits = FALSE)
 stopifnot(identical(obj, sample2))
 
 
-message("- where() - local objects of functions ...")
+message("- where() - objects inside functions ...")
 aa <- 1
 
 foo <- function() {

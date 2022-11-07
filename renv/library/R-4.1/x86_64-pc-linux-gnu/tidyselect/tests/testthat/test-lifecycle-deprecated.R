@@ -1,8 +1,3 @@
-
-local_options(
-  lifecycle_verbosity = "quiet"
-)
-
 # Once defunct, don't delete the tests, port them to `select_loc()`.
 # Better have some redundancy than accidentally losing coverage.
 
@@ -25,7 +20,7 @@ test_that("negative index removes values", {
 })
 
 test_that("can select with character vectors", {
-  expect_identical(vars_select(letters, "b", !! "z", c("b", "c")), set_names(c("b", "z", "c")))
+  expect_identical(vars_select(letters, "b", !!"z", c("b", "c")), set_names(c("b", "z", "c")))
 })
 
 test_that("abort on unknown columns", {
@@ -34,6 +29,8 @@ test_that("abort on unknown columns", {
 })
 
 test_that("data mask is not isolated from context (for now)", {
+  local_options(lifecycle_verbosity = "quiet")
+
   foo <- 10
   expect_identical(vars_select(letters, foo), c(j = "j"))
   expect_identical(vars_select(letters, ((foo))), c(j = "j"))
@@ -54,7 +51,7 @@ test_that("can select with unnamed elements", {
 test_that("can customise error messages", {
   vars <- structure(letters, type = c("variable", "variables"))
   expect_error(vars_select(vars, "foo"), class = "vctrs_error_subscript_oob")
-  expect_warning(vars_select(vars, one_of("bim")), "Unknown variables:")
+  # expect_warning(vars_select(vars, one_of("bim")), "Unknown variables:")
   expect_error(vars_rename(vars, A = "foo"), class = "vctrs_error_subscript_oob")
 })
 
@@ -69,8 +66,8 @@ test_that("can supply empty inputs", {
 })
 
 test_that("empty selection signals a condition", {
-  expect_is(catch_cnd(vars_select(letters)), "tidyselect_empty_dots")
-  expect_is(catch_cnd(vars_select(letters, starts_with("1"))), "tidyselect_empty")
+  expect_s3_class(catch_cnd(vars_select(letters)), "tidyselect_empty_dots")
+  expect_s3_class(catch_cnd(vars_select(letters, starts_with("1"))), "tidyselect_empty")
 })
 
 test_that("unknown variables errors are ignored if `.strict` is FALSE", {
@@ -95,8 +92,8 @@ test_that("`-` handles strings", {
 })
 
 test_that("`-` handles character vectors (#35)", {
-  expect_identical(vars_select(letters, - (!! letters[1:20])), vars_select(letters, -(1:20)))
-  expect_error(vars_select(letters, - c("foo", "z", "bar")), class = "vctrs_error_subscript_oob")
+  expect_identical(vars_select(letters, -(!!letters[1:20])), vars_select(letters, -(1:20)))
+  expect_error(vars_select(letters, -c("foo", "z", "bar")), class = "vctrs_error_subscript_oob")
 })
 
 test_that("can select `c` despite overscoped c()", {
@@ -105,7 +102,7 @@ test_that("can select `c` despite overscoped c()", {
 
 test_that("vars_select() handles named character vectors", {
   expect_identical(vars_select(letters, c("A" = "y", "B" = "z")), vars_select(letters, A = y, B = z))
-  expect_identical(vars_select(letters, !! c("A" = "y", "B" = "z")), vars_select(letters, A = y, B = z))
+  expect_identical(vars_select(letters, !!c("A" = "y", "B" = "z")), vars_select(letters, A = y, B = z))
 })
 
 test_that("can select with length > 1 double vectors (#43)", {
@@ -113,6 +110,8 @@ test_that("can select with length > 1 double vectors (#43)", {
 })
 
 test_that("missing values are detected in vars_select() (#72)", {
+  local_options(lifecycle_verbosity = "quiet")
+
   expect_error(
     vars_select("foo", na_cpl),
     class = "vctrs_error_subscript_type"
@@ -164,7 +163,7 @@ test_that("vars_select() type-checks inputs", {
     class = "vctrs_error_subscript_type"
   )
 
-  verify_output(test_path("outputs", "vars-select-index-type.txt"), {
+  expect_snapshot(error = TRUE, {
     vars_select(letters, TRUE)
     vars_select(letters, 2.5)
     vars_select(letters, structure(1:3, class = "tidysel_foobar"))
@@ -233,17 +232,6 @@ test_that("vars_select() fails when renaming to same name", {
   expect_error(vars_select(letters[1:2], A = a, A = b), class = "vctrs_error_names_must_be_unique")
 })
 
-test_that("vars_select() fails informatively when renaming to same", {
-  skip("FIXME")
-  verify_output(test_path("outputs", "vars-select-renaming-to-same.txt"), {
-    "Renaming to same:"
-    vars_select(letters, foo = a, bar = b, foo = c, ok = d, bar = e)
-
-    "Renaming to existing:"
-    vars_select(letters, a = b, ok = c, d = e, everything())
-  })
-})
-
 test_that("vars_select() has consistent location errors", {
   expect_error(vars_select(letters, foo), class = "vctrs_error_subscript_oob")
   expect_error(vars_select(letters, -foo), class = "vctrs_error_subscript_oob")
@@ -251,7 +239,7 @@ test_that("vars_select() has consistent location errors", {
   expect_error(vars_select(letters, -100), class = "vctrs_error_subscript_oob")
   expect_error(vars_select(letters, !100), class = "vctrs_error_subscript_oob")
 
-  verify_output(test_path("outputs", "vars-select-oob-errors.txt"), {
+  expect_snapshot(error = TRUE, {
     "Bare names"
     vars_select(letters, foo)
     vars_select(letters, -foo)
@@ -309,7 +297,7 @@ test_that("when .strict = FALSE, vars_rename always succeeds", {
     c(A = "x")
   )
 
-  verify_output(test_path("outputs", "rename-strict-errors.txt"), {
+  expect_snapshot(error = TRUE, {
     vars_rename(c("a", "b"), d = e, .strict = TRUE)
     vars_rename(c("a", "b"), d = e, f = g, .strict = TRUE)
     vars_rename(c("a", "b"), d = "e", f = "g", .strict = TRUE)
@@ -326,6 +314,8 @@ test_that("vars_rename() sets variable context", {
 })
 
 test_that("vars_rename() supports `.data` pronoun", {
+  withr::local_options(lifecycle_verbosity = "quiet")
+
   expect_identical(vars_rename(c("a", "b"), B = .data$b), c(a = "a", B = "b"))
 })
 
@@ -338,6 +328,8 @@ test_that("vars_rename() unquotes named character vectors", {
 })
 
 test_that("missing values are detected in vars_rename() (#72)", {
+  local_options(lifecycle_verbosity = "quiet")
+
   expect_error(
     vars_rename(letters, A = na_cpl),
     class = "vctrs_error_subscript_type"
@@ -382,7 +374,7 @@ test_that("vars_rename() disallows renaming to same column", {
     class = "vctrs_error_names_must_be_unique"
   )
 
-  verify_output(test_path("outputs", "vars-rename-error-rename-to-same.txt"), {
+  expect_snapshot(error = TRUE, {
     "New column"
     vars_rename(c("a", "b", "c"), foo = a, foo = b)
 
@@ -408,7 +400,7 @@ test_that("vars_rename() disallows renaming to existing columns (#70)", {
     vars_rename(c("a", "b", "c"), b = a, c = b),
     class = "vctrs_error_names_must_be_unique"
   )
-  verify_output(test_path("outputs", "vars-rename-error-rename-to-existing.txt"), {
+  expect_snapshot(error = TRUE, {
     "One column"
     vars_rename(c("a", "b", "c"), b = a)
 
@@ -454,7 +446,7 @@ test_that("vars_rename() type-checks arguments", {
   expect_error(vars_rename(letters, A = 1.5), class = "vctrs_error_subscript_type")
   expect_error(vars_rename(letters, A = !!list()), class = "vctrs_error_subscript_type")
 
-  verify_output(test_path("outputs", "vars-rename-type-checking.txt"), {
+  expect_snapshot(error = TRUE, {
     vars_rename(letters, A = TRUE)
     vars_rename(letters, A = 1.5)
     vars_rename(letters, A = list())

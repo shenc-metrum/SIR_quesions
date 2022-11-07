@@ -37,7 +37,7 @@ namespace Rcpp{
 	// DE 03-Aug-2013
 	// here is an alternate form which would not set dimension which we could do
 	// for row and column vectors -- but the current form of return row and col
-        // as matrix types with one col (or row, respectively) is now entrenched
+    // as matrix types with one col (or row, respectively) is now entrenched
 	template <typename T>
 	SEXP arma_wrap(const T& object) {
 	    return ::Rcpp::wrap(object.memptr() , object.memptr() + object.n_elem);
@@ -149,7 +149,12 @@ namespace Rcpp{
     template <typename T>
     SEXP wrap( const arma::field<T>& data){
         RObject x = wrap( RcppArmadillo::FieldImporter<T>( data ) ) ;
-        x.attr("dim" ) = Dimension( data.n_rows, data.n_cols ) ;
+        #if defined(RCPP_ARMADILLO_FIX_Field)
+        //#if !defined(RCPP_ARMADILLO_OLD_Field_BEHAVIOR)
+        x.attr("dim") = Dimension(data.n_rows , data.n_cols , data.n_slices);
+        #else
+        x.attr("dim") = Dimension(data.n_rows, data.n_cols);
+        #endif
         return x ;
     }
 

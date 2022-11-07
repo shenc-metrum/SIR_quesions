@@ -362,7 +362,6 @@ test_that("confint", {
 })
 
 
-context("refit")
 test_that("refit", {
   s1 <- simulate(fm1)
   expect_is(refit(fm1,s1), "merMod")
@@ -495,7 +494,6 @@ if (testLevel>1) {
   })
 
   ## testLevel>1
-  context("simulate")
   test_that("simulate", {
     expect_is(simulate(gm2), "data.frame")
     expect_warning(simulate(gm2, ReForm = NA), "is deprecated")
@@ -619,6 +617,18 @@ if (testLevel>1) {
     g2 <- glmer(y2~x+(1|f),family=Gamma(link="log"),dd)
     expect_equal(fixef(g2), tolerance = 4e-7, # 32-bit windows showed 1.34e-7
                  c("(Intercept)" = 2.81887136759369, x= 1.06543222163626))
+
+    ## simulate with re.form = NULL and derived/offset components in formula
+    fm7 <- lmer(Reaction ~ Days + offset(Days) + (1|Subject), sleepstudy)
+    s7 <- simulate(fm7, seed = 101, re.form = NULL)
+    ## thought this would break but it doesn't ???
+    f_wrap <- function() { Reaction ~ Days + offset(Days) + (1|Subject) }
+    fm8 <- lmer(f_wrap(), sleepstudy)
+    s8 <- simulate(fm8, seed = 101, re.form = NULL)
+    expect_identical(s7, s8)
+
+    ## harder: insert NA values in the offset and see if it handles this OK??
+    
   })
 
   context("misc")
@@ -758,6 +768,24 @@ test_that("influence/hatvalues works", {
   expect_equal(nrow(dNAs),length(hatvalues(fitNAs)))
 })
 
+test_that("influence OK with tibbles", {
+  if (requireNamespace("tibble")) {
+    ## make small data set/example so influence() isn't too slow ...
+    ss <- tibble::as_tibble(sleepstudy[1:60,])
+    smallfit <- lmer(Reaction ~ 1 + (1 | Subject),
+                     data = ss)
+    i1 <- influence(smallfit, ncores = 1)
+    expect_equal(head(i1[["fixed.effects[-case]"]]),
+                 structure(c(286.35044481665, 286.179896199062,
+                             286.327301507498, 285.014692121823,
+                             284.36060419176, 283.297551183126),
+                           dim = c(6L, 1L),
+                           dimnames = list(c("1", "2", "3", "4", "5", "6"),
+                                           "(Intercept)")),
+                 tolerance = 1e-6)
+  }
+})
+
 test_that("rstudent", {
   rfm1 <- rstudent(fm1)
   expect_equal(unname(head(rfm1)),
@@ -779,9 +807,8 @@ test_that("cooks distance", {
 test_that("cooks distance on subject-level influence", {
   ifm1S <- influence(fm1, "Subject", ncores=1)
   expect_equal(
-      unname(head(cooks.distance(ifm1S))),
-      c(0.000503486560509076, 0.000361036591569186, 0.000152245842071491,
-        0.000147177769821806, 7.16702770634741e-05, 4.68752602437635e-06),
+      unname(head(cooks.distance(ifm1S),2)),
+      c(0.33921460279262, 0.290309061006305),
       tolerance = 1e-6)
 })
 
@@ -790,11 +817,11 @@ test_that("cooks distance on glmer models", {
   inf.h <- influence(gm1, "herd", ncores=1)
   cook <- cooks.distance(inf)
   expect_equal(unname(head(cook, 3)),
-               c(0.0533565328359536, 0.0371799913466958, 0.205950448747651),
+               c(0.0532998800033037, 0.0405931172763581, 0.252608337928438),
                tolerance = 1e-6)
   cook.h <- cooks.distance(inf.h)
   expect_equal(unname(head(cook.h, 3)),
-               c(0.276877818905867, 0.0064606582914577, 0.127335873462638),
+               c(0.256630560723611, 0.00525856231971531, 0.103355658099396),
                tolerance = 1e-6)
 })
 
@@ -837,7 +864,9 @@ if (testLevel>1) {
     expect_equal(c(head(i1[["fixed.effects[-case]"]],1)),
                  c(252.323536264131, 10.3222704729148))
   })
-  cooks.distance(i1)
+  cd <- cooks.distance(i1)
+  expect_equal(head(cd,2),
+               c(0.016503344184025, 0.0106634053477361))
   if (parallel::detectCores()>1) {
     test_that("parallel influence", {
       i2 <- suppressMessages(influence(fm1,ncores=2))
@@ -863,3 +892,25 @@ test_that("influence with nAGQ=0", {
   gm1Q0 <- update(gm1, nAGQ=0)
   expect_is(influence(gm1Q0), "influence.merMod")
 })
+
+if (testLevel>1) {
+  test_that("cook's distance comparison", {
+  ## generate data with zero variance
+  set.seed(101)
+  n <- 50
+  dd <- data.frame(x = rnorm(n),
+                   f = factor(rep(1:2, each = n/2)))
+  suppressMessages(dd$y <- simulate(~ x + (1|f),
+                                  newdata = dd,
+                                  newparams = list(beta = c(2,2),
+                                                   theta = 0,
+                                                   sigma = 5),
+                                  family = gaussian)[[1]])
+  suppressMessages(fm2 <- lmer(y~x + (1|f), dd, REML = FALSE))
+  fm2L <- lm(y~x , dd)
+  i2 <- influence(fm2)
+  ## hatvalues version does **not** match exactly ...
+  expect_equal(cooks.distance(i2), cooks.distance(fm2L))
+  expect_equal(cooks.distance(fm2), cooks.distance(fm2L), tolerance = 1e-2)
+  })
+} ## testLevel > 1

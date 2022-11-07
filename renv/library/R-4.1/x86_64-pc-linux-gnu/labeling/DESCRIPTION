@@ -14,7 +14,7 @@ Packaged: 2020-10-18 12:56:46 UTC; nuno
 OriginalRepository: CRAN
 Repository: MPN
 Date/Publication: 2020-10-20 07:00:09 UTC
-Built: R 4.1.1; ; 2022-05-11 22:15:03 UTC; unix
+Built: R 4.1.1; ; 2022-10-28 16:08:20 UTC; unix
 PkgrVersion: v3.0.0-rc1
 PkgrInstallType: binary
-PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2021-11-19/
+PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2022-10-20

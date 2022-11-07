@@ -45,8 +45,13 @@ test_that("default name repair can be overridden", {
   path <- tempfile()
   write_sas(df, path)
 
-  expect_message(read_sas(path), "id...1")
-  expect_message(read_sas(path, .name_repair = "minimal"), NA)
+  expect_message(
+    expect_equal(names(read_sas(path)), c("id...1", "id...2")),
+    "id...1"
+  )
+  expect_equal(names(read_sas(path, .name_repair = "minimal")), c("id", "id"))
+  expect_equal(names(read_sas(path, .name_repair = make.names)), c("id", "id"))
+  expect_equal(names(read_sas(path, .name_repair = ~rep_len("a", length(.x)))), c("a", "a"))
 })
 
 test_that("connections are read", {
@@ -100,7 +105,7 @@ test_that("throws informative error on bad row limit", {
   }
 
   expect_error(rows_with_limit(1:5), "must have length 1")
-  expect_error(rows_with_limit("foo"), "must be numeric")
+  expect_error(rows_with_limit("foo"), "must be <numeric>")
 })
 
 # Column selection --------------------------------------------------------
@@ -176,11 +181,17 @@ test_that("can write labelled with NULL labels", {
 
 test_that("can roundtrip date times", {
   x1 <- c(as.Date("2010-01-01"), NA)
-  x2 <- as.POSIXct(x1)
-  attr(x2, "tzone") <- "UTC"
-
   expect_equal(roundtrip_var(x1, "sas"), x1)
-  expect_equal(roundtrip_var(x2, "sas"), x2)
+
+  # converted to same time in UTC
+  x2 <- as.POSIXct("2010-01-01 09:00", tz = "Pacific/Auckland")
+  expect_equal(
+    roundtrip_var(x2, "sas"),
+    as.POSIXct("2010-01-01 09:00", tz = "UTC")
+  )
+
+  attr(x2, "label") <- "abc"
+  expect_equal(attr(roundtrip_var(x2, "sas"), "label"), "abc")
 })
 
 test_that("can roundtrip format attribute", {
@@ -231,4 +242,35 @@ test_that("invalid files generate informative errors", {
   expect_snapshot(error = TRUE, {
     write_xpt(mtcars, file.path(tempdir(), " temp.xpt"))
   })
+})
+
+test_that("can roundtrip file labels", {
+  df <- tibble(x = 1)
+  expect_null(attr(roundtrip_xpt(df), "label"))
+  expect_equal(attr(roundtrip_xpt(df, label = "abcd"), "label"), "abcd")
+
+  attr(df, "label") <- "abc"
+  expect_equal(attr(roundtrip_xpt(df), "label"), "abc")
+  expect_equal(attr(roundtrip_xpt(df, label = "abcd"), "label"), "abcd")
+  expect_null(attr(roundtrip_xpt(df, label = NULL), "label"))
+})
+
+test_that("can roundtrip format attribute", {
+  df <- tibble(
+    char_var = structure("Hello!", format.sas = "$CHAR"),
+    long_char = structure("111111111111111", format.sas = "$CHAR10"),
+    date_var = structure(Sys.Date(), format.sas = "DATE9"),
+    a = structure(100.12345, format.sas = "10.3"),
+    b = structure(100.12345, format.sas = "10"),
+    c = structure(100.12345, format.sas = "F10.3"),
+    d = structure(100.12345, format.sas = "F10"),
+    e = structure(100.12345, format.sas = "COMMA10.3")
+  )
+
+  path <- tempfile()
+
+  write_xpt(df, path)
+  out <- read_xpt(path)
+
+  expect_identical(df, out)
 })

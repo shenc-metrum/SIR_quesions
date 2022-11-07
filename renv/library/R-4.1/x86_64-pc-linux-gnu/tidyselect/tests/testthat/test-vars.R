@@ -1,5 +1,3 @@
-context("vars")
-
 test_that("local_vars() restores previous state", {
   vars <- c("a", "b", "c")
   local_vars(vars)
@@ -61,4 +59,15 @@ test_that("full data is in scope", {
 
 test_that("peek_data() fails informatively", {
   expect_error(peek_data(), "must be used within")
+})
+
+test_that("generic error message is thrown if `fn` is not supplied", {
+  expect_snapshot(peek_vars(), error = TRUE)
+
+  withr::local_options(cli.hyperlink = TRUE, rlang_interactive = TRUE)
+  expect_snapshot(peek_vars(), error = TRUE)
+})
+
+test_that("custom error message is thrown if `fn` is supplied", {
+  expect_error(peek_vars(fn = "z"), "`z()` must be used", fixed = TRUE)
 })

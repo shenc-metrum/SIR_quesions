@@ -28,7 +28,7 @@ Maintainer: Brian Ripley <ripley@stats.ox.ac.uk>
 OriginalRepository: CRAN
 Repository: MPN
 Date/Publication: 2021-05-03 14:06:48 UTC
-Built: R 4.1.1; x86_64-pc-linux-gnu; 2022-05-11 22:17:38 UTC; unix
+Built: R 4.1.1; x86_64-pc-linux-gnu; 2022-10-28 16:10:55 UTC; unix
 PkgrVersion: v3.0.0-rc1
 PkgrInstallType: binary
-PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2021-11-19/
+PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2022-10-20

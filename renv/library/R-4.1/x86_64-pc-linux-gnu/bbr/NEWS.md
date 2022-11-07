@@ -1,3 +1,121 @@
+# bbr 1.4.0
+
+## New features and changes
+
+- The new `.include` argument of `config_log()`, `run_log()`, and
+  `summary_log()` limits the result to the specified run names or tags.  (#484,
+  #526)
+
+- Models can now be starred.  See `add_star()` and `remove_star()`.  (#487)
+
+- New convenience functions `get_omega()`, `get_sigma()`, and `get_theta()`
+  return labeled values, with the `OMEGA` and `SIGMA` values expanded to a full
+  matrix.  (#515)
+
+- `param_estimates` gained an `.alpha` argument that's useful for identifying
+  the ETAs flagged by the `eta_pval_significant` heuristic.  (#497)
+
+- `nm_join()` now aborts if the join column has duplicate values, suggesting to
+  the caller that the table format probably needs to be widened to prevent
+  NONMEM from truncating the values.  (#533)
+
+- If the caller specifies a `threads` value above one in `.bbi_args` but does
+  _not_ specify `parallel`, `parallel = TRUE` is added so that the `threads`
+  value is in effect.  (#514)
+
+- New functions `check_nonmem_finished()` and `wait_for_nonmem()` enable
+  checking and waiting on models submitted to the grid.  (#480)
+
+- Added `test_threads()` for benchmarking simulation run times with various
+  threads values.  (#473, #489, #519, #542)
+
+- Added `check_run_times()` for checking the estimation times of model runs.
+  (#473, #489, #511)
+
+- Added `delete_models()` for removing all model files associated with
+  specified model tags.  (#473)
+
+- Updated parallel tips and tricks vignette to reference new `test_threads()`
+  function and related helpers.  (#503)
+
+- bbi encodes "unspecified" and `NA` values as `-999999999`.  bbr now maps all
+  occurrences of this value to `NA` when creating a model summary object.
+  (#524)
+
+- When bbi v3.2.0 or later is available, `model_summaries()` now uses bbi's
+  concurrency rather than calling `model_summary()` on each model, leading to a
+  speed up when many models are passed.  (#527)
+
+- `model_diff()` learned to print a message rather than call
+  `diffobj::diffFile()` when there are no changes to avoid confusingly
+  displaying the entire file.  (#522)
+
+- `use_bbi` now creates leading directories if needed.  (#499)
+
+- `new_model` now ignores the extension of the supplied path.  (#510)
+
+- The output of `print_bbi_args` has been reworked to make it easier to digest.
+  (#537)
+
+## Bug fixes
+
+- `nm_join()` did not reliably sort the resulting data frame when passed
+  `.superset = TRUE`.  (#508)
+
+- `nm_file()` and friends now detect duplicate column names and make them
+  unique.  (#530, #539)
+
+- Unlike `submit_model()`, `submit_models()` didn't abort when `bbi.yaml` was
+  missing.  (#496)
+
+- In combination with a change in bbi v3.2.0, `model_summary()` can now handle
+  `.lst` files that have `NaN` objective function values.  (#506)
+
+
+# bbr 1.3.1
+
+## Bug fixes
+
+- Added support for `$TAB` syntax in `nm_table_files()`. (#466)
+
+## Developer-facing changes
+
+- Added YAML file and script in `inst/validation/` for creating validation documents with `mrgvalidate`. (#469) 
+
+# bbr 1.3.0
+
+## New features
+
+- Added `param_estimates_compare()` for comparing the result of `param_estimates_batch()` to a single model (or, more generally, for comparing a set of parameter estimates). (#457)
+
+## Bug fixes
+
+- `param_estimates_batch()` now transforms the parameter names that come from `bbi nonmem params ...`, replacing `_` with `,` to match the format that is used elsewhere and expected by downstream tools. (#457)
+
+
+# bbr 1.2.1
+
+## Docs
+
+* New functions from the 1.2.0 release are now mentioned in the docs. (#440)
+
+## Changes
+
+* `use_bbi()` no longer depends on external tools such as `wget` and `tar`, hopefully improving its reliability across different systems. (#448)
+
+## Bug fixes
+
+* `use_bbi()` printed the wrong current release when an older version was requested. (#144)
+
+* `use_bbi()` and `bbi_version()` crashed if the bbi executable path contained spaces. (#409)
+
+* `model_summary()` failed with an unclear error message when a caller accidentally placed more than one `.lst` file in the model directory. (#449)
+
+* `bbi_help()` had a longstanding regression that prevented it from emitting any output. (#447)
+
+* `bbi nonmem summary` used to fail with an out-of-bounds error when fed `ONLYSIM` output, but, as of bbi v3.1.1, it sets the "only_sim" field.  `print.bbi_nonmem_summary()` and `param_estimates.bbi_nonmem_summary()` have been updated to check for the new field. (#443)
+
+
 # bbr 1.2.0
 
 This release adds a number of helper functions, primarily for use with NONMEM models.

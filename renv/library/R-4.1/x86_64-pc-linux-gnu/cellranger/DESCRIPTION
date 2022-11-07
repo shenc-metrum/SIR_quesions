@@ -24,7 +24,7 @@ Maintainer: Jennifer Bryan <jenny@stat.ubc.ca>
 OriginalRepository: CRAN
 Repository: MPN
 Date/Publication: 2016-07-27 03:17:48
-Built: R 4.1.1; ; 2022-05-11 22:24:01 UTC; unix
+Built: R 4.1.1; ; 2022-10-28 16:22:30 UTC; unix
 PkgrVersion: v3.0.0-rc1
 PkgrInstallType: binary
-PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2021-11-19/
+PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2022-10-20

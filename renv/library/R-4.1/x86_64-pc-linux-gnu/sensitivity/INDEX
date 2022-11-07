@@ -1,12 +1,10 @@
 addelman_const          Addelman and Kempthorne construction
+correlRatio             Correlation Ratio
 decoupling              Decoupling Simulations and Estimations
 delsa                   Distributed Evaluation of Local Sensitivity
                         Analysis
 discrepancyCriteria_cplus
                         Discrepancy measure
-emvd                    Exclusion-respecting Marginal
-                        explained-Variance Decomposition indices for
-                        linear and logistic models
 fast99                  Extended Fourier Amplitude Sensitivity Test
 lmg                     LMG R-squared decomposition for linear and
                         logistic regression models
@@ -33,6 +31,8 @@ plot.support            Support index functions: Measuring the effect
                         of input variables over their support
 pme_knn                 Data-given proportional marginal effects
                         estimation via nearest-neighbors procedure
+pmvd                    Proportional Marginal Variance Decomposition
+                        indices for linear and logistic models
 PoincareChaosSqCoef     Squared coefficients computation in generalized
                         chaos
 PoincareConstant        Poincare constants for Derivative-based Global
@@ -43,8 +43,8 @@ qosa                    Quantile-oriented sensitivity analysis
 sb                      Sequential Bifurcations
 sensiFdiv               Sensitivity Indices based on Csiszar
                         f-divergence
-sensiHSIC               Sensitivity Indices based on Hilbert-Schmidt
-                        Independence Criterion (HSIC)
+sensiHSIC               Sensitivity Indices based on the
+                        Hilbert-Schmidt Independence Criterion (HSIC)
 sensitivity-package     Sensitivity Analysis
 shapleyBlockEstimation
                         Computation of the Shapley effects in the
@@ -110,6 +110,8 @@ src                     Standardized Regression Coefficients
 support                 Support index functions: Measuring the effect
                         of input variables over their support
 template.replace        Replace Values in a Template Text
+testHSIC                Tests of Independence based on the
+                        Hilbert-Schmidt Independence Criterion (HSIC)
 testmodels              Test Models for Sensitivity Analysis
 truncateddistrib        Truncated distributions
 weightTSA               Weight-function to transform an output variable

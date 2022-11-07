@@ -1,9 +1,9 @@
 Package: future
-Version: 1.23.0
+Version: 1.28.0
 Title: Unified Parallel and Distributed Processing in R for Everyone
-Imports: digest, globals (>= 0.14.0), listenv (>= 0.8.0), parallel,
-        parallelly (>= 1.26.1), tools, utils
-Suggests: RhpcBLASctl, R.rsp, markdown
+Imports: digest, globals (>= 0.16.0), listenv (>= 0.8.0), parallel,
+        parallelly (>= 1.32.1), tools, utils
+Suggests: methods, RhpcBLASctl, R.rsp, markdown
 VignetteBuilder: R.rsp
 Authors@R: c(person("Henrik", "Bengtsson", role=c("aut", "cre", "cph"),
                                           email = "henrikb@braju.com"))
@@ -29,15 +29,15 @@ ByteCompile: TRUE
 URL: https://future.futureverse.org,
         https://github.com/HenrikBengtsson/future
 BugReports: https://github.com/HenrikBengtsson/future/issues
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.1
 NeedsCompilation: no
-Packaged: 2021-10-31 03:16:06 UTC; hb
+Packaged: 2022-09-02 12:41:41 UTC; hb
 Author: Henrik Bengtsson [aut, cre, cph]
 Maintainer: Henrik Bengtsson <henrikb@braju.com>
 OriginalRepository: CRAN
 Repository: MPN
-Date/Publication: 2021-10-31 06:30:02 UTC
-Built: R 4.1.1; ; 2022-01-25 21:34:58 UTC; unix
+Date/Publication: 2022-09-02 13:40:02 UTC
+Built: R 4.1.1; ; 2022-10-28 16:14:37 UTC; unix
 PkgrVersion: v3.0.0-rc1
 PkgrInstallType: binary
-PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2021-11-19/
+PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2022-10-20

@@ -76,9 +76,88 @@
       pillar(add_special(x), width = 14)
     Output
       <pillar>
-             <int64>
-                   0
-        100000000001
-       1000000000002
-                  NA
+            <int64>
+                  0
+       100000000001
+      1000000000002
+                 NA
+
+# integer64 output uses underlines correctly
+
+    Code
+      pillar(bit64::as.integer64(c(1, 10000)))
+    Output
+      <pillar>
+      [3m[90m<int64>[39m[23m
+            1
+        [4m1[24m[4m0[24m000
+
+# nanotime works (#378)
+
+    Code
+      pillar(x, width = 16)
+    Output
+      <pillar>
+      <nanotime>      
+      2011-12-05T08:3~
+    Code
+      pillar(x, width = 17)
+    Output
+      <pillar>
+      <nanotime>       
+      2011-12-05T08:30~
+    Code
+      pillar(x, width = 18)
+    Output
+      <pillar>
+      <nanotime>        
+      2011-12-05T08:30:~
+    Code
+      pillar(x, width = 19)
+    Output
+      <pillar>
+      <nanotime>         
+      2011-12-05T08:30:0~
+    Code
+      pillar(x, width = 20)
+    Output
+      <pillar>
+      <nanotime>          
+      2011-12-05T08:30:00~
+    Code
+      pillar(x, width = 21)
+    Output
+      <pillar>
+      <nanotime>           
+      2011-12-05T08:30:00+~
+    Code
+      pillar(x, width = 22)
+    Output
+      <pillar>
+      <nanotime>            
+      2011-12-05T08:30:00+0~
+    Code
+      pillar(x, width = 23)
+    Output
+      <pillar>
+      <nanotime>             
+      2011-12-05T08:30:00+00~
+    Code
+      pillar(x, width = 24)
+    Output
+      <pillar>
+      <nanotime>              
+      2011-12-05T08:30:00+00:~
+    Code
+      pillar(x, width = 25)
+    Output
+      <pillar>
+      <nanotime>               
+      2011-12-05T08:30:00+00:00
+    Code
+      pillar(x, width = 26)
+    Output
+      <pillar>
+      <nanotime>               
+      2011-12-05T08:30:00+00:00
 

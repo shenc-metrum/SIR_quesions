@@ -1,8 +1,8 @@
 Package: future.apply
-Version: 1.8.1
+Version: 1.9.1
 Title: Apply Function to Elements in Parallel using Futures
-Depends: R (>= 3.2.0), future (>= 1.21.0)
-Imports: globals (>= 0.14.0), parallel, utils
+Depends: R (>= 3.2.0), future (>= 1.27.0)
+Imports: globals (>= 0.16.1), parallel, utils
 Suggests: datasets, stats, tools, listenv (>= 0.8.0), R.rsp, markdown
 VignetteBuilder: R.rsp
 Authors@R: c(person("Henrik", "Bengtsson", role=c("aut", "cre", "cph"),
@@ -14,16 +14,16 @@ LazyLoad: TRUE
 URL: https://future.apply.futureverse.org,
         https://github.com/HenrikBengtsson/future.apply
 BugReports: https://github.com/HenrikBengtsson/future.apply/issues
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.1
 NeedsCompilation: no
-Packaged: 2021-08-10 12:15:45 UTC; hb
+Packaged: 2022-09-07 09:51:29 UTC; hb
 Author: Henrik Bengtsson [aut, cre, cph],
   R Core Team [cph, ctb]
 Maintainer: Henrik Bengtsson <henrikb@braju.com>
 OriginalRepository: CRAN
 Repository: MPN
-Date/Publication: 2021-08-10 13:00:02 UTC
-Built: R 4.1.1; ; 2022-05-11 22:21:57 UTC; unix
+Date/Publication: 2022-09-07 13:50:02 UTC
+Built: R 4.1.1; ; 2022-10-28 16:16:32 UTC; unix
 PkgrVersion: v3.0.0-rc1
 PkgrInstallType: binary
-PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2021-11-19/
+PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2022-10-20

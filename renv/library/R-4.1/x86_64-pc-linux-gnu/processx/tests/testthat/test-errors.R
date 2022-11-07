@@ -1,6 +1,4 @@
 
-context("errors")
-
 test_that("run() prints stderr if echo = FALSE", {
   px <- get_tool("px")
   err <- tryCatch(
@@ -59,4 +57,19 @@ test_that("prints full stderr in non-interactive mode", {
   out <- callr::rscript(script, fail_on_status = FALSE, show = FALSE)
   expect_match(out$stderr, "foobar1--")
   expect_match(out$stderr, "foobar20--")
+})
+
+test_that("output from error", {
+
+  out <- run_script({
+    processx::run(
+      processx:::get_tool("px"),
+      c("errln", paste(1:20, collapse = "\n"), "return", "100")
+    )
+  })
+
+  expect_snapshot(
+    cat(out$stderr),
+    transform = function(x) scrub_px(scrub_srcref(x))
+  )
 })

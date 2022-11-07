@@ -22,7 +22,7 @@ Maintainer: Hadley Wickham <hadley@rstudio.com>
 OriginalRepository: CRAN
 Repository: MPN
 Date/Publication: 2019-03-21 14:53:46 UTC
-Built: R 4.1.1; ; 2022-05-11 22:15:25 UTC; unix
+Built: R 4.1.1; ; 2022-10-28 16:10:49 UTC; unix
 PkgrVersion: v3.0.0-rc1
 PkgrInstallType: binary
-PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2021-11-19/
+PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2022-10-20

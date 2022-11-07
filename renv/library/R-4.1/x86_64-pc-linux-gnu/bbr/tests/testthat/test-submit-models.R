@@ -35,7 +35,7 @@ withr::with_options(list(bbr.bbi_exe_path = read_bbi_path()), {
               # check call
               expect_identical(
                 proc_list[[1]][[PROC_CALL]],
-                as.character(glue("cd {model_dir} ; {read_bbi_path()} nonmem run sge {paste(mod_ctl_path, collapse = ' ')} --overwrite --threads=4"))
+                as.character(glue("cd {model_dir} ; {read_bbi_path()} nonmem run sge {paste(mod_ctl_path, collapse = ' ')} --overwrite --parallel --threads=4"))
               )
             })
 
@@ -72,8 +72,12 @@ withr::with_options(list(bbr.bbi_exe_path = read_bbi_path()), {
             })
 
   test_that("submit_models() works for models in different directories [BBR-SBMT-011]", {
-    new_dir <- "level2"
-    fs::dir_create(file.path(MODEL_DIR, new_dir))
+    new_dir <- file.path(ABS_MODEL_DIR, "level2")
+    fs::dir_create(new_dir)
+
+    # create fake bbi.yaml
+    readr::write_file("created_by: test-submit-models", file.path(new_dir, "bbi.yaml"))
+    on.exit({ fs::file_delete(file.path(new_dir, "bbi.yaml")) })
     on.exit(cleanup())
 
     # TODO: use test helper functions, e.g., create_all_models(), once the
@@ -132,7 +136,7 @@ withr::with_options(list(bbr.bbi_exe_path = read_bbi_path()), {
       as.character(
         glue::glue(
           "cd {model_dir} ;",
-          "{read_bbi_path()} nonmem run sge {mod_ctl_path[[1L]]} --overwrite --threads=4",
+          "{read_bbi_path()} nonmem run sge {mod_ctl_path[[1L]]} --overwrite --parallel --threads=4",
           "--config={temp_config}",
           .sep = " "
         )
@@ -144,14 +148,14 @@ withr::with_options(list(bbr.bbi_exe_path = read_bbi_path()), {
     # set existing arguments to NULL via `.bbi_args`
     res <- submit_models(
       list(MOD1),
-      .bbi_args = list(overwrite = NULL, threads = NULL),
+      .bbi_args = list(overwrite = NULL, threads = NULL, parallel = TRUE),
       .dry_run = TRUE
     )
 
     expect_identical(
       res[[1L]][[PROC_CALL]],
       as.character(
-        glue::glue("cd {model_dir} ; {read_bbi_path()} nonmem run sge {mod_ctl_path[[1L]]}")
+        glue::glue("cd {model_dir} ; {read_bbi_path()} nonmem run sge {mod_ctl_path[[1L]]} --parallel")
       )
     )
 
@@ -159,6 +163,10 @@ withr::with_options(list(bbr.bbi_exe_path = read_bbi_path()), {
     temp_mod_path <- create_temp_model()
     mod <- read_model(temp_mod_path)
     mod <- replace_all_bbi_args(mod, NULL)
+
+    # create fake bbi.yaml
+    readr::write_file("created_by: test-submit-models", file.path(dirname(temp_mod_path), "bbi.yaml"))
+    on.exit({ fs::file_delete(file.path(dirname(temp_mod_path), "bbi.yaml")) })
 
     res <- submit_models(list(mod), .dry_run = TRUE)
 
@@ -178,7 +186,7 @@ withr::with_options(list(bbr.bbi_exe_path = read_bbi_path()), {
     withr::with_options(list(bbr.bbi_exe_mode = "local"), {
       expect_identical(
         submit_models(list(MOD1), .dry_run = T)[[1]][[PROC_CALL]],
-        as.character(glue("cd {model_dir} ; {read_bbi_path()} nonmem run local {ABS_CTL_PATH} --overwrite --threads=4"))
+        as.character(glue("cd {model_dir} ; {read_bbi_path()} nonmem run local {ABS_CTL_PATH} --overwrite --parallel --threads=4"))
       )
     })
   })

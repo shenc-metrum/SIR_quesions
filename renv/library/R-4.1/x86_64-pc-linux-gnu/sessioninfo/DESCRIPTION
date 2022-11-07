@@ -1,6 +1,6 @@
 Package: sessioninfo
 Title: R Session Information
-Version: 1.2.1
+Version: 1.2.2
 Authors@R: 
     c(person(given = "Gábor",
              family = "Csárdi",
@@ -35,12 +35,12 @@ Depends: R (>= 2.10)
 Imports: cli (>= 3.1.0), tools, utils
 Suggests: callr, covr, mockery, reticulate, rmarkdown, testthat, withr
 Encoding: UTF-8
-RoxygenNote: 7.1.2
+RoxygenNote: 7.1.2.9000
 Config/testthat/edition: 3
 Config/Needs/website: pkgdown
 Config/testthat/parallel: true
 NeedsCompilation: no
-Packaged: 2021-11-02 17:07:37 UTC; gaborcsardi
+Packaged: 2021-12-06 11:31:46 UTC; gaborcsardi
 Author: Gábor Csárdi [cre],
   Hadley Wickham [aut],
   Winston Chang [aut],
@@ -50,8 +50,8 @@ Author: Gábor Csárdi [cre],
   R Core team [ctb]
 OriginalRepository: CRAN
 Repository: MPN
-Date/Publication: 2021-11-02 22:20:09 UTC
-Built: R 4.1.1; ; 2022-01-25 21:35:08 UTC; unix
+Date/Publication: 2021-12-06 11:50:02 UTC
+Built: R 4.1.1; ; 2022-10-28 16:12:08 UTC; unix
 PkgrVersion: v3.0.0-rc1
 PkgrInstallType: binary
-PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2021-11-19/
+PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2022-10-20

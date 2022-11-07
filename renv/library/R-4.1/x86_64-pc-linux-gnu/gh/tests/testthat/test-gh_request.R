@@ -16,22 +16,30 @@ test_that("method arg sets default method", {
 test_that("parameter substitution is equivalent to direct specification (:)", {
   subst <-
     gh_build_request("POST /repos/:org/:repo/issues/:number/labels",
-                     params = list(org = "ORG", repo = "REPO", number = "1",
-                                   "body"))
+      params = list(
+        org = "ORG", repo = "REPO", number = "1",
+        "body"
+      )
+    )
   spec <-
     gh_build_request("POST /repos/ORG/REPO/issues/1/labels",
-                     params = list("body"))
+      params = list("body")
+    )
   expect_identical(subst, spec)
 })
 
 test_that("parameter substitution is equivalent to direct specification", {
   subst <-
     gh_build_request("POST /repos/{org}/{repo}/issues/{number}/labels",
-                     params = list(org = "ORG", repo = "REPO", number = "1",
-                                   "body"))
+      params = list(
+        org = "ORG", repo = "REPO", number = "1",
+        "body"
+      )
+    )
   spec <-
     gh_build_request("POST /repos/ORG/REPO/issues/1/labels",
-                     params = list("body"))
+      params = list("body")
+    )
   expect_identical(subst, spec)
 })
 
@@ -106,4 +114,8 @@ test_that("gh_set_url() ensures URL is in 'API form'", {
   input$api_url <- "https://github.acme.com"
   out <- gh_set_url(input)
   expect_equal(out$api_url, "https://github.acme.com/api/v3")
+})
+
+test_that("gh_make_request() errors if unknown verb", {
+  expect_snapshot_error(gh("geeet /users/hadley/repos", .limit = 2))
 })

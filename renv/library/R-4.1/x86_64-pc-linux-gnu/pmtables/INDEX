@@ -45,6 +45,9 @@ rowpanel                Create panel object
 sig                     Format digits
 st_align                Add column alignment information to st object
 st_args                 Add other arguments to st object
+st_as_image             Display table from pdf image
+st_aspdf                Render stable object to pdf file
+st_aspng                Render stable object in png format
 st_blank                Add column blank information to st object
 st_bold                 Render table data in bold or italic font
 st_clear_reps           Add clear rep information to st object
@@ -53,10 +56,19 @@ st_drop                 Drop data columns
 st_edit                 Edit table contents
 st_files                Add file name information to st object
 st_hline                Add hline information to st object
+st_image_show           Show table output that has been saved to pdf or
+                        png format
 st_make                 Convert st object to table output
 st_new                  Create an st object
 st_noteconf             Add note config information to st object
 st_notes                Add note information to st object
+st_notes_app            Append a note to the previous position of a
+                        note vector
+st_notes_detach         Detach table notes from the table
+st_notes_rm             Remove notes from the table
+st_notes_str            Convert existing note vector into a single
+                        string
+st_notes_sub            Edit lines in table notes
 st_panel                Add panel information to st object
 st_preview              Preview an stable object
 st_rename               Add column rename information to st object

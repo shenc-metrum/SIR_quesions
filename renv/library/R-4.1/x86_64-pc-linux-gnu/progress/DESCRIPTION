@@ -21,7 +21,7 @@ Packaged: 2019-05-15 20:28:47 UTC; gaborcsardi
 OriginalRepository: CRAN
 Repository: MPN
 Date/Publication: 2019-05-16 21:30:03 UTC
-Built: R 4.1.1; ; 2022-05-11 22:23:52 UTC; unix
+Built: R 4.1.1; ; 2022-10-28 16:19:03 UTC; unix
 PkgrVersion: v3.0.0-rc1
 PkgrInstallType: binary
-PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2021-11-19/
+PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2022-10-20

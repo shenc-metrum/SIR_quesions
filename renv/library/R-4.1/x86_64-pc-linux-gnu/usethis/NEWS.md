@@ -1,3 +1,33 @@
+# usethis 2.1.6
+
+### GitHub-related
+
+`use_github_action()` and friends gain a `ref` argument, which defaults to the tag of the latest release in <https://github.com/r-lib/actions> (#1541).
+
+`use_github_actions_badge()` now uses the same URLs as GitHub does via the "Create status badge" helper in the browser (#1525). This changes the significance of the `name` argument; now it really must be the name of the workflow configuration file.
+
+All functions error more clearly when the requested operation is not supported for the "theirs" remote configuration (#1588).
+
+### Other changes
+
+`use_roxygen_md()` gains an `overwrite` argument (#1599).
+
+`use_rscloud_badge()` is a new function that creates a README badge indicating the repository can be launched in an [RStudio Cloud](https://rstudio.cloud) project (@gvelasq, #1584).
+
+`use_data()` gains an `ascii` argument, which is passed along to `save()` (@JosiahParry, #1625).
+
+`use_code_of_conduct()` has been updated to version 2.1 of the Contributor Covenant (@batpigandme, #1591).
+
+# usethis 2.1.5
+
+pkgdown-related functions no longer automatically strip a trailing slash from the pkgdown site URL, in order to play more nicely with CRAN's URL checks (#1526).
+
+`edit_pkgdown_config()` is a new function that opens the pkgdown YAML configuration file for the current Project, if such a file exists.
+
+The error thrown when reporting an unsupported GitHub configuration has been fixed for forward compatibility with a future version of rlang, i.e. what is anticipated to be rlang v1.0.0.
+
+Version 2.1.4 was never released. Version was advanced from 2.1.4 to 2.1.5 strictly for CRAN (re-)submission purposes.
+
 # usethis 2.1.3
 
 Modified a test to ensure that intermittent GitHub rate limiting does not lead to ungraceful failure on CRAN. 
@@ -79,9 +109,10 @@ usethis has a more sophisticated understanding of the default branch and gains s
 
 ## Package development
 
-* `use_readme_[r]?md()` no longer includes CRAN installation instructions in the
-  initial template; instead, we only include GitHub-based install instructions
-  or otherwise prompt the user to update instructions (#1507).
+* `use_readme_rmd()` and `use_readme_md()` no longer include CRAN installation
+  instructions in the initial template; instead, we only include GitHub-based
+  install instructions or otherwise prompt the user to update instructions
+  (#1507).
 
 * `use_import_from()` is a new function that puts `@importFrom pkg fun`
   directives into a package in a consistent location (@malcolmbarrett, #1377).
@@ -285,7 +316,7 @@ The `name` argument to `use_mit_license()` has been changed to `copyright_holder
 
 ## RStudio preferences
 
-usethis is now fully cognizant of the [changes to RStudio preferences](https://blog.rstudio.com/2020/02/18/rstudio-1-3-preview-configuration/) in RStudio 1.3:
+usethis is now fully cognizant of the [changes to RStudio preferences](https://www.rstudio.com/blog/rstudio-1-3-preview-configuration/) in RStudio 1.3:
 
 `edit_rstudio_snippets()` looks in the new location, and if you have snippets in the old location, will automatically copy them to the new location (#1204)
 

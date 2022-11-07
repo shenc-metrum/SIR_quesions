@@ -266,6 +266,101 @@ test_that("can compare R6 objects", {
   })
 })
 
+test_that("Named environments compare by reference", {
+  expect_snapshot({
+    compare(baseenv(), globalenv())
+    compare(baseenv(), new.env())
+    compare(new.env(), baseenv())
+  }, transform = scrub_environment)
+})
+test_that("unnamed arguments compare by value", {
+  expect_snapshot({
+    e1 <- new.env(parent = emptyenv())
+    e2 <- new.env(parent = emptyenv())
+    compare(e1, e2)
+
+    e1$x <- 10
+    e2$x <- 11
+    compare(e1, e2)
+
+    e2$x <- 10
+    compare(e1, e2)
+  }, transform = scrub_environment)
+})
+test_that("compares parent envs", {
+  expect_snapshot({
+    e1 <- new.env(parent = emptyenv())
+    e1$x <- 1
+    e2 <- new.env(parent = emptyenv())
+    e2$x <- 2
+
+    e3 <- new.env(parent = e1)
+    e4 <- new.env(parent = e2)
+
+    compare(e3, e4)
+  }, transform = scrub_environment)
+})
+test_that("don't get caught in endless loops", {
+  expect_snapshot({
+    e1 <- new.env(parent = emptyenv())
+    e2 <- new.env(parent = emptyenv())
+
+    e1$x <- 10
+    e1$y <- e1
+
+    e2$x <- 10
+    e2$y <- e1
+
+    compare(e1, e2)
+
+    e2$y <- e2
+    compare(e1, e2)
+  }, transform = scrub_environment)
+})
+test_that("only shows paired env different once", {
+  expect_snapshot({
+    e1 <- new.env(parent = emptyenv())
+    e2 <- new.env(parent = emptyenv())
+    e3 <- new.env(parent = emptyenv())
+    e1$x <- 1
+    e2$x <- 2
+    e3$x <- 3
+
+    compare(list(e1, e1, e1), list(e2, e2, e3))
+  }, transform = scrub_environment)
+})
+test_that("can compare classed environments", {
+  e1 <- new.env(parent = emptyenv())
+  class(e1) <- "foo"
+  e2 <- new.env(parent = emptyenv())
+  class(e2) <- "foo"
+
+  expect_equal(compare(e1, e2), new_compare())
+})
+
+test_that("can compare CHARSXP", {
+  skip_if(interactive())
+
+  char1 <- readRDS(test_path("charsxp-1.rds"))
+  char2 <- readRDS(test_path("charsxp-2.rds"))
+
+  expect_snapshot({
+    compare(char1, char2)
+    compare(char1, "foo")
+  })
+
+})
+
+test_that("differences in DOTSXP are ignored", {
+  f <- function(...) {
+    environment()
+  }
+  e <- f(1, 2, 3)
+  expect_snapshot({
+    compare(f(1), f(1, 2))
+  })
+})
+
 test_that("comparing language objects gives useful diffs", {
   expect_snapshot({
     compare(quote(a), quote(b))

@@ -27,6 +27,7 @@
     </style>
 
 
+
 <style type="text/css">
   code {
     white-space: pre;
@@ -210,37 +211,73 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3>Passing arguments to bbi</h3>
 <p>There are a number of arguments that <code>bbi</code> can take to modify how models are run. You can print a list of available arguments using the <code>print_bbi_args()</code> helper function.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print_bbi_args</span>()</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; additional_post_work_envs (character) -- Any additional values (as ENV KEY=VALUE) to provide for the post execution environment (sets CLI flag `--additional_post_work_envs`)</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; background (logical) -- RAW NMFE OPTION - Tells nonmem not to scan StdIn for control characters (sets CLI flag `--background`)</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; clean_lvl (numeric) -- clean level used for file output from a given (set of) runs (default 1) (sets CLI flag `--clean_lvl`)</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; config (character) -- Path (relative or absolute) to another bbi.yaml to load (sets CLI flag `--config`)</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; copy_lvl (numeric) -- copy level used for file output from a given (set of) runs (sets CLI flag `--copy_lvl`)</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; debug (logical) -- debug mode (sets CLI flag `--debug`)</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; delay (numeric) -- Selects a random number of seconds between 1 and this value to stagger / jitter job execution. Assists in dealing with large volumes of work dealing with the same data set. May avoid NMTRAN issues about not being able read / close files (sets CLI flag `--delay`)</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ext_file (character) -- name of custom ext-file (sets CLI flag `--ext-file`)</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; git (logical) -- whether git is used (sets CLI flag `--git`)</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; json (logical) -- json tree of output, if possible (sets CLI flag `--json`)</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; licfile (character) -- RAW NMFE OPTION - Specify a license file to use with NMFE (Nonmem) (sets CLI flag `--licfile`)</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; log_file (character) -- If populated, specifies the file into which to store the output / logging details from bbi (sets CLI flag `--log_file`)</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; maxlim (numeric) -- RAW NMFE OPTION - Set the maximum values set for the buffers used by Nonmem (default 100) (sets CLI flag `--maxlim`)</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; mpi_exec_path (character) -- The fully qualified path to mpiexec. Used for nonmem parallel operations (default &#39;/usr/local/mpich3/bin/mpiexec&#39;) (sets CLI flag `--mpi_exec_path`)</span></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; nm_version (character) -- Version of nonmem from the configuration list to use (sets CLI flag `--nm_version`)</span></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; nm_qual (logical) -- Whether or not to execute with nmqual (autolog.pl (sets CLI flag `--nmqual`)</span></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; nobuild (logical) -- RAW NMFE OPTION - Skips recompiling and rebuilding on nonmem executable (sets CLI flag `--nobuild`)</span></span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; no_ext_file (logical) -- do not use ext file (sets CLI flag `--no-ext-file`)</span></span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; no_grd_file (logical) -- do not use grd file (sets CLI flag `--no-grd-file`)</span></span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; no_shk_file (logical) -- do not use shk file (sets CLI flag `--no-shk-file`)</span></span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; overwrite (logical) -- Whether or not to remove existing output directories if they are present (sets CLI flag `--overwrite`)</span></span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; parafile (character) -- Location of a user-provided parafile to use for parallel execution (sets CLI flag `--parafile`)</span></span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; parallel (logical) -- Whether or not to run nonmem in parallel mode (sets CLI flag `--parallel`)</span></span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; parallel_timeout (numeric) -- The amount of time to wait for parallel operations in nonmem before timing out (default 2147483647) (sets CLI flag `--parallel_timeout`)</span></span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; post_work_executable (character) -- A script or binary to run when job execution completes or fails (sets CLI flag `--post_work_executable`)</span></span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; prcompile (logical) -- RAW NMFE OPTION - Forces PREDPP compilation (sets CLI flag `--prcompile`)</span></span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; prsame (logical) -- RAW NMFE OPTION - Indicates to nonmem that the PREDPP compilation step should be skipped (sets CLI flag `--prsame`)</span></span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; preview (logical) -- preview action, but don&#39;t actually run command (sets CLI flag `--preview`)</span></span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; save_config (logical) -- Whether or not to save the existing configuration to a file with the model (default true) (sets CLI flag `--save_config`)</span></span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; threads (numeric) -- number of threads to execute with (default 4) (sets CLI flag `--threads`)</span></span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; verbose (logical) -- verbose output (sets CLI flag `--verbose`)</span></span></code></pre></div>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; additional_post_work_envs (character): Any additional values (as ENV KEY=VALUE)</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   to provide for the post execution environment. Command-line option:</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   --additional_post_work_envs</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; background (logical): RAW NMFE OPTION - Tells nonmem not to scan StdIn for</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   control characters. Command-line option: --background</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; clean_lvl (numeric): clean level used for file output from a given (set of)</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   runs (default 1). Command-line option: --clean_lvl</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; config (character): Path (relative or absolute) to another bbi.yaml to load.</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Command-line option: --config</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; copy_lvl (numeric): copy level used for file output from a given (set of) runs.</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Command-line option: --copy_lvl</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; debug (logical): debug mode. Command-line option: --debug</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; delay (numeric): Selects a random number of seconds between 1 and this value to</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   stagger / jitter job execution. Assists in dealing with large volumes of work</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   dealing with the same data set. May avoid NMTRAN issues about not being able</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   read / close files. Command-line option: --delay</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ext_file (character): name of custom ext-file. Command-line option: --ext-file</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; git (logical): whether git is used. Command-line option: --git</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; json (logical): json tree of output, if possible. Command-line option: --json</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; licfile (character): RAW NMFE OPTION - Specify a license file to use with NMFE</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   (Nonmem). Command-line option: --licfile</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; log_file (character): If populated, specifies the file into which to store the</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   output / logging details from bbi. Command-line option: --log_file</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; maxlim (numeric): RAW NMFE OPTION - Set the maximum values for the buffers used</span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   by Nonmem (if 0, don&#39;t pass -maxlim to nmfe) (default 2). Command-line</span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   option: --maxlim. Compatibility note: Default changed from unset to 2 with</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   bbi v3.2.0.</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; mpi_exec_path (character): The fully qualified path to mpiexec. Used for nonmem</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   parallel operations (default &#39;/usr/local/mpich3/bin/mpiexec&#39;). Command-line</span></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   option: --mpi_exec_path</span></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; nm_version (character): Version of nonmem from the configuration list to use.</span></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Command-line option: --nm_version</span></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; nm_qual (logical): Whether or not to execute with nmqual (autolog.pl).</span></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Command-line option: --nmqual</span></span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; nobuild (logical): RAW NMFE OPTION - Skips recompiling and rebuilding on nonmem</span></span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   executable. Command-line option: --nobuild</span></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; no_ext_file (logical): do not use ext file. Command-line option: --no-ext-file</span></span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; no_grd_file (logical): do not use grd file. Command-line option: --no-grd-file</span></span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; no_shk_file (logical): do not use shk file. Command-line option: --no-shk-file</span></span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; overwrite (logical): Whether or not to remove existing output directories if</span></span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   they are present. Command-line option: --overwrite</span></span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; parafile (character): Location of a user-provided parafile to use for parallel</span></span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   execution. Command-line option: --parafile</span></span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; parallel (logical): Whether or not to run nonmem in parallel mode. Command-line</span></span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   option: --parallel</span></span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; parallel_timeout (numeric): The amount of time to wait for parallel operations</span></span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   in nonmem before timing out (default 2147483647). Command-line option:</span></span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   --parallel_timeout</span></span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; post_work_executable (character): A script or binary to run when job execution</span></span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   completes or fails. Command-line option: --post_work_executable</span></span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; prcompile (logical): RAW NMFE OPTION - Forces PREDPP compilation. Command-line</span></span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   option: --prcompile</span></span>
+<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; prdefault (logical): RAW NMFE OPTION - Do not recompile any routines other than</span></span>
+<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   FSUBS. Command-line option: --prdefault. Compatibility note: This option</span></span>
+<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   isn&#39;t available in bbi until v3.2.0.</span></span>
+<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; prsame (logical): RAW NMFE OPTION - Indicates to nonmem that the PREDPP</span></span>
+<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   compilation step should be skipped. Command-line option: --prsame</span></span>
+<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; preview (logical): preview action, but don&#39;t actually run command. Command-line</span></span>
+<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   option: --preview</span></span>
+<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; save_config (logical): Whether or not to save the existing configuration to a</span></span>
+<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   file with the model (default true). Command-line option: --save_config</span></span>
+<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; threads (numeric): number of threads to execute with locally or nodes to</span></span>
+<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   execute on in parallel (default 4). Command-line option: --threads</span></span>
+<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; tprdefault (logical): RAW NMFE OPTION - Test if is okay to do -prdefault.</span></span>
+<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Command-line option: --tprdefault. Compatibility note: This option isn&#39;t</span></span>
+<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   available in bbi until v3.2.0.</span></span>
+<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; verbose (logical): verbose output. Command-line option: --verbose</span></span></code></pre></div>
 <p>As discussed in “Setup” above, these can be set globally in the <code>bbi.yaml</code> file, and you can see the default values of them in that file. However, <strong>specific arguments can also be set or changed for each model.</strong> This can be done in two ways:</p>
 <ul>
 <li>Attaching them to a model object with <code>add_bbi_args()</code> or <code>replace_bbi_args()</code></li>
@@ -268,7 +305,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">names</span>(sum1))</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;absolute_model_path&quot; &quot;run_details&quot;         &quot;run_heuristics&quot;     </span></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4] &quot;parameters_data&quot;     &quot;parameter_names&quot;     &quot;ofv&quot;                </span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [7] &quot;condition_number&quot;    &quot;shrinkage_details&quot;</span></span></code></pre></div>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [7] &quot;condition_number&quot;    &quot;shrinkage_details&quot;   &quot;success&quot;</span></span></code></pre></div>
 <p>These elements can be accessed manually or extracted with built-in helper functions like so:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>param_df1 <span class="ot">&lt;-</span> sum1 <span class="sc">%&gt;%</span> <span class="fu">param_estimates</span>()</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>param_df1</span>
@@ -317,7 +354,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The <code>copy_model_from()</code> call below will create both <code>2.ctl</code> and <code>2.yaml</code> files in the same directory as the parent model, and return the model object corresponding to them. (<code>copy_model_from()</code> also stores the model’s “ancestry” which can be useful later in the project, as shown in the <a href="https://metrumresearchgroup.github.io/bbr/articles/using-based-on.html">Using the based_on field</a> vignette.)</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">copy_model_from</span>(mod1) <span class="sc">%&gt;%</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">update_model_id</span>()</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; replacing 1 with 2 in /tmp/RtmpBADrH1/Rinst3e6cbbe8e7/bbr/model/nonmem/basic/2.ctl</span></span></code></pre></div>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; replacing 1 with 2 in /tmp/RtmpH5kbbY/Rinst3f28df5b4d/bbr/model/nonmem/basic/2.ctl</span></span></code></pre></div>
 <p>The new control stream file <code>2.ctl</code> will be identical to its parent model, though you can use <a href="https://metrumresearchgroup.github.io/bbr/reference/update_model_id.html"><code>update_model_id()</code></a> (as above) to update to the new model ID in places like <code>$TABLE</code> statements.</p>
 <p>Your new control stream can now be edited with any desired changes and then submitted and summarized exactly as above. At any time, you can also see the difference between a model and its parent using <a href="https://metrumresearchgroup.github.io/bbr/reference/model_diff.html"><code>model_diff()</code></a>.</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># manually edit control stream, then...</span></span>
@@ -356,13 +393,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Before we move on, note that you can get even more information about your models from the <code>config_log()</code> and <code>summary_log()</code> functions, as well as <code>add_config()</code> and <code>add_summary()</code> which automatically join the columns output from those functions against the tibble output from <code>run_log()</code>. See the “Further Reading” section below for links to vignettes demonstrating those functions.</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>log_df <span class="ot">&lt;-</span> <span class="fu">run_log</span>(MODEL_DIR)</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>log_df</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 3 × 9</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 3 × 10</span></span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   absolute_model_… run   yaml_md5 model_type description bbi_args based_on tags </span></span>
 <span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;            &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;      &lt;chr&gt;       &lt;list&gt;   &lt;list&gt;   &lt;lis&gt;</span></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 /tmp/RtmpBADrH1… 1     c7486e7… nonmem     &lt;NA&gt;        &lt;NULL&gt;   &lt;NULL&gt;   &lt;chr…</span></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 /tmp/RtmpBADrH1… 2     bc60c6b… nonmem     &lt;NA&gt;        &lt;NULL&gt;   &lt;chr [1… &lt;chr…</span></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 /tmp/RtmpBADrH1… 3     5a4970e… nonmem     &lt;NA&gt;        &lt;NULL&gt;   &lt;chr [1… &lt;chr…</span></span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 1 more variable: notes &lt;list&gt;</span></span></code></pre></div>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 /tmp/RtmpH5kbbY… 1     c7486e7… nonmem     &lt;NA&gt;        &lt;NULL&gt;   &lt;NULL&gt;   &lt;chr&gt;</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 /tmp/RtmpH5kbbY… 2     bc60c6b… nonmem     &lt;NA&gt;        &lt;NULL&gt;   &lt;chr&gt;    &lt;chr&gt;</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 /tmp/RtmpH5kbbY… 3     5a4970e… nonmem     &lt;NA&gt;        &lt;NULL&gt;   &lt;chr&gt;    &lt;chr&gt;</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 2 more variables: notes &lt;list&gt;, star &lt;lgl&gt;</span></span></code></pre></div>
 <p>The <code>run_log()</code> returns a tibble which can be manipulated like any other tibble. However, several of the columns (<code>tags</code>, <code>notes</code>, and <code>based_on</code> for example) are list columns, which complicates how you can interact with them. We provide some helper functions to more seamlessly interact with these log tibbles, as well as some sample <code>tidyverse</code> code below.</p>
 <div id="viewing-tags-example" class="section level2">
 <h2>Viewing tags example</h2>

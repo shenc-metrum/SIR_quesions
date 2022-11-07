@@ -1,6 +1,6 @@
 Package: colorspace
-Version: 2.0-2
-Date: 2021-06-24
+Version: 2.0-3
+Date: 2022-02-19
 Title: A Toolbox for Manipulating and Assessing Colors and Palettes
 Authors@R: c(person(given = "Ross", family = "Ihaka", role = "aut", email = "ihaka@stat.auckland.ac.nz"),
              person(given = "Paul", family = "Murrell", role = "aut", email = "paul@stat.auckland.ac.nz",
@@ -42,9 +42,9 @@ License: BSD_3_clause + file LICENSE
 URL: https://colorspace.R-Forge.R-project.org/, https://hclwizard.org/
 BugReports: https://colorspace.R-Forge.R-project.org/contact.html
 LazyData: yes
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 NeedsCompilation: yes
-Packaged: 2021-06-24 01:25:06 UTC; zeileis
+Packaged: 2022-02-19 11:47:52 UTC; zeileis
 Author: Ross Ihaka [aut],
   Paul Murrell [aut] (<https://orcid.org/0000-0002-3224-8858>),
   Kurt Hornik [aut] (<https://orcid.org/0000-0003-4198-9911>),
@@ -56,8 +56,8 @@ Author: Ross Ihaka [aut],
 Maintainer: Achim Zeileis <Achim.Zeileis@R-project.org>
 OriginalRepository: CRAN
 Repository: MPN
-Date/Publication: 2021-06-24 07:00:06 UTC
-Built: R 4.1.1; x86_64-pc-linux-gnu; 2022-05-11 22:15:09 UTC; unix
+Date/Publication: 2022-02-21 09:50:02 UTC
+Built: R 4.1.1; x86_64-pc-linux-gnu; 2022-10-28 16:09:41 UTC; unix
 PkgrVersion: v3.0.0-rc1
 PkgrInstallType: binary
-PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2021-11-19/
+PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2022-10-20

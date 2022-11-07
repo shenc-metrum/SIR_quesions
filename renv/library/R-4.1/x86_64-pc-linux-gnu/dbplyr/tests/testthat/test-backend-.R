@@ -1,3 +1,11 @@
+test_that("base_no_win inclues all aggregates and window funcitons", {
+  # All aggregates must be included in window functions
+  expect_equal(setdiff(names(base_agg), names(base_win)), character())
+
+  # All window functions all need to be in no_in
+  expect_equal(setdiff(names(base_win), names(base_no_win)), character())
+})
+
 # mathematics --------------------------------------------------------
 
 test_that("basic arithmetic is correct", {
@@ -11,6 +19,17 @@ test_that("basic arithmetic is correct", {
 
 test_that("small numbers aren't converted to 0", {
   expect_equal(translate_sql(1e-9), sql("1e-09"))
+})
+
+test_that("unary plus works with numbers", {
+  expect_equal(translate_sql(+10L), sql("10"))
+  expect_equal(translate_sql(x == +10), sql('`x` = 10.0'))
+  expect_equal(translate_sql(x %in% c(+1L, 0L)), sql('`x` IN (1, 0)'))
+})
+
+test_that("unary plus works for non-numeric expressions", {
+  expect_equal(translate_sql(+(1L + 2L)), sql("(1 + 2)"))
+  expect_equal(translate_sql(mean(x, na.rm = TRUE), window = FALSE), sql('AVG(`x`)'))
 })
 
 test_that("unary minus flips sign of number", {
@@ -43,6 +62,38 @@ test_that("can translate subsetting", {
   expect_equal(translate_sql(a[["b"]][[1]]), sql('`a`.`b`[1]'))
 })
 
+
+# aggregates --------------------------------------------------------------
+
+test_that("all and any translated correctly", {
+  db <- memdb_frame(g = c(1, 1, 2, 2, 3, 3), x = c(0, 0, 0, 1, 1, 1))
+
+  sum_all_g <- db %>%
+    group_by(g) %>%
+    summarise(all = all(x == 1, na.rm = TRUE)) %>%
+    filter(all) %>%
+    pull(g)
+  expect_equal(sum_all_g, 3)
+
+  sum_any_g <- db %>%
+    group_by(g) %>%
+    summarise(any = any(x == 1, na.rm = TRUE)) %>%
+    filter(any) %>%
+    pull(g)
+  expect_equal(sum_any_g, c(2, 3))
+
+  win_all_g <- db %>%
+    group_by(g) %>%
+    filter(all(x == 1, na.rm = TRUE)) %>%
+    pull(g)
+  expect_equal(win_all_g, c(3, 3))
+
+  win_any_g <- db %>%
+    group_by(g) %>%
+    filter(any(x == 1, na.rm = TRUE)) %>%
+    pull(g)
+  expect_equal(win_any_g, c(2, 2, 3, 3))
+})
 
 # binary/bitwise ---------------------------------------------------------------
 

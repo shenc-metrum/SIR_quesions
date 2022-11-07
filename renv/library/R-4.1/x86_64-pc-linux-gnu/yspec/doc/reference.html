@@ -11,46 +11,36 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
 
-<meta name="date" content="2021-09-07" />
+<meta name="date" content="2022-05-13" />
 
 <title>Yaml specification reference</title>
 
-<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
-// be compatible with the behavior of Pandoc < 2.8).
-document.addEventListener('DOMContentLoaded', function(e) {
-  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
-  var i, h, a;
-  for (i = 0; i < hs.length; i++) {
-    h = hs[i];
-    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
-    a = h.attributes;
-    while (a.length > 0) h.removeAttribute(a[0].name);
+<script src="data:application/javascript;base64,Ly8gUGFuZG9jIDIuOSBhZGRzIGF0dHJpYnV0ZXMgb24gYm90aCBoZWFkZXIgYW5kIGRpdi4gV2UgcmVtb3ZlIHRoZSBmb3JtZXIgKHRvCi8vIGJlIGNvbXBhdGlibGUgd2l0aCB0aGUgYmVoYXZpb3Igb2YgUGFuZG9jIDwgMi44KS4KZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignRE9NQ29udGVudExvYWRlZCcsIGZ1bmN0aW9uKGUpIHsKICB2YXIgaHMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCJkaXYuc2VjdGlvbltjbGFzcyo9J2xldmVsJ10gPiA6Zmlyc3QtY2hpbGQiKTsKICB2YXIgaSwgaCwgYTsKICBmb3IgKGkgPSAwOyBpIDwgaHMubGVuZ3RoOyBpKyspIHsKICAgIGggPSBoc1tpXTsKICAgIGlmICghL15oWzEtNl0kL2kudGVzdChoLnRhZ05hbWUpKSBjb250aW51ZTsgIC8vIGl0IHNob3VsZCBiZSBhIGhlYWRlciBoMS1oNgogICAgYSA9IGguYXR0cmlidXRlczsKICAgIHdoaWxlIChhLmxlbmd0aCA+IDApIGgucmVtb3ZlQXR0cmlidXRlKGFbMF0ubmFtZSk7CiAgfQp9KTsK"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
   }
-});
-</script>
-<script>// Hide empty <a> tag within highlighted CodeBlock for screen reader accessibility (see https://github.com/jgm/pandoc/issues/6352#issuecomment-626106786) -->
-// v0.0.1
-// Written by JooYoung Seo (jooyoung@psu.edu) and Atsushi Yasumoto on June 1st, 2020.
-
-document.addEventListener('DOMContentLoaded', function() {
-  const codeList = document.getElementsByClassName("sourceCode");
-  for (var i = 0; i < codeList.length; i++) {
-    var linkList = codeList[i].getElementsByTagName('a');
-    for (var j = 0; j < linkList.length; j++) {
-      if (linkList[j].innerHTML === "") {
-        linkList[j].setAttribute('aria-hidden', 'true');
-      }
-    }
+  .sourceCode {
+    overflow: visible;
   }
-});
-</script>
-
-
-<style type="text/css">code{white-space: pre;}</style>
+</style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -136,187 +126,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
-<style type="text/css">body {
-background-color: #fff;
-margin: 1em auto;
-max-width: 700px;
-overflow: visible;
-padding-left: 2em;
-padding-right: 2em;
-font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-font-size: 14px;
-line-height: 1.35;
-}
-#TOC {
-clear: both;
-margin: 0 0 10px 10px;
-padding: 4px;
-width: 400px;
-border: 1px solid #CCCCCC;
-border-radius: 5px;
-background-color: #f6f6f6;
-font-size: 13px;
-line-height: 1.3;
-}
-#TOC .toctitle {
-font-weight: bold;
-font-size: 15px;
-margin-left: 5px;
-}
-#TOC ul {
-padding-left: 40px;
-margin-left: -1.5em;
-margin-top: 5px;
-margin-bottom: 5px;
-}
-#TOC ul ul {
-margin-left: -2em;
-}
-#TOC li {
-line-height: 16px;
-}
-table {
-margin: 1em auto;
-border-width: 1px;
-border-color: #DDDDDD;
-border-style: outset;
-border-collapse: collapse;
-}
-table th {
-border-width: 2px;
-padding: 5px;
-border-style: inset;
-}
-table td {
-border-width: 1px;
-border-style: inset;
-line-height: 18px;
-padding: 5px 5px;
-}
-table, table th, table td {
-border-left-style: none;
-border-right-style: none;
-}
-table thead, table tr.even {
-background-color: #f7f7f7;
-}
-p {
-margin: 0.5em 0;
-}
-blockquote {
-background-color: #f6f6f6;
-padding: 0.25em 0.75em;
-}
-hr {
-border-style: solid;
-border: none;
-border-top: 1px solid #777;
-margin: 28px 0;
-}
-dl {
-margin-left: 0;
-}
-dl dd {
-margin-bottom: 13px;
-margin-left: 13px;
-}
-dl dt {
-font-weight: bold;
-}
-ul {
-margin-top: 0;
-}
-ul li {
-list-style: circle outside;
-}
-ul ul {
-margin-bottom: 0;
-}
-pre, code {
-background-color: #f7f7f7;
-border-radius: 3px;
-color: #333;
-white-space: pre-wrap; 
-}
-pre {
-border-radius: 3px;
-margin: 5px 0px 10px 0px;
-padding: 10px;
-}
-pre:not([class]) {
-background-color: #f7f7f7;
-}
-code {
-font-family: Consolas, Monaco, 'Courier New', monospace;
-font-size: 85%;
-}
-p > code, li > code {
-padding: 2px 0px;
-}
-div.figure {
-text-align: center;
-}
-img {
-background-color: #FFFFFF;
-padding: 2px;
-border: 1px solid #DDDDDD;
-border-radius: 3px;
-border: 1px solid #CCCCCC;
-margin: 0 5px;
-}
-h1 {
-margin-top: 0;
-font-size: 35px;
-line-height: 40px;
-}
-h2 {
-border-bottom: 4px solid #f7f7f7;
-padding-top: 10px;
-padding-bottom: 2px;
-font-size: 145%;
-}
-h3 {
-border-bottom: 2px solid #f7f7f7;
-padding-top: 10px;
-font-size: 120%;
-}
-h4 {
-border-bottom: 1px solid #f7f7f7;
-margin-left: 8px;
-font-size: 105%;
-}
-h5, h6 {
-border-bottom: 1px solid #ccc;
-font-size: 105%;
-}
-a {
-color: #0033dd;
-text-decoration: none;
-}
-a:hover {
-color: #6666ff; }
-a:visited {
-color: #800080; }
-a:visited:hover {
-color: #BB00BB; }
-a[href^="http:"] {
-text-decoration: underline; }
-a[href^="https:"] {
-text-decoration: underline; }
 
-code > span.kw { color: #555; font-weight: bold; } 
-code > span.dt { color: #902000; } 
-code > span.dv { color: #40a070; } 
-code > span.bn { color: #d14; } 
-code > span.fl { color: #d14; } 
-code > span.ch { color: #d14; } 
-code > span.st { color: #d14; } 
-code > span.co { color: #888888; font-style: italic; } 
-code > span.ot { color: #007020; } 
-code > span.al { color: #ff0000; font-weight: bold; } 
-code > span.fu { color: #900; font-weight: bold; } 
-code > span.er { color: #a61717; background-color: #e3d2d2; } 
-</style>
+<link rel="stylesheet" href="data:text/css,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" type="text/css" />
 
 
 
@@ -330,31 +141,31 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">Yaml specification reference</h1>
 <h4 class="author"></h4>
-<h4 class="date">2021-09-07</h4>
+<h4 class="date">2022-05-13</h4>
 
 
 <div id="TOC">
 <ul>
-<li><a href="#syntax"><span class="toc-section-number">0.1</span> Syntax</a></li>
-<li><a href="#organization"><span class="toc-section-number">0.2</span> Organization</a></li>
-<li><a href="#setup__-specification-fields"><span class="toc-section-number">0.3</span> <code>SETUP__</code> specification fields</a></li>
-<li><a href="#data-column-specification-fields"><span class="toc-section-number">0.4</span> Data column specification fields</a></li>
-<li><a href="#namespaces"><span class="toc-section-number">0.5</span> Namespaces</a></li>
-<li><a href="#defaults"><span class="toc-section-number">0.6</span> Defaults</a></li>
-<li><a href="#examples"><span class="toc-section-number">0.7</span> Examples</a>
+<li><a href="#syntax"><span class="toc-section-number">1</span> Syntax</a></li>
+<li><a href="#organization"><span class="toc-section-number">2</span> Organization</a></li>
+<li><a href="#setup__-specification-fields"><span class="toc-section-number">3</span> <code>SETUP__</code> specification fields</a></li>
+<li><a href="#data-column-specification-fields"><span class="toc-section-number">4</span> Data column specification fields</a></li>
+<li><a href="#namespaces"><span class="toc-section-number">5</span> Namespaces</a></li>
+<li><a href="#defaults"><span class="toc-section-number">6</span> Defaults</a>
 <ul>
-<li><a href="#continuous-values"><span class="toc-section-number">0.7.1</span> Continuous values</a></li>
-<li><a href="#character-data"><span class="toc-section-number">0.7.2</span> Character data</a></li>
-<li><a href="#discrete-data-with-decode"><span class="toc-section-number">0.7.3</span> Discrete data with decode</a></li>
-<li><a href="#look-up-column-definition"><span class="toc-section-number">0.7.4</span> Look up column definition</a></li>
-<li><a href="#include-tex-in-data-specification-document"><span class="toc-section-number">0.7.5</span> Include TeX in data specification document</a></li>
+<li><a href="#examples"><span class="toc-section-number">6.1</span> Examples</a></li>
+<li><a href="#continuous-values"><span class="toc-section-number">6.2</span> Continuous values</a></li>
+<li><a href="#character-data"><span class="toc-section-number">6.3</span> Character data</a></li>
+<li><a href="#discrete-data-with-decode"><span class="toc-section-number">6.4</span> Discrete data with decode</a></li>
+<li><a href="#look-up-column-definition"><span class="toc-section-number">6.5</span> Look up column definition</a></li>
+<li><a href="#include-tex-in-data-specification-document"><span class="toc-section-number">6.6</span> Include TeX in data specification document</a></li>
+<li><a href="#flags"><span class="toc-section-number">6.7</span> <code>flags</code></a></li>
 </ul></li>
-<li><a href="#flags"><span class="toc-section-number">0.8</span> <code>flags</code></a></li>
 </ul>
 </div>
 
-<div id="syntax" class="section level2" number="0.1">
-<h2 number="0.1"><span class="header-section-number">0.1</span> Syntax</h2>
+<div id="syntax" class="section level1" number="1">
+<h1 number="1"><span class="header-section-number">1</span> Syntax</h1>
 <p>yspec uses standard <a href="https://en.wikipedia.org/wiki/YAML">yaml</a> syntax to state the data set column definitions.</p>
 <p><strong>NOTES</strong></p>
 <ul>
@@ -371,31 +182,31 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 </ul>
 <p>Instructions for including TeX in the yaml specification code are provided in a section below.</p>
 </div>
-<div id="organization" class="section level2" number="0.2">
-<h2 number="0.2"><span class="header-section-number">0.2</span> Organization</h2>
+<div id="organization" class="section level1" number="2">
+<h1 number="2"><span class="header-section-number">2</span> Organization</h1>
 <p>Save your data specification code in a file, typically with a <code>.yaml</code> file extension.</p>
 <p>At the top of the file, include a block called <code>SETUP__:</code>; this is where the data set meta data is stored. For example</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1"></a>SETUP__:</span>
-<span id="cb1-2"><a href="#cb1-2"></a>  description: PKPD analysis data set</span>
-<span id="cb1-3"><a href="#cb1-3"></a>  use_internal_db: true</span>
-<span id="cb1-4"><a href="#cb1-4"></a>  projectnumber: FOO123</span>
-<span id="cb1-5"><a href="#cb1-5"></a>  sponsor: MetrumRG</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>SETUP__:</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  description: PKPD analysis data set</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  use_internal_db: true</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  projectnumber: FOO123</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  sponsor: MetrumRG</span></code></pre></div>
 <p>See the details below for other files that can be included here.</p>
 <p>Next, list each data set column in order, with the data column name starting in the first column and ending with a colon. For example:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb2-1"><a href="#cb2-1"></a>WT:</span>
-<span id="cb2-2"><a href="#cb2-2"></a>  short: weight</span>
-<span id="cb2-3"><a href="#cb2-3"></a>  unit: kg</span>
-<span id="cb2-4"><a href="#cb2-4"></a>  range: [50, 150]</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>WT:</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  short: weight</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  unit: kg</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  range: [50, 150]</span></code></pre></div>
 <p>This specifies a “short” name for this column as well as a unit and a range. A complete listing is provided below.</p>
 <p>You can see an fully worked example by running</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>ys_help<span class="op">$</span><span class="kw">yaml</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>ys_help<span class="sc">$</span><span class="fu">yaml</span>()</span></code></pre></div>
 <p>See the <code>?ys_help</code> help topic for more information.</p>
 <p>Or, you can export a collection of package assets with this command</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>ys_help<span class="op">$</span><span class="kw">export</span>(<span class="dt">output=</span><span class="st">&quot;assets&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>ys_help<span class="sc">$</span><span class="fu">export</span>(<span class="at">output=</span><span class="st">&quot;assets&quot;</span>)</span></code></pre></div>
 <p>See the [ys_help] topic for more information.</p>
 </div>
-<div id="setup__-specification-fields" class="section level2" number="0.3">
-<h2 number="0.3"><span class="header-section-number">0.3</span> <code>SETUP__</code> specification fields</h2>
+<div id="setup__-specification-fields" class="section level1" number="3">
+<h1 number="3"><span class="header-section-number">3</span> <code>SETUP__</code> specification fields</h1>
 <ul>
 <li><code>description</code>: <code>&lt;chr&gt;</code>; a short, label-like description of the data set</li>
 <li><code>projectnumber</code>: <code>&lt;chr&gt;</code> the project reference number; may be incorporated into rendered define documents; when the project number is given in the first yspec object in a project object, that project number will be rendered in the project-wide define document</li>
@@ -414,8 +225,8 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <li><code>flags</code>: <code>&lt;map&gt;</code>; for each key, an array of column names where a logical data item will be set in the <code>dots</code> list</li>
 </ul>
 </div>
-<div id="data-column-specification-fields" class="section level2" number="0.4">
-<h2 number="0.4"><span class="header-section-number">0.4</span> Data column specification fields</h2>
+<div id="data-column-specification-fields" class="section level1" number="4">
+<h1 number="4"><span class="header-section-number">4</span> Data column specification fields</h1>
 <ul>
 <li><code>short: short-name</code>
 <ul>
@@ -484,8 +295,8 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 </ul></li>
 </ul>
 </div>
-<div id="namespaces" class="section level2" number="0.5">
-<h2 number="0.5"><span class="header-section-number">0.5</span> Namespaces</h2>
+<div id="namespaces" class="section level1" number="5">
+<h1 number="5"><span class="header-section-number">5</span> Namespaces</h1>
 <p>Namespaces are alternative representation of certain column data fields</p>
 <ul>
 <li><code>unit</code></li>
@@ -497,154 +308,154 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 </ul>
 <p>You can create namespaces by attaching a <code>.&lt;name&gt;</code> suffix to eligible fields.</p>
 <p>For example, we can create a “tex” representation for <code>unit</code> like this</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb5-1"><a href="#cb5-1"></a>DV: </span>
-<span id="cb5-2"><a href="#cb5-2"></a>  short: dependent variable</span>
-<span id="cb5-3"><a href="#cb5-3"></a>  unit: &quot;microgram/mL&quot;</span>
-<span id="cb5-4"><a href="#cb5-4"></a>  unit.tex: &quot;$\\mu$g/mL&quot;</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>DV: </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  short: dependent variable</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  unit: &quot;microgram/mL&quot;</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  unit.tex: &quot;$\\mu$g/mL&quot;</span></code></pre></div>
 <p>Here, the <code>unit:</code> entry states the value for unit in the <code>base</code> namespace, the default data you get on load. Using <code>unit.tex:</code> introduces an entry for the <code>tex</code> namespace. After loading the spec, you can change to this namespace using</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>spec &lt;-<span class="st"> </span><span class="kw">ys_load</span>(...)</span>
-<span id="cb6-2"><a href="#cb6-2"></a>spec_tex &lt;-<span class="st"> </span><span class="kw">ys_namespace</span>(spec, <span class="st">&quot;tex&quot;</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>spec <span class="ot">&lt;-</span> <span class="fu">ys_load</span>(...)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>spec_tex <span class="ot">&lt;-</span> <span class="fu">ys_namespace</span>(spec, <span class="st">&quot;tex&quot;</span>) </span></code></pre></div>
 <p>Any time you attach a <code>.&lt;name&gt;</code> suffix to a field, <code>yspec</code> will interpret that as an attempt to enter namespace data. The user is responsible for creating and organizing namespaces and naming them. <code>yspec</code> will create the <code>base</code> namespace. Also, when rendering a data specification document, <code>yspec</code> will attempt to switch to the <code>tex</code> namespace if it exists. Beyond that, <code>yspec</code> is agnostic to the names of the namespaces you create.</p>
 <p>As another example, we can have alternate <code>short</code> names depending on whether or not we are using that name to create axis titles for a plot</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb7-1"><a href="#cb7-1"></a>EGFR:</span>
-<span id="cb7-2"><a href="#cb7-2"></a>  short: estimated creatinine clearance</span>
-<span id="cb7-3"><a href="#cb7-3"></a>  short.plot: eGFR</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>EGFR:</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  short: estimated creatinine clearance</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  short.plot: eGFR</span></code></pre></div>
 <p>or decode</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb8-1"><a href="#cb8-1"></a>SEX:</span>
-<span id="cb8-2"><a href="#cb8-2"></a>  values: [0, 1]</span>
-<span id="cb8-3"><a href="#cb8-3"></a>  decode: [male, female]</span>
-<span id="cb8-4"><a href="#cb8-4"></a>  decode.letter: [m, f]</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>SEX:</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  values: [0, 1]</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  decode: [male, female]</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  decode.letter: [m, f]</span></code></pre></div>
 </div>
-<div id="defaults" class="section level2" number="0.6">
-<h2 number="0.6"><span class="header-section-number">0.6</span> Defaults</h2>
+<div id="defaults" class="section level1" number="6">
+<h1 number="6"><span class="header-section-number">6</span> Defaults</h1>
 <ul>
 <li>If <code>type</code> is not given, then it will default to <code>numeric</code></li>
 </ul>
+<div id="examples" class="section level2" number="6.1">
+<h2 number="6.1"><span class="header-section-number">6.1</span> Examples</h2>
 </div>
-<div id="examples" class="section level2" number="0.7">
-<h2 number="0.7"><span class="header-section-number">0.7</span> Examples</h2>
-<div id="continuous-values" class="section level3" number="0.7.1">
-<h3 number="0.7.1"><span class="header-section-number">0.7.1</span> Continuous values</h3>
+<div id="continuous-values" class="section level2" number="6.2">
+<h2 number="6.2"><span class="header-section-number">6.2</span> Continuous values</h2>
 <ul>
 <li>The <code>about</code> array provides a short name and unit</li>
 <li>Any time <code>range</code> is given, the data is assumed to be continuous</li>
 </ul>
-<div class="sourceCode" id="cb9"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb9-1"><a href="#cb9-1"></a>WT:</span>
-<span id="cb9-2"><a href="#cb9-2"></a>  about: [weight, kg]</span>
-<span id="cb9-3"><a href="#cb9-3"></a>  range: [5, 300]</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>WT:</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  about: [weight, kg]</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  range: [5, 300]</span></code></pre></div>
 <p>This is equivalent to</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb10-1"><a href="#cb10-1"></a>WT:</span>
-<span id="cb10-2"><a href="#cb10-2"></a>  short: weight</span>
-<span id="cb10-3"><a href="#cb10-3"></a>  unit: kg</span>
-<span id="cb10-4"><a href="#cb10-4"></a>  range: [5,300]</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>WT:</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  short: weight</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  unit: kg</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  range: [5,300]</span></code></pre></div>
 </div>
-<div id="character-data" class="section level3" number="0.7.2">
-<h3 number="0.7.2"><span class="header-section-number">0.7.2</span> Character data</h3>
+<div id="character-data" class="section level2" number="6.3">
+<h2 number="6.3"><span class="header-section-number">6.3</span> Character data</h2>
 <ul>
 <li>Using <code>values</code> indicates discrete data</li>
 </ul>
-<div class="sourceCode" id="cb11"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb11-1"><a href="#cb11-1"></a>RACE:</span>
-<span id="cb11-2"><a href="#cb11-2"></a>  values: [White, Black, Native American, Other]</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>RACE:</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  values: [White, Black, Native American, Other]</span></code></pre></div>
 <p>Any other array input structure can be used. For example</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb12-1"><a href="#cb12-1"></a>RACE: </span>
-<span id="cb12-2"><a href="#cb12-2"></a>  values:</span>
-<span id="cb12-3"><a href="#cb12-3"></a>    - White</span>
-<span id="cb12-4"><a href="#cb12-4"></a>    - Black</span>
-<span id="cb12-5"><a href="#cb12-5"></a>    - Native American</span>
-<span id="cb12-6"><a href="#cb12-6"></a>    - Other</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>RACE: </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  values:</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    - White</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    - Black</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    - Native American</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    - Other</span></code></pre></div>
 <p>By default, <code>values</code> are printed as comma-separated list. To get them to print in long format</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb13-1"><a href="#cb13-1"></a>RACE:</span>
-<span id="cb13-2"><a href="#cb13-2"></a>  values: [White, Black, Native American, Other]</span>
-<span id="cb13-3"><a href="#cb13-3"></a>  longvalues: true</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>RACE:</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  values: [White, Black, Native American, Other]</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  longvalues: true</span></code></pre></div>
 </div>
-<div id="discrete-data-with-decode" class="section level3" number="0.7.3">
-<h3 number="0.7.3"><span class="header-section-number">0.7.3</span> Discrete data with decode</h3>
+<div id="discrete-data-with-decode" class="section level2" number="6.4">
+<h2 number="6.4"><span class="header-section-number">6.4</span> Discrete data with decode</h2>
 <p><strong>Method 1</strong></p>
 <ul>
 <li>Notice that the yaml key can only be simple character value</li>
 <li>Also, we use curly braces to specify a list like this</li>
 <li>Finally it is a <code>:</code> that separates decode (on the left) and the value (on the right).</li>
 </ul>
-<div class="sourceCode" id="cb14"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb14-1"><a href="#cb14-1"></a>SEX:</span>
-<span id="cb14-2"><a href="#cb14-2"></a>  values: {dude: 0, gal: 1}</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>SEX:</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  values: {dude: 0, gal: 1}</span></code></pre></div>
 <p>Special handlers are available that add some flexibility to this value / decode specification.</p>
 <p>The <code>!value:decode</code> handler allows you to put the value on the left and decode on the right</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb15-1"><a href="#cb15-1"></a>SEX: </span>
-<span id="cb15-2"><a href="#cb15-2"></a>  values: !value:decode</span>
-<span id="cb15-3"><a href="#cb15-3"></a>    0 : dude</span>
-<span id="cb15-4"><a href="#cb15-4"></a>    1 : gal</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>SEX: </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  values: !value:decode</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    0 : dude</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    1 : gal</span></code></pre></div>
 <p>The default behavior can be achieved with</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb16-1"><a href="#cb16-1"></a>SEX: </span>
-<span id="cb16-2"><a href="#cb16-2"></a>  values: !value:decode</span>
-<span id="cb16-3"><a href="#cb16-3"></a>    dude: 0</span>
-<span id="cb16-4"><a href="#cb16-4"></a>    gal: 1</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>SEX: </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  values: !value:decode</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    dude: 0</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    gal: 1</span></code></pre></div>
 <p>The handlers also allow associating multiple values with a single decode</p>
 <p><strong>To get multiple values with the same decode</strong></p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb17-1"><a href="#cb17-1"></a>STUDY:</span>
-<span id="cb17-2"><a href="#cb17-2"></a>  values: !decode:value</span>
-<span id="cb17-3"><a href="#cb17-3"></a>    phase 1 : [101, 102, 103]</span>
-<span id="cb17-4"><a href="#cb17-4"></a>    phase 2 : [201, 202, 203]</span>
-<span id="cb17-5"><a href="#cb17-5"></a>    phase 3 : [301, 302, 303]</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>STUDY:</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  values: !decode:value</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    phase 1 : [101, 102, 103]</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    phase 2 : [201, 202, 203]</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    phase 3 : [301, 302, 303]</span></code></pre></div>
 <p><strong>Method 2</strong></p>
 <ul>
 <li>These are more complicated decodes</li>
 <li>Put the <code>values</code> and <code>deode</code> in brackets (array)</li>
 </ul>
-<div class="sourceCode" id="cb18"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">BQL</span><span class="kw">:</span></span>
-<span id="cb18-2"><a href="#cb18-2"></a><span class="at">  </span><span class="fu">values</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="dv">0</span><span class="kw">,</span><span class="dv">1</span><span class="kw">]</span></span>
-<span id="cb18-3"><a href="#cb18-3"></a><span class="at">  </span><span class="fu">decode</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">not below quantitation limit</span><span class="kw">,</span><span class="at"> below quantitation limit</span><span class="kw">]</span></span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">BQL</span><span class="kw">:</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">values</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="dv">0</span><span class="kw">,</span><span class="dv">1</span><span class="kw">]</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">decode</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">not below quantitation limit</span><span class="kw">,</span><span class="at"> below quantitation limit</span><span class="kw">]</span></span></code></pre></div>
 <p><strong>Method 3</strong> Really, it’s the same as method 2, but easier to type and read when the decode gets really long</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb19-1"><a href="#cb19-1"></a>BQL:</span>
-<span id="cb19-2"><a href="#cb19-2"></a>  values [0, 1]</span>
-<span id="cb19-3"><a href="#cb19-3"></a>  decode:</span>
-<span id="cb19-4"><a href="#cb19-4"></a>    - not below the quantitation limit of 2 ng/ml</span>
-<span id="cb19-5"><a href="#cb19-5"></a>    - below the quantitation limit of 2 ng/ml</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>BQL:</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  values [0, 1]</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  decode:</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    - not below the quantitation limit of 2 ng/ml</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    - below the quantitation limit of 2 ng/ml</span></code></pre></div>
 </div>
-<div id="look-up-column-definition" class="section level3" number="0.7.4">
-<h3 number="0.7.4"><span class="header-section-number">0.7.4</span> Look up column definition</h3>
+<div id="look-up-column-definition" class="section level2" number="6.5">
+<h2 number="6.5"><span class="header-section-number">6.5</span> Look up column definition</h2>
 <p>Either fill in the <code>lookup</code> field or use the <code>!look</code> handler</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb20-1"><a href="#cb20-1"></a>CMT: </span>
-<span id="cb20-2"><a href="#cb20-2"></a>  lookup: true</span></code></pre></div>
-<div class="sourceCode" id="cb21"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb21-1"><a href="#cb21-1"></a>CMT: !look</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>CMT: </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  lookup: true</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>CMT: !look</span></code></pre></div>
 <p>You can also give the column name to import</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb22-1"><a href="#cb22-1"></a>HT: </span>
-<span id="cb22-2"><a href="#cb22-2"></a>  lookup: HT_INCHES</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>HT: </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  lookup: HT_INCHES</span></code></pre></div>
 <p>In this example, there would be a column called <code>HT_INCHES</code> in the lookup file that would be imported under the name <code>HT</code>.</p>
 </div>
-<div id="include-tex-in-data-specification-document" class="section level3" number="0.7.5">
-<h3 number="0.7.5"><span class="header-section-number">0.7.5</span> Include TeX in data specification document</h3>
+<div id="include-tex-in-data-specification-document" class="section level2" number="6.6">
+<h2 number="6.6"><span class="header-section-number">6.6</span> Include TeX in data specification document</h2>
 <p>Most define documents get rendered via <code>xtable</code> and the text gets processed by a sanitize function. yspec implements a custom sanitize function called <code>ys_sanitize()</code>, which is similar to <code>xtable::sanitize</code>, but whitelists some symbols so they do not get sanitized.</p>
 <p>To protect TeX code from the sanitizer, first create a field in <code>SETUP__</code> called <code>glue</code> with a map between a name and some corresponding TeX code. In the following example, we with to write <span class="math inline">\(\mu\)</span>g/L, so we create a name called <code>mugL</code> and map it to <code>$\\mu$g/L</code>:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb23-1"><a href="#cb23-1"></a>SETUP__:</span>
-<span id="cb23-2"><a href="#cb23-2"></a>  glue: {mugL: &quot;$\\mu$g/L&quot;}</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>SETUP__:</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  glue: {mugL: &quot;$\\mu$g/L&quot;}</span></code></pre></div>
 <p>Once the map is in place, we can write the data set column definition like this:</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb24-1"><a href="#cb24-1"></a>DV: </span>
-<span id="cb24-2"><a href="#cb24-2"></a>  unit: &quot;&lt;&lt;mugL&gt;&gt;&quot;</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>DV: </span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  unit: &quot;&lt;&lt;mugL&gt;&gt;&quot;</span></code></pre></div>
 <p>When the table for the define document is rendered, first the sanitizer will run, but it won’t find anything in the <code>unit</code> field for the <code>DV</code> column. Then yspec will call <code>glue()</code> and replace <code>&lt;&lt;mugL&gt;&gt;</code> with <code>$\\mu%g/L</code>.</p>
 <p>Notice that we put all of the values in quotes; this is good practice to ensure that yaml will parse the value as a character data item when reading in the spec.</p>
 </div>
-</div>
-<div id="flags" class="section level2" number="0.8">
-<h2 number="0.8"><span class="header-section-number">0.8</span> <code>flags</code></h2>
+<div id="flags" class="section level2" number="6.7">
+<h2 number="6.7"><span class="header-section-number">6.7</span> <code>flags</code></h2>
 <p>The <code>flags</code> section in <code>SETUP__:</code> is available for you to name sets of columns in the work in spec. For example, the following code defines a flag called <code>covariate</code> and it names three columns (<code>WT</code>, <code>AGE</code>, and <code>CRCL</code>) to carry this tag</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb25-1"><a href="#cb25-1"></a>SETUP__:</span>
-<span id="cb25-2"><a href="#cb25-2"></a>  flags:</span>
-<span id="cb25-3"><a href="#cb25-3"></a>    covariate: [WT, AGE, CRCL]</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>SETUP__:</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  flags:</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    covariate: [WT, AGE, CRCL]</span></code></pre></div>
 <p>When yspec loads a yaml file that contains <code>flags</code>, it will go into every column in the spec and add a logical flag in <code>dots</code> that indicates whether or not that column is a member of that covariate set. For this example, all columns in the spec will have <code>dots$covariate</code> set to <code>FALSE</code> except for <code>WT</code>, <code>AGE</code>, and <code>CRCL</code> where it will be set to <code>TRUE</code>.</p>
 <p>The user can appear to this information when filtering the spec. Filtering like this will return a yspec object containing only <code>WT</code>, <code>AGE</code>, and <code>CRCL</code>.</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="kw">ys_filter</span>(spec, covariate)</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ys_filter</span>(spec, covariate)</span></code></pre></div>
 <p>Note that this flagging process will not overwrite a flag that the user already set in a specific column. In this example, <code>AGE</code> will not be flagged as a covariate, but <code>WT</code> and <code>CRCL</code> will.</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb27-1"><a href="#cb27-1"></a>SETUP__:</span>
-<span id="cb27-2"><a href="#cb27-2"></a>  flags:</span>
-<span id="cb27-3"><a href="#cb27-3"></a>    covariate: [WT, AGE, CRCL]</span>
-<span id="cb27-4"><a href="#cb27-4"></a>WT: </span>
-<span id="cb27-5"><a href="#cb27-5"></a>  short: weight</span>
-<span id="cb27-6"><a href="#cb27-6"></a>AGE: </span>
-<span id="cb27-7"><a href="#cb27-7"></a>  short: age</span>
-<span id="cb27-8"><a href="#cb27-8"></a>  dots: {covariate: false}</span>
-<span id="cb27-9"><a href="#cb27-9"></a>CRCL:</span>
-<span id="cb27-10"><a href="#cb27-10"></a>  short: creatinine clearance</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>SETUP__:</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  flags:</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    covariate: [WT, AGE, CRCL]</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>WT: </span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  short: weight</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>AGE: </span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  short: age</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  dots: {covariate: false}</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>CRCL:</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>  short: creatinine clearance</span></code></pre></div>
 <p>It’s recommended that <code>flags</code> are given in the <code>SETUP__</code> information only, but the user can override as needed.</p>
+</div>
 </div>
 
 

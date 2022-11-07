@@ -29,11 +29,13 @@ ys_add_factors          Add factors to data set based on spec
                         information
 ys_add_labels           Add label attribute to data set columns
 ys_check                Check a data set against its specification
+ys_col_note             Create table note text for abbreviated columns
 ys_document             Render a document from one or more
                         specification objects
-ys_fill_dots            Supplement data in the dots list with default
+ys_extend               Extend a yspec object
+ys_fill_dots            Supplement data in dots list with default
                         values
-ys_filter               Subset spec items using column values
+ys_filter               Subset yspec items using column values
 ys_get_label            Get label
 ys_get_lookup           Generate lookup list
 ys_get_short            Get short
@@ -44,14 +46,18 @@ ys_load                 Load a data specification file
 ys_load_meta            Load SETUP__ block from a file
 ys_load_proj            Load a project-wide spec file
 ys_lookup_source        Get column lookup source
-ys_mutate               Mutate column data
+ys_mutate               Mutate yspec item data
 ys_namespace            Change namespace
 ys_project              Create a project object from data spec objects
-ys_rename               Rename spec columns
+ys_prune                Prune a data frame, keeping columns in a yspec
+                        object
+ys_recode               Recode column names in a vector
+ys_rename               Rename items in a yspec object or data.frame
 ys_render               Render an arbitrary spec of project
 ys_sanitize             Functions to sanitize text for TeX documents
-ys_select               Select a subset of columns from a yspec object
+ys_select               Select a subset of items from a yspec object
 ys_spec_file            Get the file name for a yspec object
+ys_table                Create a table from yspec object
 yspec                   yspec: data specification documents from yaml
 yspec_select_chr        Select all columns that are character
 yspec_select_discrete   Select all columns that are discrete

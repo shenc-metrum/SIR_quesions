@@ -1,5 +1,5 @@
 test_that("markdown file can be included", {
-  skip_if_not(rmarkdown::pandoc_available())
+  skip_if_not(rmarkdown::pandoc_available("2.17"))
 
   tmp <- tempfile(fileext = ".md")
   on.exit(unlink(tmp, recursive = TRUE), add = TRUE)
@@ -29,7 +29,7 @@ test_that("markdown file can be included", {
 })
 
 test_that("markdown with headers", {
-  skip_if_not(rmarkdown::pandoc_available())
+  skip_if_not(rmarkdown::pandoc_available("2.17"))
 
   tmp <- tempfile(fileext = ".md")
   on.exit(unlink(tmp, recursive = TRUE), add = TRUE)
@@ -66,7 +66,7 @@ test_that("markdown with headers", {
 })
 
 test_that("subsection within details", {
-  skip_if_not(rmarkdown::pandoc_available())
+  skip_if_not(rmarkdown::pandoc_available("2.17"))
 
   tmp <- tempfile(fileext = ".md")
   on.exit(unlink(tmp, recursive = TRUE), add = TRUE)
@@ -91,7 +91,7 @@ test_that("subsection within details", {
 })
 
 test_that("links to functions", {
-  skip_if_not(rmarkdown::pandoc_available())
+  skip_if_not(rmarkdown::pandoc_available("2.17"))
 
   tmp <- tempfile(fileext = ".md")
   on.exit(unlink(tmp, recursive = TRUE), add = TRUE)
@@ -113,7 +113,7 @@ test_that("links to functions", {
 })
 
 test_that("links to functions, with anchors", {
-  skip_if_not(rmarkdown::pandoc_available())
+  skip_if_not(rmarkdown::pandoc_available("2.17"))
 
   tmp <- tempfile(fileext = ".md")
   on.exit(unlink(tmp, recursive = TRUE), add = TRUE)
@@ -140,7 +140,7 @@ test_that("links to functions, with anchors", {
 test_that("empty Rmd", {
   tmp <- tempfile()
   on.exit(unlink(tmp), add = TRUE)
-  tag <- roxy_tag("includeRmd", tmp)
+  tag <- roxy_test_tag()
 
   cat("", sep = "", file = tmp)
   expect_equal(rmd_eval_rd(tmp, tag), structure("", names = ""))
@@ -153,7 +153,7 @@ test_that("empty Rmd", {
 })
 
 test_that("inline html", {
-  skip_if_not(rmarkdown::pandoc_available())
+  skip_if_not(rmarkdown::pandoc_available("2.17"))
 
   tmp <- tempfile(fileext = ".md")
   on.exit(unlink(tmp, recursive = TRUE), add = TRUE)
@@ -180,7 +180,7 @@ test_that("inline html", {
 })
 
 test_that("html block", {
-  skip_if_not(rmarkdown::pandoc_available())
+  skip_if_not(rmarkdown::pandoc_available("2.17"))
 
   tmp <- tempfile(fileext = ".md")
   on.exit(unlink(tmp, recursive = TRUE), add = TRUE)
@@ -205,7 +205,7 @@ test_that("html block", {
 })
 
 test_that("include as another section", {
-  skip_if_not(rmarkdown::pandoc_available())
+  skip_if_not(rmarkdown::pandoc_available("2.17"))
 
   tmp <- tempfile(fileext = ".md")
   on.exit(unlink(tmp, recursive = TRUE), add = TRUE)
@@ -235,7 +235,7 @@ test_that("include as another section", {
 })
 
 test_that("order of sections is correct", {
-  skip_if_not(rmarkdown::pandoc_available())
+  skip_if_not(rmarkdown::pandoc_available("2.17"))
 
   tmp <- tempfile(fileext = ".md")
   on.exit(unlink(tmp, recursive = TRUE), add = TRUE)
@@ -254,4 +254,28 @@ test_that("order of sections is correct", {
     NULL", tmp)
   out1 <- roc_proc_text(rd_roclet(), rox)[[1]]
   expect_match(format(out1), "Rmd.*After.*After2")
+})
+
+test_that("useful warnings", {
+  skip_if_not(rmarkdown::pandoc_available("2.17"))
+
+  text <- "
+    #' Title
+    #' @includeRmd path
+    #' @name foobar
+    NULL"
+  expect_snapshot_warning(roc_proc_text(rd_roclet(), text))
+
+  path <- withr::local_tempfile(fileext = ".Rmd", lines = c(
+    "```{r}",
+    "stop('Error')",
+    "```"
+  ))
+  text <- sprintf("
+    #' Title
+    #' @includeRmd %s
+    #' @name foobar
+    NULL", path
+  )
+  expect_snapshot_warning(roc_proc_text(rd_roclet(), text))
 })

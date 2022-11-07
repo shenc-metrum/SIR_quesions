@@ -42,7 +42,7 @@ Author: Anders Riutta et. al. [aut, cph] (svg-pan-zoom.js BSD-licensed library
 OriginalRepository: CRAN
 Repository: MPN
 Date/Publication: 2020-02-15 21:20:02 UTC
-Built: R 4.1.1; ; 2022-05-11 22:22:12 UTC; unix
+Built: R 4.1.1; ; 2022-11-07 16:50:12 UTC; unix
 PkgrVersion: v3.0.0-rc1
-PkgrInstallType: binary
-PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2021-11-19/
+PkgrInstallType: source
+PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2022-10-20

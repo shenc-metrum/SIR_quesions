@@ -14,10 +14,13 @@ test_that("path to the text `tzdata` can contain Unicode (#10)", {
 
   # Get existing install location and all files to copy
   dir_old <- tzdb_path(type = "text")
-  on.exit({
-    tzdb_set_install(dir_old)
-    tzdb_reload_cpp()
-  }, add = TRUE)
+  on.exit(
+    expr = {
+      tzdb_set_install(dir_old)
+      tzdb_reload_cpp()
+    },
+    add = TRUE
+  )
 
   files_old <- dir(dir_old, full.names = TRUE)
   base_names <- basename(files_old)
@@ -62,5 +65,5 @@ test_that("version has been reverted back to the original after running the abov
   skip_on_cran()
   skip_if(tzdb_use_os_tzdb_cpp())
 
-  expect_identical(tzdb_version(), "2021e")
+  expect_identical(tzdb_version(), "2022a")
 })

@@ -16,13 +16,13 @@ stopifnot(identical(v, 2L))
 
 stopifnot("stats" %in% loadedNamespaces())
 
-message("- SequentialFuture() - exceptions ...")
+message("- SequentialFuture() - 'local = FALSE' is defunct ...")
 
 res <- tryCatch({
-  f <- SequentialFuture(42, lazy = TRUE, local = FALSE)
+  f <- SequentialFuture(42, local = FALSE)
 }, error = identity)
 stopifnot(inherits(res, "error"))
-          
+
 message("*** sequential() ... DONE")
 
 source("incl/end.R")

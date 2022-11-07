@@ -68,6 +68,8 @@ rowpanel	rowpanel
 sig	sig
 st2article	st2article
 st2doc	st2doc
+st2pdf	st_aspdf
+st2png	st_aspng
 st2report	st2article
 st2viewer	st_preview
 stable	stable
@@ -84,6 +86,12 @@ stdata	ptdata
 st_align	st_align
 st_args	st_args
 st_asis	st_wrap
+st_aspdf	st_aspdf
+st_aspng	st_aspng
+st_as_image	st_as_image
+st_as_image.pmtable	st_as_image
+st_as_image.stable	st_as_image
+st_as_image.stobject	st_as_image
 st_blank	st_blank
 st_bold	st_bold
 st_center	st_align
@@ -96,7 +104,9 @@ st_data	st_new
 st_drop	st_drop
 st_edit	st_edit
 st_files	st_files
+st_filter	st_select
 st_hline	st_hline
+st_image_show	st_image_show
 st_it	st_bold
 st_knit_deps	st_use_knit_deps
 st_latex	st_wrap
@@ -104,8 +114,16 @@ st_left	st_align
 st_make	st_make
 st_mutate	st_select
 st_new	st_new
+st_new.data.frame	st_new
+st_new.pmtable	st_new
 st_noteconf	st_noteconf
 st_notes	st_notes
+st_notes_app	st_notes_app
+st_notes_conf	st_noteconf
+st_notes_detach	st_notes_detach
+st_notes_rm	st_notes_rm
+st_notes_str	st_notes_str
+st_notes_sub	st_notes_sub
 st_panel	st_panel
 st_preview	st_preview
 st_rename	st_rename
@@ -116,6 +134,7 @@ st_space	st_space
 st_span	st_span
 st_span_split	st_span_split
 st_sumrow	st_sumrow
+st_to_standalone	st_to_standalone
 st_units	st_units
 st_use_knit_deps	st_use_knit_deps
 st_using_knit_deps	st_use_knit_deps

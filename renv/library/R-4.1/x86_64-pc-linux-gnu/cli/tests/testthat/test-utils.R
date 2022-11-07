@@ -8,7 +8,7 @@ test_that("make_space", {
 test_that("apply_style", {
   expect_error(
     apply_style("text", raw(0)),
-    "Not a colour name or ANSI style"
+    "must be a color name or an ANSI style function"
   )
 })
 
@@ -145,4 +145,11 @@ test_that("tail_na", {
     c <- cases2[[i]]
     expect_identical(tail_na(c[[1]], c[[2]]), c[[3]], info = i)
   }
+})
+
+test_that("get_ppid", {
+  expect_equal(
+    ps::ps_ppid(),
+    get_ppid()
+  )
 })

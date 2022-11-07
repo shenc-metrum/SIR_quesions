@@ -1,5 +1,5 @@
 source("incl/start,load-only.R")
-
+options(future.debug=FALSE)
 message("*** plan() ...")
 
 cl <- future::makeClusterPSOCK(1L)
@@ -57,7 +57,6 @@ v <- value(f)
 print(v)
 stopifnot(v == 0)
 
-
 message("*** plan('sequential')")
 ## Setting strategy by name
 plan("sequential")
@@ -94,6 +93,28 @@ plan(tweak(sequential, abc = 1))
 fcn <- plan("next")
 print(fcn)
 stopifnot(formals(fcn)$abc == 1)
+
+message("*** do.call(plan, args = list(sequential, abc = 1))")
+do.call(plan, args = list(sequential, abc = 1, def = TRUE))
+fcn <- plan("next")
+print(fcn)
+stopifnot(formals(fcn)$abc == 1)
+
+message("*** plan(cluster, ..., rscript_startup = \"<code>\")")
+plan(cluster, workers = 1L, rscript_startup = "options(abc = 42L)")
+f <- future(getOption("abc"))
+v <- value(f)
+stopifnot(identical(v, 42L))
+plan(sequential)
+
+message("*** plan(cluster, ..., rscript_startup = <expr>)")
+plan(cluster, workers = 1L, rscript_startup = quote(options(abc = 42L)))
+f <- future(getOption("abc"))
+v <- value(f)
+print(v)
+stopifnot(identical(v, 42L))
+plan(sequential)
+
 
 
 message("*** old <- plan(new)")
@@ -205,6 +226,21 @@ plan("reset")
 print(plan())
 
 message("*** plan() w/ commands ... DONE")
+
+
+message("*** plan() - odds'n'ends ...")
+
+plan(sequential, split = FALSE)
+f <- future(42L)
+v <- value(f)
+stopifnot(v == 42L)
+stopifnot(
+  inherits(f$envir, "environment"),
+  identical(f$envir, globalenv())
+)
+
+message("*** plan() - odds'n'ends ... DONE")
+
 
 parallel::stopCluster(cl)
 

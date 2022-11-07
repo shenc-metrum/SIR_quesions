@@ -13,7 +13,7 @@ Packaged: 2020-11-02 14:45:50 UTC; luke
 OriginalRepository: CRAN
 Repository: MPN
 Date/Publication: 2020-11-04 17:12:32 UTC
-Built: R 4.1.1; ; 2022-05-11 22:16:19 UTC; unix
+Built: R 4.1.1; ; 2022-10-28 16:07:19 UTC; unix
 PkgrVersion: v3.0.0-rc1
 PkgrInstallType: binary
-PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2021-11-19/
+PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2022-10-20

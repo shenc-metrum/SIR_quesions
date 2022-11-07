@@ -1,6 +1,6 @@
 
 rule_class <- function(x) {
-  structure(x, class = c("rule", "ansi_string", "character"))
+  structure(x, class = c("cli_rule", "rule", "cli_ansi_string", "ansi_string", "character"))
 }
 
 capture_msgs <- function(expr) {
@@ -67,12 +67,6 @@ test_style <- function() {
       "text-decoration" = "underline",
       "margin-top" = 1)
   )
-}
-
-# to work around https://github.com/r-lib/withr/issues/167
-local_rng_version <- function(version, .local_envir = parent.frame()) {
-  withr::defer(RNGversion(as.character(getRversion())), envir = .local_envir)
-  suppressWarnings(RNGversion(version))
 }
 
 fix_times <- function(out) {
@@ -155,4 +149,48 @@ create_c_function_call <- function(code, args, header = NULL) {
 
 win2unix <- function (str) {
   gsub("\r\n", "\n", str, fixed = TRUE, useBytes = TRUE)
+}
+
+st_from_bel <- function(x) {
+  gsub("\007", "\033\\", x, fixed = TRUE)
+}
+
+st_to_bel <- function(x) {
+  gsub("\033\\", "\007", x, fixed = TRUE)
+}
+
+test_package_root <- function() {
+  x <- tryCatch(
+    rprojroot::find_package_root_file(),
+    error = function(e) NULL)
+
+  if (!is.null(x)) return(x)
+
+  pkg <- testthat::testing_package()
+  x <- tryCatch(
+    rprojroot::find_package_root_file(
+      path = file.path("..", "..", "00_pkg_src", pkg)),
+    error = function(e) NULL)
+
+  if (!is.null(x)) return(x)
+
+  stop("Cannot find package root")
+}
+
+sanitize_wd <- function(x) {
+  wd <- paste0("file://", getwd())
+  gsub(wd, "file:///testthat/home", x, fixed = TRUE)
+}
+
+sanitize_home <- function(x) {
+  home <- paste0("file://", path.expand("~"))
+  gsub(home, "file:///my/home", x, fixed = TRUE)
+}
+
+sanitize_srcref <- function(x) {
+  gsub(" at .*.R:[0-9]+:[0-9]+", "", x)
+}
+
+sanitize_call <- function(x) {
+  gsub(" in `.*`", "", x)
 }

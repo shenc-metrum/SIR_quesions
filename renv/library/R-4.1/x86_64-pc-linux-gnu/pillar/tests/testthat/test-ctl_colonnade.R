@@ -10,8 +10,9 @@ test_that("tests from tibble", {
 
   expect_snapshot({
     ctl_colonnade(mtcars[1:8, ], has_row_id = "*", width = 30)
-    ctl_colonnade(iris[1:5, ], width = 30)
-    ctl_colonnade(iris[1:3, ], width = 20)
+    ctl_colonnade(trees[1:5, ], width = 20)
+    ctl_colonnade(trees[1:5, ], width = 10)
+    ctl_colonnade(trees[1:3, ], width = 10)
     ctl_colonnade(df_all, width = 30)
     ctl_colonnade(df_all, width = 300)
     options(width = 70)
@@ -26,7 +27,9 @@ test_that("tests from tibble", {
     ctl_colonnade(df_all, width = 300)
     options(width = 20)
     ctl_colonnade(df_all, width = 300)
-    ctl_colonnade(list(`\n` = c("\n", '"'), `\r` = factor(c("\n", "\n"))), width = 30)
+    list_with_ctl <- list(c("\n", '"'), factor(c("\n", "\n")))
+    names(list_with_ctl) <- c("\n", "\r")
+    ctl_colonnade(list_with_ctl, width = 30)
     ctl_colonnade(list(a = c("", " ", "a ", " a")), width = 30)
     ctl_colonnade(list("mean(x)" = 5, "var(x)" = 3), width = 30)
   })
@@ -38,7 +41,7 @@ test_that("empty", {
     character()
   )
   expect_equal(
-    format(ctl_colonnade(iris[1:5, character()], width = 30)$body),
+    format(ctl_colonnade(trees[1:5, character()], width = 30)$body),
     character()
   )
 })
@@ -59,29 +62,26 @@ test_that("sep argument", {
   })
 })
 
-# Run opposite test to snapshot output but not alter it
-if (!l10n_info()$`UTF-8`) {
-  test_that("color, options: UTF-8 is TRUE", {
-    skip("Symmetry")
-  })
-}
+test_that("color", {
+  skip_if_not_installed("testthat", "3.1.1")
 
-test_that(paste0("color, options: UTF-8 is ", l10n_info()$`UTF-8`), {
   local_colors()
-  expect_true(crayon::has_color())
-  expect_equal(crayon::num_colors(), 16)
+  expect_equal(cli::num_ansi_colors(), 16)
 
   if (l10n_info()$`UTF-8`) {
     local_utf8()
     expect_true(cli::is_utf8_output())
+    variant <- "unicode"
+  } else {
+    variant <- "ansi"
   }
 
-  expect_snapshot({
+  expect_snapshot(variant = variant, {
     style_na("NA")
     style_neg("-1")
   })
 
-  expect_snapshot({
+  expect_snapshot(variant = variant, {
     xf <- function() ctl_colonnade(list(x = c((10^(-3:4)) * c(-1, 1), NA)))
     print(xf())
     with_options(pillar.subtle_num = TRUE, print(xf()))
@@ -91,7 +91,7 @@ test_that(paste0("color, options: UTF-8 is ", l10n_info()$`UTF-8`), {
     with_options(pillar.bold = TRUE, print(xf()))
   })
 
-  expect_snapshot({
+  expect_snapshot(variant = variant, {
     ctl_colonnade(list(a_very_long_column_name = 0), width = 20)
   })
 })
@@ -111,11 +111,11 @@ test_that("tibble columns", {
 })
 
 test_that("tibble columns (nested)", {
-  x <- vctrs::data_frame(
+  x <- data_frame(
     a = 1:3,
-    b = vctrs::data_frame(
+    b = data_frame(
       c = 4:6, d = 7:9,
-      e = data.frame(f = 10:12, g = 13:15)
+      e = data_frame(f = data_frame(g = 10:12, h = 13:15))
     )
   )
   expect_snapshot({
@@ -124,11 +124,11 @@ test_that("tibble columns (nested)", {
 })
 
 test_that("tibble columns (empty)", {
-  x <- vctrs::data_frame(
+  x <- data_frame(
     a = 1:3,
-    b = vctrs::data_frame(
+    b = data_frame(
       c = 4:6, d = 7:9,
-      e = vctrs::data_frame(f = 10:12)[, 0]
+      e = data_frame(f = 10:12)[, 0]
     ),
     c = 10:12
   )
@@ -162,8 +162,8 @@ test_that("matrix columns (empty)", {
 
 test_that("filling unused width (#331)", {
   new_foo <- function(x = character()) {
-    vctrs::vec_assert(x, character())
-    vctrs::new_vctr(x, class = "foo")
+    vec_assert(x, character())
+    new_vctr(x, class = "foo")
   }
 
   data <- new_tbl(list(
@@ -174,7 +174,7 @@ test_that("filling unused width (#331)", {
 
   pillar_shaft.foo <- function(x, ...) {
     full <- format(x)
-    trunc <- format(paste0(substr(x, 1, 7), cli::symbol$continue))
+    trunc <- format(paste0(substr(x, 1, 7), symbol$continue))
     pillar::new_pillar_shaft(
       list(full = full, trunc = trunc),
       width = pillar::get_max_extent(full),
@@ -199,5 +199,42 @@ test_that("filling unused width (#331)", {
     data
     options(width = 60)
     print(data)
+  })
+})
+
+test_that("focus columns", {
+  skip_if_not_installed("testthat", "3.1.1")
+
+  local_colors()
+
+  if (l10n_info()$`UTF-8`) {
+    local_utf8()
+    expect_true(cli::is_utf8_output())
+    variant <- "unicode"
+  } else {
+    variant <- "ansi"
+  }
+
+  x <- new_tbl(list(a = new_tbl(list(x = 1, y = 2)), b = "long enough"))
+
+  local_options(width = 80)
+
+  expect_snapshot(variant = variant, {
+    tbl_format_setup(x, width = 30, focus = "b")
+    tbl_format_setup(x, width = 20, focus = "b")
+    tbl_format_setup(x, width = 15, focus = "b")
+    tbl_format_setup(x, width = 10, focus = "b")
+    tbl_format_setup(x[2:1], width = 30, focus = "a")
+    tbl_format_setup(x[2:1], width = 20, focus = "a")
+    tbl_format_setup(x[2:1], width = 15, focus = "a")
+    tbl_format_setup(x[2:1], width = 10, focus = "a")
+    tbl_format_setup(x, width = 30, focus = c("a", "b"))
+    tbl_format_setup(x, width = 20, focus = c("a", "b"))
+    tbl_format_setup(x, width = 15, focus = c("a", "b"))
+    tbl_format_setup(x, width = 10, focus = c("a", "b"))
+    tbl_format_setup(x[2:1], width = 30, focus = c("a", "b"))
+    tbl_format_setup(x[2:1], width = 20, focus = c("a", "b"))
+    tbl_format_setup(x[2:1], width = 15, focus = c("a", "b"))
+    tbl_format_setup(x[2:1], width = 10, focus = c("a", "b"))
   })
 })

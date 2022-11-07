@@ -1,4 +1,3 @@
-
 test_that("can refer to columns in | operands", {
   expect_identical(select_loc(mtcars, cyl | am), c(cyl = 2L, am = 9L))
 })
@@ -9,10 +8,10 @@ test_that("can refer to columns in & operands", {
 })
 
 test_that("can use named inputs in & operands", {
-    x <- list(a = 1L, b = 2L)
-    expect_identical(select_loc(x, a & c(foo = a)), c(foo = 1L))
-    expect_identical(select_loc(x, c(foo = a) & a), c(foo = 1L))
-    expect_identical(select_loc(x, c(foo = a) & c(bar = a)), named(int()))
+  x <- list(a = 1L, b = 2L)
+  expect_identical(select_loc(x, a & c(foo = a)), c(foo = 1L))
+  expect_identical(select_loc(x, c(foo = a) & a), c(foo = 1L))
+  expect_identical(select_loc(x, c(foo = a) & c(bar = a)), named(int()))
 })
 
 test_that("symbol operands are evaluated in strict mode", {
@@ -37,7 +36,7 @@ test_that("boolean operators throw relevant errors", {
     "empty selection"
   )
 
-  verify_output(test_path("outputs", "select-eval-boolean-errors.txt"), {
+  expect_snapshot(error = TRUE, {
     "Unknown names"
     select_loc(mtcars, foobar & contains("am"))
     select_loc(mtcars, contains("am") | foobar)

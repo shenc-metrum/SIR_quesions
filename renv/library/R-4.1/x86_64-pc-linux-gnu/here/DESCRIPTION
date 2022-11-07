@@ -36,7 +36,7 @@ Maintainer: Kirill Müller <krlmlr+r@mailbox.org>
 OriginalRepository: CRAN
 Repository: MPN
 Date/Publication: 2020-12-13 07:30:02 UTC
-Built: R 4.1.1; ; 2022-05-11 22:19:04 UTC; unix
+Built: R 4.1.1; ; 2022-10-28 16:12:25 UTC; unix
 PkgrVersion: v3.0.0-rc1
 PkgrInstallType: binary
-PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2021-11-19/
+PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2022-10-20

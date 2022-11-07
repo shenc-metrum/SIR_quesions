@@ -70,7 +70,7 @@ Author: Richard Iannone [aut, cre] (<https://orcid.org/0000-0003-3925-190X>),
   Anna-Christina Nevison [aut],
   RStudio [cph, fnd]
 Maintainer: Richard Iannone <rich@rstudio.com>
-Built: R 4.1.1; ; 2022-05-11 22:26:46 UTC; unix
+Built: R 4.1.1; ; 2022-11-07 16:50:39 UTC; unix
 PkgrVersion: v3.0.0-rc1
-PkgrInstallType: binary
-PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2021-11-19/
+PkgrInstallType: source
+PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2022-10-20

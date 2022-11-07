@@ -1,5 +1,5 @@
 test_that("deprecate_soft() warns when called from global env", {
-  local_options(lifecycle_verbosity = NULL)
+  withr::local_envvar(TESTTHAT_PKG = "testpackage")
 
   fn <- function(id) {
     deprecate_soft("1.0.0", "foo()", id = id)
@@ -58,13 +58,14 @@ test_that("soft-deprecation warnings are issued when called from child of global
 
 test_that("deprecation warnings are not displayed again", {
   local_options(lifecycle_verbosity = NULL)
+  local_interactive()
 
   wrn <- catch_cnd(
     deprecate_warn("1.0.0", "foo()", id = "once-every-8-hours-note"),
     classes = "warning"
   )
-  footer <- wrn$internal$footer
-  expect_true(is_string(footer) && grepl("once every 8 hours", footer))
+  footer <- cnd_footer(wrn)
+  expect_true(is_character(footer) && any(grepl("once every 8 hours", footer)))
 
   local_options(lifecycle_verbosity = "warning")
 
@@ -78,10 +79,15 @@ test_that("the topenv of the empty env is not the global env", {
 })
 
 test_that("expect_deprecated() matches regexp", {
-  expect_deprecated(deprecate_soft("1.0", "fn()", details = "foo"), "foo")
-  expect_deprecated(deprecate_warn("1.0", "fn()", details = "foo.["), "foo.[", fixed = TRUE)
+  expect_deprecated(
+    deprecate_warn("1.0", "fn()", details = "foo.["), "foo.[", fixed = TRUE
+  )
 
+  fn <- function() {
+    deprecate_soft("1.0.0", "fn()")
+  }
+  expect_deprecated(fn(), "fn")
   expect_deprecated(expect_failure(
-    expect_deprecated(deprecate_soft("1.0", "fn()"), "foo")
+    expect_deprecated(fn(), "foo")
   ))
 })

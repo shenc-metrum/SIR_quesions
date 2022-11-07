@@ -15,7 +15,7 @@ Packaged: 2019-08-28 07:26:51 UTC; edwin
 OriginalRepository: CRAN
 Repository: MPN
 Date/Publication: 2019-08-28 08:50:02 UTC
-Built: R 4.1.1; ; 2022-05-11 22:15:51 UTC; unix
+Built: R 4.1.1; ; 2022-10-28 16:10:19 UTC; unix
 PkgrVersion: v3.0.0-rc1
 PkgrInstallType: binary
-PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2021-11-19/
+PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2022-10-20

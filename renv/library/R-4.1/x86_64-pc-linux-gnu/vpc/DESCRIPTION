@@ -18,7 +18,7 @@ Packaged: 2021-01-11 19:53:47 UTC; ronkeizer
 OriginalRepository: CRAN
 Repository: MPN
 Date/Publication: 2021-01-11 20:20:02 UTC
-Built: R 4.1.1; ; 2022-05-11 22:27:01 UTC; unix
+Built: R 4.1.1; ; 2022-10-28 16:28:57 UTC; unix
 PkgrVersion: v3.0.0-rc1
 PkgrInstallType: binary
-PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2021-11-19/
+PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2022-10-20

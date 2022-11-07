@@ -1,6 +1,7 @@
 AppVeyor
 AsIs
 BiocParallel
+cmd
 CMD
 cut'n'pasteable
 DNS
@@ -129,3 +130,10 @@ github
 HenrikBengtsson
 isForkedChild
 isNodeAlive
+socketOptions
+donttest
+Rterm
+canPortBeUsed
+cfs
+cpu
+cpuset

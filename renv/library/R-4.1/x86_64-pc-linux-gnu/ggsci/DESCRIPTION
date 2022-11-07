@@ -28,7 +28,7 @@ Author: Nan Xiao [aut, cre] (<https://orcid.org/0000-0002-0250-5673>),
 OriginalRepository: CRAN
 Repository: MPN
 Date/Publication: 2018-05-14 04:38:05 UTC
-Built: R 4.1.1; ; 2022-05-11 22:26:05 UTC; unix
+Built: R 4.1.1; ; 2022-10-28 16:25:10 UTC; unix
 PkgrVersion: v3.0.0-rc1
 PkgrInstallType: binary
-PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2021-11-19/
+PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2022-10-20

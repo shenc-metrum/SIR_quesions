@@ -2,6 +2,7 @@ browseNHANES            Open a browser to NHANES.
 nhanes                  Download an NHANES table and return as a data
                         frame.
 nhanesAttr              Returns the attributes of an NHANES data table.
+nhanesCodebook          Display codebook for selected variable.
 nhanesDXA               Import Dual Energy X-ray Absorptiometry (DXA)
                         data.
 nhanesSearch            Perform a search over the comprehensive NHANES

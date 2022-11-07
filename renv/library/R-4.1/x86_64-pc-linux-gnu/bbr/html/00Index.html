@@ -12,7 +12,7 @@
 <div style="text-align: center;">
 <a href="../../../doc/html/packages.html"><img class="arrow" src="../../../doc/html/left.jpg" alt="[Up]" /></a>
 <a href="../../../doc/html/index.html"><img class="arrow" src="../../../doc/html/up.jpg" alt="[Top]" /></a>
-</div><h2>Documentation for package &lsquo;bbr&rsquo; version 1.2.0</h2>
+</div><h2>Documentation for package &lsquo;bbr&rsquo; version 1.4.0</h2>
 
 <ul><li><a href="../DESCRIPTION">DESCRIPTION file</a>.</li>
 <li><a href="../doc/index.html">User guides, package vignettes and other documentation.</a></li>
@@ -25,6 +25,7 @@
 <a href="#A">A</a>
 <a href="#B">B</a>
 <a href="#C">C</a>
+<a href="#D">D</a>
 <a href="#F">F</a>
 <a href="#G">G</a>
 <a href="#M">M</a>
@@ -35,6 +36,7 @@
 <a href="#T">T</a>
 <a href="#U">U</a>
 <a href="#V">V</a>
+<a href="#W">W</a>
 <a href="#Y">Y</a>
 </p>
 
@@ -52,6 +54,8 @@
 <td>Modify description on a model object</td></tr>
 <tr><td style="width: 25%;"><a href="modify_notes.html">add_notes</a></td>
 <td>Modify notes on a model object</td></tr>
+<tr><td style="width: 25%;"><a href="modify_star.html">add_star</a></td>
+<td>Modify star attribute on a model object</td></tr>
 <tr><td style="width: 25%;"><a href="summary_log.html">add_summary</a></td>
 <td>Create a tibble from 'model_summaries()' data</td></tr>
 <tr><td style="width: 25%;"><a href="modify_tags.html">add_tags</a></td>
@@ -77,8 +81,6 @@
 <td>Initialize bbi</td></tr>
 <tr><td style="width: 25%;"><a href="bbi_version.html">bbi_version</a></td>
 <td>Get version of installed bbi</td></tr>
-<tr><td style="width: 25%;"><a href="bbr.html">bbr</a></td>
-<td>bbr</td></tr>
 <tr><td style="width: 25%;"><a href="apply_indices.html">block</a></td>
 <td>Add parameter indices to a label tibble</td></tr>
 <tr><td style="width: 25%;"><a href="build_path_from_model.html">build_path_from_model</a></td>
@@ -110,6 +112,8 @@
 <td>Check NONMEM output files</td></tr>
 <tr><td style="width: 25%;"><a href="check_nonmem_table_output.html">check_grd.character</a></td>
 <td>Check NONMEM output files</td></tr>
+<tr><td style="width: 25%;"><a href="check_nonmem_finished.html">check_nonmem_finished</a></td>
+<td>Checks if NONMEM run is done by looking for "Stop Time" in .lst file</td></tr>
 <tr><td style="width: 25%;"><a href="check_nonmem_table_output.html">check_nonmem_table_output</a></td>
 <td>Check NONMEM output files</td></tr>
 <tr><td style="width: 25%;"><a href="check_output_dir.html">check_output_dir</a></td>
@@ -118,6 +122,8 @@
 <td>Check output directory</td></tr>
 <tr><td style="width: 25%;"><a href="check_output_dir.html">check_output_dir.character</a></td>
 <td>Check output directory</td></tr>
+<tr><td style="width: 25%;"><a href="check_run_times.html">check_run_times</a></td>
+<td>Check estimation time for models run with various threads values</td></tr>
 <tr><td style="width: 25%;"><a href="check_status_code.html">check_status_code</a></td>
 <td>Checks status code from processx process</td></tr>
 <tr><td style="width: 25%;"><a href="check_up_to_date.html">check_up_to_date</a></td>
@@ -140,6 +146,13 @@
 <td>NONMEM Covariance and Correlation Matrices</td></tr>
 <tr><td style="width: 25%;"><a href="new_ext.html">ctl_ext</a></td>
 <td>Change file extension</td></tr>
+</table>
+
+<h2><a name="D">-- D --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="delete_models.html">delete_models</a></td>
+<td>Remove model files associated with the specified tags</td></tr>
 </table>
 
 <h2><a name="F">-- F --</a></h2>
@@ -192,6 +205,8 @@
 <td>Get path from bbi object</td></tr>
 <tr><td style="width: 25%;"><a href="get_path_from_object.html">get_model_path.bbi_nonmem_summary</a></td>
 <td>Get path from bbi object</td></tr>
+<tr><td style="width: 25%;"><a href="get_omega.html">get_omega</a></td>
+<td>Return a formatted object for a given parameter</td></tr>
 <tr><td style="width: 25%;"><a href="get_path_from_object.html">get_output_dir</a></td>
 <td>Get path from bbi object</td></tr>
 <tr><td style="width: 25%;"><a href="get_path_from_object.html">get_output_dir.bbi_log_df</a></td>
@@ -202,6 +217,10 @@
 <td>Get path from bbi object</td></tr>
 <tr><td style="width: 25%;"><a href="get_path_from_object.html">get_path_from_object</a></td>
 <td>Get path from bbi object</td></tr>
+<tr><td style="width: 25%;"><a href="get_omega.html">get_sigma</a></td>
+<td>Return a formatted object for a given parameter</td></tr>
+<tr><td style="width: 25%;"><a href="get_omega.html">get_theta</a></td>
+<td>Return a formatted object for a given parameter</td></tr>
 <tr><td style="width: 25%;"><a href="get_path_from_object.html">get_yaml_path</a></td>
 <td>Get path from bbi object</td></tr>
 <tr><td style="width: 25%;"><a href="get_path_from_object.html">get_yaml_path.bbi_log_df</a></td>
@@ -237,6 +256,8 @@
 <td>Modify field in model object</td></tr>
 <tr><td style="width: 25%;"><a href="modify_notes.html">modify_notes</a></td>
 <td>Modify notes on a model object</td></tr>
+<tr><td style="width: 25%;"><a href="modify_star.html">modify_star</a></td>
+<td>Modify star attribute on a model object</td></tr>
 <tr><td style="width: 25%;"><a href="modify_tags.html">modify_tags</a></td>
 <td>Modify tags on a model object</td></tr>
 <tr><td style="width: 25%;"><a href="new_ext.html">mod_ext</a></td>
@@ -277,6 +298,8 @@
 <td>Parses parameter estimates table</td></tr>
 <tr><td style="width: 25%;"><a href="param_estimates_batch.html">param_estimates_batch</a></td>
 <td>Batch Processing of Parameter Estimates</td></tr>
+<tr><td style="width: 25%;"><a href="param_estimates_compare.html">param_estimates_compare</a></td>
+<td>Compare parameter estimates</td></tr>
 <tr><td style="width: 25%;"><a href="param_labels.html">param_labels</a></td>
 <td>Extract parameter labels for report tables, etc.</td></tr>
 <tr><td style="width: 25%;"><a href="param_labels.html">param_labels.bbi_nonmem_model</a></td>
@@ -312,6 +335,8 @@
 <td>Modify based_on field in a model object</td></tr>
 <tr><td style="width: 25%;"><a href="modify_notes.html">remove_notes</a></td>
 <td>Modify notes on a model object</td></tr>
+<tr><td style="width: 25%;"><a href="modify_star.html">remove_star</a></td>
+<td>Modify star attribute on a model object</td></tr>
 <tr><td style="width: 25%;"><a href="modify_tags.html">remove_tags</a></td>
 <td>Modify tags on a model object</td></tr>
 <tr><td style="width: 25%;"><a href="modify_based_on.html">replace_all_based_on</a></td>
@@ -368,6 +393,8 @@
 <td>Check an output file</td></tr>
 <tr><td style="width: 25%;"><a href="check_file.html">tail_output.character</a></td>
 <td>Check an output file</td></tr>
+<tr><td style="width: 25%;"><a href="test_threads.html">test_threads</a></td>
+<td>Takes a model object and runs it with various threads values</td></tr>
 </table>
 
 <h2><a name="U">-- U --</a></h2>
@@ -384,6 +411,17 @@
 <table width="100%">
 <tr><td style="width: 25%;"><a href="verify_model_yaml_integrity.html">verify_model_yaml_integrity</a></td>
 <td>Verify YAML file integrity</td></tr>
+</table>
+
+<h2><a name="W">-- W --</a></h2>
+
+<table width="100%">
+<tr><td style="width: 25%;"><a href="wait_for_nonmem.html">wait_for_nonmem</a></td>
+<td>Wait for NONMEM models to finish</td></tr>
+<tr><td style="width: 25%;"><a href="wait_for_nonmem.html">wait_for_nonmem.bbi_nonmem_model</a></td>
+<td>Wait for NONMEM models to finish</td></tr>
+<tr><td style="width: 25%;"><a href="wait_for_nonmem.html">wait_for_nonmem.list</a></td>
+<td>Wait for NONMEM models to finish</td></tr>
 </table>
 
 <h2><a name="Y">-- Y --</a></h2>

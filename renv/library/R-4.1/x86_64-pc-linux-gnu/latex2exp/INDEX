@@ -1,16 +1,10 @@
-latex2exp               Converts a LaTeX string to a 'plotmath'
-                        expression. Deprecated; use 'TeX' instead.
-latex2exp_examples      Plots a number of example LaTeX string, as
-                        parsed by 'TeX'.
-latex2exp_supported     Returns a list of all supported LaTeX symbols
-                        and expressions that can be converted with
-                        'latex2exp'.
-plot.expression         Plots an expression on the current graphical
-                        device.
-print.latextoken        Prints out a parsed LaTeX object, as returned
-                        by TeX(..., output='ast').
-TeX                     Converts a LaTeX string to a 'plotmath'
-                        expression.
-toString.latextoken     Converts a token created by TeX() to a string,
-                        later to be parsed into an expression (for
-                        internal use).
+latex2exp               Deprecated; use 'TeX' instead.
+latex2exp_examples      latex2exp Examples
+latex2exp_supported     Returns the list of supported LaTeX commands.
+plot.expression         Previews a LaTeX equation
+print.latexexpression   Print an expression returned by TeX()
+print.latextoken2       Prints out a parsed LaTeX object, as returned
+                        by TeX(..., output='ast'). This is primarily
+                        used for debugging.
+render_latex            Renders a LaTeX tree
+TeX                     Converts LaTeX to a 'plotmath' expression.

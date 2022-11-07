@@ -20,6 +20,7 @@ as.data.frame.ev	ev_methods
 as.ev	as.ev
 as.ev,data.frame-method	as.ev
 as.ev,ev-method	as.ev
+as.evd	evd
 as.list,matlist-method	matlist
 as.list,mrgmod-method	as.list-mrgmod-method
 as.list,mrgsims-method	as.list-mrgsims-method
@@ -66,6 +67,9 @@ cmtn	cmtn
 cmtn,mrgmod-method	cmtn
 cmt_list-class	cmt_list-class
 code	code
+collapse_matrix	collapse_matrix
+collapse_omega	collapse_matrices
+collapse_sigma	collapse_matrices
 cvec	cvec
 cvec.character	cvec
 data_set	data_set
@@ -93,6 +97,11 @@ ev,ev-method	ev
 ev,missing-method	ev
 ev,mrgmod-method	ev
 ev-class	ev-class
+evd	evd
+evd,ev-method	evd
+evd,missing-method	evd
+evd,mrgmod-method	evd
+evd_expand	expand.idata
 ev_assign	ev_assign
 ev_days	ev_days
 ev_expand	expand.idata
@@ -108,6 +117,7 @@ exBoot	exdatasets
 exdatasets	exdatasets
 exidata	exdatasets
 expand.ev	expand.idata
+expand.evd	expand.idata
 expand.idata	expand.idata
 expand_observations	expand_observations
 exTheoph	exdatasets
@@ -144,6 +154,8 @@ knobs,mrgmod,batch_mrgsims-method	knobs
 knobs,mrgmod,missing-method	knobs
 labels,matlist-method	matlist
 lctran	lctran
+lctran.data.frame	lctran
+lctran.ev	lctran
 length,numericlist-method	numericlist
 length.matlist	matlist
 loadso	loadso
@@ -303,6 +315,9 @@ tgrid_+_numeric	tgrid_ops
 THETA	BLOCK_PARSE
 touch_funs	touch_funs
 tscale	tscale
+uctran	lctran
+uctran.data.frame	lctran
+uctran.ev	lctran
 update	update
 update,mrgmod-method	update
 update,omegalist-method	update

@@ -27,7 +27,7 @@ test_that("formats successfully produce a document", {
   suppressWarnings(testFormat(html_vignette()))
 
   if (requireNamespace("tufte", quietly = TRUE))
-    suppressWarnings(testFormat(tufte_handout()))
+    testFormat(tufte::tufte_handout())
 })
 
 test_that("documents with spaces in names can be rendered", {
@@ -69,7 +69,6 @@ test_that(
   }
 
   testFormat(html_vignette(theme = "z"))
-  testFormat(html_vignette(highlight = "z"))
   testFormat(html_vignette(fig_retina = 2))
 
 })

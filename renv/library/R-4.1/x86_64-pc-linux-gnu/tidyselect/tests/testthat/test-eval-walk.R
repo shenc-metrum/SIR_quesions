@@ -1,4 +1,3 @@
-
 test_that("leaves of data expression tree are evaluated in the context", {
   wrapper <- function(x, var) select_loc(x, {{ var }}:length(x))
   expect_identical(wrapper(letters2, x), select_loc(letters2, x:26))
@@ -90,7 +89,7 @@ test_that("boolean operators are overloaded", {
 })
 
 test_that("scalar boolean operators fail informatively", {
-  verify_output(test_path("outputs", "vars-select-bool-scalar-ops.txt"), {
+  expect_snapshot(error = TRUE, {
     select_loc(letters2, starts_with("a") || ends_with("b"))
     select_loc(letters2, starts_with("a") && ends_with("b"))
   })
@@ -113,68 +112,21 @@ test_that("can't use `*` and `^` in data context", {
   expect_error(select_loc(letters2, a * 2), "arithmetic")
   expect_error(select_loc(letters2, a^2), "arithmetic")
 
-  verify_output(test_path("outputs", "vars-select-num-ops.txt"), {
+  expect_snapshot(error = TRUE, {
     select_loc(letters2, a * 2)
     select_loc(letters2, a^2)
   })
 })
 
 test_that("can use arithmetic operators in non-data context", {
-  expect_identical(select_loc(letters2, identity(2 * 2 + 2 ^ 2 / 2)), c(f = 6L))
+  expect_identical(select_loc(letters2, identity(2 * 2 + 2^2 / 2)), c(f = 6L))
 })
 
 test_that("symbol lookup outside data informs caller about better practice", {
-  skip("Non-deterministic failures")
-  local_options(tidyselect_verbosity = "verbose")
-
-  vars1 <- c("a", "b")
-  expect_message(select_loc(letters2, vars1))
-
-  vars2 <- c("a", "b") # To force a message the second time
-  verify_output(test_path("outputs", "vars-select-context-lookup.txt"), {
-    select_loc(letters2, vars2)
+  expect_snapshot({
+    vars <- c("a", "b")
+    select_loc(letters2, vars)
   })
-})
-
-test_that("symbol evaluation only informs once (#184)", {
-  verify_output(test_path("outputs", "eval-sym-verbosity.txt"), {
-    "Default"
-    with_options(tidyselect_verbosity = NULL, {
-      `_vars_default` <- "cyl"
-      select_loc(mtcars, `_vars_default`)
-      select_loc(mtcars, `_vars_default`)
-      invisible(NULL)
-    })
-
-    "Verbose"
-    with_options(tidyselect_verbosity = "verbose", {
-      `_vars_verbose` <- "cyl"
-      select_loc(mtcars, `_vars_verbose`)
-      select_loc(mtcars, `_vars_verbose`)
-      invisible(NULL)
-    })
-
-    "Quiet"
-    with_options(tidyselect_verbosity = "quiet", {
-      `_vars_quiet` <- "cyl"
-      select_loc(mtcars, `_vars_quiet`)
-      select_loc(mtcars, `_vars_quiet`)
-      invisible(NULL)
-    })
-  })
-})
-
-test_that("symbol evaluation informs from global environment but not packages", {
-  fn <- function(name, select_loc) {
-    assign(name, 1L)
-    eval(bquote(select_loc(iris, .(as.symbol(name)))))
-  }
-
-  environment(fn) <- env(global_env())
-  expect_message(fn("from-global-env", select_loc), "ambiguous")
-
-  environment(fn) <- ns_env("rlang")
-  expect_message(fn("from-ns-env", select_loc), NA)
 })
 
 test_that("selection helpers are in the context mask", {
@@ -209,6 +161,13 @@ test_that("can use predicates in selections", {
   expect_identical(select_loc(iris, where(is.numeric)), set_names(1:4, names(iris)[1:4]))
   expect_identical(select_loc(iris, where(is.numeric) & where(is.factor)), set_names(int(), chr()))
   expect_identical(select_loc(iris, where(is.numeric) | where(is.factor)), set_names(1:5, names(iris)))
+})
+
+test_that("can forbid use of predicates", {
+  expect_snapshot(
+    select_loc(iris, where(is.factor), allow_predicates = FALSE),
+    error = TRUE
+  )
 })
 
 test_that("inline functions are allowed", {
@@ -263,17 +222,26 @@ test_that("unique elements are returned", {
 })
 
 test_that("selections provide informative errors", {
-  verify_output(test_path("outputs", "eval-errors.txt"), {
+  expect_snapshot(error = TRUE, {
     "Foreign errors during evaluation"
     select_loc(iris, eval_tidy(foobar))
   })
 })
 
 test_that("can select with .data pronoun (#2715)", {
+  withr::local_options(lifecycle_verbosity = "quiet")
+
   expect_identical(select_loc(c(foo = "foo"), .data$foo), c(foo = 1L))
   expect_identical(select_loc(c(foo = "foo"), .data[["foo"]]), c(foo = 1L))
-  expect_identical(select_loc(letters2, .data$a : .data$b), c(a = 1L, b = 2L))
-  expect_identical(select_loc(letters2, .data[["a"]] : .data[["b"]]), c(a = 1L, b = 2L))
+  expect_identical(select_loc(letters2, .data$a:.data$b), c(a = 1L, b = 2L))
+  expect_identical(select_loc(letters2, .data[["a"]]:.data[["b"]]), c(a = 1L, b = 2L))
+})
+
+test_that("use of .data is deprecated", {
+  x <- list(a = 1, b = 2, c = 3)
+  var <- "a"
+  expect_snapshot(x <- select_loc(x, .data$a))
+  expect_snapshot(x <- select_loc(x, .data[[var]]))
 })
 
 test_that(".data in env-expression has the lexical definition", {
@@ -293,14 +261,20 @@ test_that("binary `/` is short for set difference", {
 
 test_that("can select names with unrepresentable characters", {
   skip_if_not_installed("rlang", "0.4.2.9000")
-  withr::with_locale(c(LC_CTYPE = "C"), {
-    name <- "\u4e2d"
-    tbl <- setNames(data.frame(a = 1), name)
-    expect_identical(
-      select_loc(tbl, !!sym(name)),
-      set_names(1L, name)
-    )
-  })
+
+  # R now emits a warning when converting to symbol. Since Windows
+  # gained UTF-8 support, supporting unrepresentable characters is no
+  # longer necessary.
+  suppressWarnings(
+    withr::with_locale(c(LC_CTYPE = "C"), {
+      name <- "\u4e2d"
+      tbl <- setNames(data.frame(a = 1), name)
+      expect_identical(
+        select_loc(tbl, !!sym(name)),
+        set_names(1L, name)
+      )
+    })
+  )
 })
 
 test_that("`-1:-2` is syntax for `-(1:2)` for compatibility", {
@@ -321,24 +295,15 @@ test_that("eval_sym() doesn't look for functions in the context", {
 })
 
 test_that("eval_sym() still supports predicate functions starting with `is`", {
-  local_options(tidyselect_verbosity = "quiet")
+  local_options(lifecycle_verbosity = "quiet")
   expect_identical(select_loc(iris, is_integer), select_loc(iris, where(is_integer)))
   expect_identical(select_loc(iris, is.numeric), select_loc(iris, where(is.numeric)))
   expect_identical(select_loc(iris, isTRUE), select_loc(iris, where(isTRUE)))
 })
 
-test_that("formula shorthand must be wrapped", {
-  verify_errors({
-    expect_error(select_loc(mtcars, ~ is.numeric(.x)))
-    expect_error(select_loc(mtcars, ~ is.numeric(.x) || is.factor(.x) || is.character(.x)))
-    expect_error(select_loc(mtcars, ~ is.numeric(.x) || is.factor(.x) || is.character(.x) ||
-                                      is.numeric(.x) || is.factor(.x) || is.character(.x)))
-  })
-})
-
 test_that("eval_walk() has informative messages", {
-  verify_output(test_path("outputs", "test-helpers-where.txt"), {
-    "# Using a predicate without where() warns"
+  expect_snapshot({
+    "Using a predicate without where() warns"
     invisible(select_loc(iris, is_integer))
     invisible(select_loc(iris, is.numeric))
     invisible(select_loc(iris, isTRUE))
@@ -347,9 +312,29 @@ test_that("eval_walk() has informative messages", {
     invisible(select_loc(iris, is_integer))
 
     "formula shorthand must be wrapped"
-    select_loc(mtcars, ~ is.numeric(.x))
-    select_loc(mtcars, ~ is.numeric(.x) || is.factor(.x) || is.character(.x))
-    select_loc(mtcars, ~ is.numeric(.x) || is.factor(.x) || is.character(.x) ||
-                         is.numeric(.x) || is.factor(.x) || is.character(.x))
+    (expect_error(select_loc(mtcars, ~ is.numeric(.x))))
+    (expect_error(select_loc(mtcars, ~ is.numeric(.x) || is.factor(.x) || is.character(.x))))
+    (expect_error(select_loc(mtcars, ~ is.numeric(.x) || is.factor(.x) || is.character(.x) ||
+                                       is.numeric(.x) || is.factor(.x) || is.character(.x))))
+
+    (expect_error(select_loc(mtcars, .data$"foo")))
   })
+})
+
+test_that("can forbid empty selection", {
+  expect_snapshot(error = TRUE, {
+    ensure_named(integer(), allow_empty = FALSE)
+    ensure_named(integer(), allow_empty = FALSE, allow_rename = FALSE)
+  })
+})
+
+test_that("can make empty selection with allow_rename = FALSE", {
+  expect_equal(
+    select_loc(mtcars, character(), allow_rename = FALSE),
+    set_names(integer(0))
+  )
+  expect_equal(
+    select_loc(mtcars, c(cyl, am), allow_rename = FALSE),
+    c(cyl = 2L, am = 9L)
+  )
 })

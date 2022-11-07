@@ -90,6 +90,7 @@ fix_data_frame          Ensure an object is a data frame, with rownames
                         moved into a column
 glance_optim            Tidy a(n) optim object masquerading as list
 glance.aareg            Glance at a(n) aareg object
+glance.anova            Glance at a(n) anova object
 glance.aov              Glance at a(n) lm object
 glance.Arima            Glance at a(n) Arima object
 glance.betamfx          Glance at a(n) betamfx object
@@ -161,8 +162,6 @@ list_tidiers            Tidying methods for lists / returned values
                         that are not S3 objects
 null_tidiers            Tidiers for NULL inputs
 sp_tidiers              Tidy a(n) SpatialPolygonsDataFrame object
-sparse_tidiers          Tidy a sparseMatrix object from the Matrix
-                        package
 summary_tidiers         (Deprecated) Tidy summaryDefault objects
 tidy_irlba              Tidy a(n) irlba object masquerading as list
 tidy_optim              Tidy a(n) optim object masquerading as list

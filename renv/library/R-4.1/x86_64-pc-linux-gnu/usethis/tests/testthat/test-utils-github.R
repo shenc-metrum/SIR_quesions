@@ -153,6 +153,10 @@ test_that("github_remotes() works", {
 # GitHub remote configuration --------------------------------------------------
 # very sparse, but you have to start somewhere!
 
+test_that("we understand the list of all possible configs", {
+  expect_snapshot(all_configs())
+})
+
 test_that("fork_upstream_is_not_origin_parent is detected", {
   # We've already encountered this in the wild. Here's how it happens:
   # 1. r-pkgs/gh is created
@@ -176,4 +180,5 @@ test_that("fork_upstream_is_not_origin_parent is detected", {
     cfg <- github_remote_config()
   )
   expect_equal(cfg$type, "fork_upstream_is_not_origin_parent")
+  expect_snapshot(error = TRUE, stop_bad_github_remote_config(cfg))
 })

@@ -27,6 +27,8 @@ latex.table             Writes a latex formatted table to a file
 lm.fit.recursive        Recursive Least Squares
 lprq                    locally polynomial quantile regression
 Mammals                 Garland(1983) Data on Running Speed of Mammals
+MelTemp                 Daily maximum temperatures in Melbourne,
+                        Australia
 Munge                   Munge rqss formula
 nlrq                    Function to compute nonlinear quantile
                         regression estimates

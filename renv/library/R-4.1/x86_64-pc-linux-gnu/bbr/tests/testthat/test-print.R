@@ -37,6 +37,9 @@ withr::with_options(list(bbr.bbi_exe_path = read_bbi_path()), {
     temp_dir <- file.path(get_model_working_directory(MOD1), "print-test")
     fs::dir_create(temp_dir)
     on.exit(fs::dir_delete(temp_dir))
+
+    readr::write_file("created_by: test-print", file.path(temp_dir, "bbi.yaml"))
+
     mods <- purrr::map(1:50, ~copy_model_from(MOD1, file.path("print-test", .x)))
     proc <- submit_models(mods, .dry_run = TRUE)
 
@@ -57,7 +60,7 @@ withr::with_options(list(bbr.bbi_exe_path = read_bbi_path()), {
     expect_true(str_detect(call_str,
                            paste0("\\Q", temp_dir, "\\E", "/1\\.ctl.+",
                                   "\\Q", temp_dir, "\\E", "/2\\.ctl.+")))
-    expect_true(str_detect(call_str, "--overwrite --threads=4"))
+    expect_true(str_detect(call_str, "--overwrite --parallel --threads=4"))
 
     # Check that passing in .call_limit=30 has bbi path, NO model paths, but
     # still has flags. Note that 30 is sufficient to trigger truncation of the
@@ -66,7 +69,7 @@ withr::with_options(list(bbr.bbi_exe_path = read_bbi_path()), {
     call_str <- capture.output(print(proc[[1]], .call_limit=30))[2]
     expect_true(str_detect(call_str, fixed(read_bbi_path())))
     expect_false(str_detect(call_str, fixed(temp_dir)))
-    expect_true(str_detect(call_str, "--overwrite --threads=4"))
+    expect_true(str_detect(call_str, "--overwrite --parallel --threads=4"))
   })
 
   test_that("print.bbi_nonmem_model contains proper fields if all present [BBR-PRNT-002]", {
@@ -188,6 +191,17 @@ withr::with_options(list(bbr.bbi_exe_path = read_bbi_path()), {
     res_str <- capture.output(print(.s, .off_diag = TRUE, .fixed = TRUE))
     ref_str <- readLines(file.path(PRINT_REF_DIR, "print_nmsum_example2_saemimp_fixedTRUE_offdiagTRUE.txt"))
     expect_equal(res_str, ref_str)
+  })
+
+  test_that("print.bbi_nonmem_summary ONLYSIM [BBR-PRNT-003]", {
+    skip_if_old_bbi("3.1.1")
+
+    .s <- file.path(MODEL_DIR_X, "acop-onlysim") %>%
+      read_model() %>%
+      model_summary()
+
+    res_str <- capture.output(print(.s))
+    expect_true("No Estimation Methods (ONLYSIM)" %in% res_str)
   })
 
 })

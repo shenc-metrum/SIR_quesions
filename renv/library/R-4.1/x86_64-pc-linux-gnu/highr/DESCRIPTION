@@ -29,7 +29,7 @@ Maintainer: Yihui Xie <xie@yihui.name>
 OriginalRepository: CRAN
 Repository: MPN
 Date/Publication: 2021-04-16 21:50:05 UTC
-Built: R 4.1.1; ; 2022-05-11 22:18:17 UTC; unix
+Built: R 4.1.1; ; 2022-10-28 16:11:11 UTC; unix
 PkgrVersion: v3.0.0-rc1
 PkgrInstallType: binary
-PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2021-11-19/
+PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2022-10-20

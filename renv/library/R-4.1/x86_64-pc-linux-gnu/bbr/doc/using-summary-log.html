@@ -27,6 +27,7 @@
     </style>
 
 
+
 <style type="text/css">
   code {
     white-space: pre;
@@ -169,20 +170,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(sum1)</span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;absolute_model_path&quot; &quot;run_details&quot;         &quot;run_heuristics&quot;     </span></span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4] &quot;parameters_data&quot;     &quot;parameter_names&quot;     &quot;ofv&quot;                </span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [7] &quot;condition_number&quot;    &quot;shrinkage_details&quot;</span></span></code></pre></div>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [7] &quot;condition_number&quot;    &quot;shrinkage_details&quot;   &quot;success&quot;</span></span></code></pre></div>
 <p>For example, the <code>run_details</code> section alone contains wealth of information about this model run:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(sum1<span class="sc">$</span>run_details)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; List of 16</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ version               : chr &quot;7.4.4&quot;</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ run_start             : chr &quot;-999999999&quot;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ run_start             : num NA</span></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ run_end               : chr &quot;Tue Aug 25 16:50:27 EDT 2020&quot;</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ estimation_time       : num 132</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ covariance_time       : num 1.04</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ postprocess_time      : num 1.04</span></span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ cpu_time              : num 134</span></span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ function_evaluations  : int 380</span></span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ significant_digits    : int 3</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ problem_text          : chr &quot;LEM 10 mixture model and IOV on CL&quot;</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ mod_file              : chr &quot;-999999999&quot;</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ problem_text          : chr &quot;10 mixture model and IOV on CL&quot;</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ mod_file              : num NA</span></span>
 <span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ estimation_method     : chr &quot;First Order Conditional Estimation&quot;</span></span>
 <span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ data_set              : chr &quot;../MixSim.csv&quot;</span></span>
 <span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ number_of_subjects    : int 300</span></span>
@@ -199,19 +200,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><code>.recurse</code> – Logical indicating whether to search recursively in subdirectories. This is <code>TRUE</code> by default.</li>
 </ul>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>sum_df <span class="ot">&lt;-</span> <span class="fu">summary_log</span>(MODEL_DIR)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(sum_df)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;absolute_model_path&quot;     &quot;run&quot;                    </span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [3] &quot;bbi_summary&quot;             &quot;error_msg&quot;              </span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [5] &quot;needed_fail_flags&quot;       &quot;estimation_method&quot;      </span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [7] &quot;problem_text&quot;            &quot;number_of_subjects&quot;     </span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [9] &quot;number_of_obs&quot;           &quot;ofv&quot;                    </span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [11] &quot;param_count&quot;             &quot;condition_number&quot;       </span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [13] &quot;any_heuristics&quot;          &quot;covariance_step_aborted&quot;</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [15] &quot;large_condition_number&quot;  &quot;eigenvalue_issues&quot;      </span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [17] &quot;correlations_not_ok&quot;     &quot;parameter_near_boundary&quot;</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [19] &quot;hessian_reset&quot;           &quot;has_final_zero_gradient&quot;</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [21] &quot;minimization_terminated&quot; &quot;eta_pval_significant&quot;   </span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [23] &quot;prderr&quot;</span></span></code></pre></div>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; New names:</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; • `` -&gt; `...1`</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(sum_df)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;absolute_model_path&quot;     &quot;run&quot;                    </span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [3] &quot;bbi_summary&quot;             &quot;needed_fail_flags&quot;      </span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [5] &quot;error_msg&quot;               &quot;estimation_method&quot;      </span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [7] &quot;problem_text&quot;            &quot;number_of_subjects&quot;     </span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [9] &quot;number_of_obs&quot;           &quot;...1&quot;                   </span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [11] &quot;ofv&quot;                     &quot;param_count&quot;            </span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [13] &quot;condition_number&quot;        &quot;any_heuristics&quot;         </span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [15] &quot;covariance_step_aborted&quot; &quot;large_condition_number&quot; </span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [17] &quot;eigenvalue_issues&quot;       &quot;correlations_not_ok&quot;    </span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [19] &quot;parameter_near_boundary&quot; &quot;hessian_reset&quot;          </span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [21] &quot;has_final_zero_gradient&quot; &quot;minimization_terminated&quot;</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [23] &quot;eta_pval_significant&quot;    &quot;prderr&quot;</span></span></code></pre></div>
 <p>The specific columns returned are described below, though there is also a list of them, with brief definitions, in the <a href="https://metrumresearchgroup.github.io/bbr/reference/summary_log.html"><code>summary_log()</code> docs</a> that can be accessed any time with <code>?summary_log()</code> in the console.</p>
 <div id="housekeeping-columns" class="section level2">
 <h2>Housekeeping Columns</h2>
@@ -234,15 +237,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    number_of_obs, </span>
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    condition_number</span>
 <span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 5 × 8</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   run                  ofv param_count estimation_meth… problem_text number_of_subje…</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;              &lt;dbl&gt;       &lt;int&gt; &lt;chr&gt;            &lt;chr&gt;                   &lt;int&gt;</span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 1001               3843.          15 MCMC Bayesian A… Run# 1001.1               240</span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 acop-fake-bayes    2675.           7 First Order Con… LEM PK mode…               40</span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 acop-iov          44159.           9 First Order Con… LEM PK mode…               39</span></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 example2_saemimp -10839.          21 Stochastic Appr… RUN# exampl…              400</span></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 iovmm             14722.          11 First Order Con… LEM 10 mixt…              300</span></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 2 more variables: number_of_obs &lt;int&gt;, condition_number &lt;dbl&gt;</span></span></code></pre></div>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 6 × 8</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   run             ofv param_count estimation_meth… problem_text number_of_subje…</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;         &lt;dbl&gt;       &lt;int&gt; &lt;chr&gt;            &lt;chr&gt;                   &lt;int&gt;</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 1001          3843.          15 MCMC Bayesian A… Run# 1001.1               240</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 acop-fake-…   2675.           7 First Order Con… PK model 1 …               40</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 acop-iov     44159.           9 First Order Con… PK model 1 …               39</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 acop-onlys…     NA           NA &lt;NA&gt;             PK model 1 …               40</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 example2_s… -10839.          21 Stochastic Appr… RUN# exampl…              400</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 iovmm        14722.          11 First Order Con… 10 mixture …              300</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 2 more variables: number_of_obs &lt;int&gt;, condition_number &lt;dbl&gt;</span></span></code></pre></div>
 </div>
 <div id="run-heuristics-columns" class="section level2">
 <h2>Run Heuristics Columns</h2>
@@ -250,14 +254,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Note that <strong>all heuristics will be <code>FALSE</code> by default (and <em>never</em> <code>NA</code>) and will only be <code>TRUE</code> if they are explicitly triggered.</strong> For example, <code>large_condition_number</code> will be <code>FALSE</code> even in the case when a condition number was not calculated at all.</p>
 <p>All of the heuristic flags are pivoted out to their own columns in the <code>bbi_summary_log_df</code> tibble. It’s useful to note that, except for <code>needed_fail_flags</code> (discussed above), these are the <em>only logical columns</em> in the tibble and can therefore be easily selected with <code>tidyselect::where(is.logical)</code>. <em>(Note: <code>where()</code> only became available in <code>tidyselect (&gt;= 1.1.0)</code>, released May 2020.)</em></p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>sum_df <span class="sc">%&gt;%</span> <span class="fu">select</span>(run, <span class="fu">where</span>(is.logical), <span class="sc">-</span>needed_fail_flags)</span></code></pre></div>
-<pre><code>#&gt; # A tibble: 5 × 13
-#&gt;   run              needed_fail_fla… any_heuristics covariance_step… large_condition…
-#&gt;   &lt;chr&gt;            &lt;lgl&gt;            &lt;lgl&gt;          &lt;lgl&gt;            &lt;lgl&gt;           
-#&gt; 1 1001             TRUE             TRUE           FALSE            TRUE            
-#&gt; 2 acop-fake-bayes  FALSE            TRUE           FALSE            FALSE           
-#&gt; 3 acop-iov         FALSE            TRUE           FALSE            FALSE           
-#&gt; 4 example2_saemimp FALSE            FALSE          FALSE            FALSE           
-#&gt; 5 iovmm            FALSE            TRUE           FALSE            FALSE           
+<pre><code>#&gt; # A tibble: 6 × 14
+#&gt;   run    needed_fail_fla… ...1  any_heuristics covariance_step… large_condition…
+#&gt;   &lt;chr&gt;  &lt;lgl&gt;            &lt;lgl&gt; &lt;lgl&gt;          &lt;lgl&gt;            &lt;lgl&gt;           
+#&gt; 1 1001   TRUE             NA    TRUE           FALSE            TRUE            
+#&gt; 2 acop-… FALSE            NA    TRUE           FALSE            FALSE           
+#&gt; 3 acop-… FALSE            NA    TRUE           FALSE            FALSE           
+#&gt; 4 acop-… FALSE            NA    FALSE          FALSE            FALSE           
+#&gt; 5 examp… FALSE            NA    FALSE          FALSE            FALSE           
+#&gt; 6 iovmm  FALSE            NA    TRUE           FALSE            FALSE           
 #&gt; # … with 8 more variables: eigenvalue_issues &lt;lgl&gt;, correlations_not_ok &lt;lgl&gt;,
 #&gt; #   parameter_near_boundary &lt;lgl&gt;, hessian_reset &lt;lgl&gt;,
 #&gt; #   has_final_zero_gradient &lt;lgl&gt;, minimization_terminated &lt;lgl&gt;,

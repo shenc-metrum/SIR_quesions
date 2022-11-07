@@ -27,6 +27,7 @@
     </style>
 
 
+
 <style type="text/css">
   code {
     white-space: pre;
@@ -164,7 +165,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">copy_model_from</span>(<span class="at">.parent_mod =</span> mod1, <span class="at">.new_model =</span> <span class="dv">2</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">get_based_on</span>(mod2)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;/tmp/RtmpBADrH1/Rinst3e6cbbe8e7/bbr/model/nonmem/basic/1&quot;</span></span></code></pre></div>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;/tmp/RtmpH5kbbY/Rinst3f28df5b4d/bbr/model/nonmem/basic/1&quot;</span></span></code></pre></div>
 <div id="diff-helpers" class="section level2">
 <h2>diff helpers</h2>
 <p>There are several helper functions for comparing a model to its parent. <code>tags_diff()</code> compares the tags attached to the two models, while <code>model_diff()</code> compares the model files on disk.</p>
@@ -381,14 +382,14 @@ DIV.diffobj-container.light.yb DIV.diffobj-line {
 <h2>get_based_on</h2>
 <p>First, by using <code>get_based_on()</code> you can retrieve the absolute path to all models in the <code>based_on</code> field.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>mod6 <span class="sc">%&gt;%</span> <span class="fu">get_based_on</span>()</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;/tmp/RtmpBADrH1/Rinst3e6cbbe8e7/bbr/model/nonmem/basic/5&quot;</span></span></code></pre></div>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;/tmp/RtmpH5kbbY/Rinst3f28df5b4d/bbr/model/nonmem/basic/5&quot;</span></span></code></pre></div>
 <p>This is useful because the path(s) retrieved will unambiguously identify the parent model(s) and can therefore be passed to things like <code>read_model()</code> or <code>model_summary()</code> like so:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>parent_mod <span class="ot">&lt;-</span> mod6 <span class="sc">%&gt;%</span> <span class="fu">get_based_on</span>() <span class="sc">%&gt;%</span> <span class="fu">read_model</span>()</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(parent_mod)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; List of 4</span></span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ model_type         : chr &quot;nonmem&quot;</span></span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ based_on           : chr &quot;2&quot;</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ absolute_model_path: chr &quot;/tmp/RtmpBADrH1/Rinst3e6cbbe8e7/bbr/model/nonmem/basic/5&quot;</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ absolute_model_path: chr &quot;/tmp/RtmpH5kbbY/Rinst3f28df5b4d/bbr/model/nonmem/basic/5&quot;</span></span>
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ yaml_md5           : chr &quot;ac0ba292b017a72bb316359f0df09bb2&quot;</span></span>
 <span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  - attr(*, &quot;class&quot;)= chr [1:3] &quot;bbi_nonmem_model&quot; &quot;bbi_model&quot; &quot;list&quot;</span></span></code></pre></div>
 </div>
@@ -396,9 +397,9 @@ DIV.diffobj-container.light.yb DIV.diffobj-line {
 <h2>get_model_ancestry</h2>
 <p>The second helper function walks up the tree of inheritence by iteratively calling <code>get_based_on()</code> on each parent model to determine the full set of models that led up to the current model.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>mod6 <span class="sc">%&gt;%</span> <span class="fu">get_model_ancestry</span>()</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;/tmp/RtmpBADrH1/Rinst3e6cbbe8e7/bbr/model/nonmem/basic/1&quot;</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2] &quot;/tmp/RtmpBADrH1/Rinst3e6cbbe8e7/bbr/model/nonmem/basic/2&quot;</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3] &quot;/tmp/RtmpBADrH1/Rinst3e6cbbe8e7/bbr/model/nonmem/basic/5&quot;</span></span></code></pre></div>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;/tmp/RtmpH5kbbY/Rinst3f28df5b4d/bbr/model/nonmem/basic/1&quot;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2] &quot;/tmp/RtmpH5kbbY/Rinst3f28df5b4d/bbr/model/nonmem/basic/2&quot;</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3] &quot;/tmp/RtmpH5kbbY/Rinst3f28df5b4d/bbr/model/nonmem/basic/5&quot;</span></span></code></pre></div>
 <p>In this case, model <code>6</code> was based on <code>5</code>, which was based on <code>2</code>, which in turn was based on <code>1</code>. You will see one example of how this can be useful in the “Final model family” section below.</p>
 </div>
 </div>
@@ -407,16 +408,16 @@ DIV.diffobj-container.light.yb DIV.diffobj-line {
 <p>While it may be useful to look at the ancestry of a single model object, it may be even more useful to use the <code>based_on</code> field later in the modeling process when you are looking back and trying to summarize the model activities as a whole. The <code>run_log()</code> function is helpful for this. It returns a tibble with metadata about each model.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>log_df <span class="ot">&lt;-</span> <span class="fu">run_log</span>(MODEL_DIR)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>log_df</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 6 × 9</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   absolute_model_… run   yaml_md5 model_type description bbi_args based_on tags </span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;            &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;      &lt;chr&gt;       &lt;list&gt;   &lt;list&gt;   &lt;lis&gt;</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 /tmp/RtmpBADrH1… 1     5ec8e22… nonmem     &lt;NA&gt;        &lt;NULL&gt;   &lt;NULL&gt;   &lt;chr…</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 /tmp/RtmpBADrH1… 2     9adbb90… nonmem     &lt;NA&gt;        &lt;NULL&gt;   &lt;chr [1… &lt;chr…</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 /tmp/RtmpBADrH1… 3     ac0ba29… nonmem     &lt;NA&gt;        &lt;NULL&gt;   &lt;chr [1… &lt;NUL…</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 /tmp/RtmpBADrH1… 4     6818db1… nonmem     &lt;NA&gt;        &lt;NULL&gt;   &lt;chr [1… &lt;NUL…</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 /tmp/RtmpBADrH1… 5     ac0ba29… nonmem     &lt;NA&gt;        &lt;NULL&gt;   &lt;chr [1… &lt;NUL…</span></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 /tmp/RtmpBADrH1… 6     feb9bf3… nonmem     Final model &lt;NULL&gt;   &lt;chr [1… &lt;NUL…</span></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 1 more variable: notes &lt;list&gt;</span></span></code></pre></div>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 6 × 10</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   absolute_model_path    run   yaml_md5 model_type description bbi_args based_on</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;                  &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;      &lt;chr&gt;       &lt;list&gt;   &lt;list&gt;  </span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 /tmp/RtmpH5kbbY/Rinst… 1     5ec8e22… nonmem     &lt;NA&gt;        &lt;NULL&gt;   &lt;NULL&gt;  </span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 /tmp/RtmpH5kbbY/Rinst… 2     9adbb90… nonmem     &lt;NA&gt;        &lt;NULL&gt;   &lt;chr&gt;   </span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 /tmp/RtmpH5kbbY/Rinst… 3     ac0ba29… nonmem     &lt;NA&gt;        &lt;NULL&gt;   &lt;chr&gt;   </span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 /tmp/RtmpH5kbbY/Rinst… 4     6818db1… nonmem     &lt;NA&gt;        &lt;NULL&gt;   &lt;chr&gt;   </span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 /tmp/RtmpH5kbbY/Rinst… 5     ac0ba29… nonmem     &lt;NA&gt;        &lt;NULL&gt;   &lt;chr&gt;   </span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 /tmp/RtmpH5kbbY/Rinst… 6     feb9bf3… nonmem     Final model &lt;NULL&gt;   &lt;chr&gt;   </span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 3 more variables: tags &lt;list&gt;, notes &lt;list&gt;, star &lt;lgl&gt;</span></span></code></pre></div>
 <p>Among other things, the run log contains any descriptions that have been assigned to each model. Here we use <code>dplyr::filter()</code> and <code>dplyr::pull()</code> to get the path to the final model.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>final_model_path <span class="ot">&lt;-</span> </span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  log_df <span class="sc">%&gt;%</span> </span>
@@ -424,7 +425,7 @@ DIV.diffobj-container.light.yb DIV.diffobj-line {
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(absolute_model_path)</span>
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>final_model_path</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;/tmp/RtmpBADrH1/Rinst3e6cbbe8e7/bbr/model/nonmem/basic/6&quot;</span></span></code></pre></div>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;/tmp/RtmpH5kbbY/Rinst3f28df5b4d/bbr/model/nonmem/basic/6&quot;</span></span></code></pre></div>
 <p>Next we can use the <code>get_model_ancestry()</code> function to filter the tibble to only the models that led up to the final model.</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>log_df <span class="sc">%&gt;%</span> </span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(absolute_model_path <span class="sc">%in%</span> <span class="fu">get_model_ancestry</span>(final_model_path)) <span class="sc">%&gt;%</span></span>

@@ -517,6 +517,7 @@ test_that("+ method for glue works", {
 test_that("unterminated quotes are error", {
   expect_error(glue("{this doesn\"t work}"), "Unterminated quote")
   expect_error(glue("{this doesn't work}"), "Unterminated quote")
+  expect_error(glue("{this doesn`t work}"), "Unterminated quote")
 })
 
 test_that("unterminated comment", {
@@ -539,4 +540,20 @@ test_that("glue can use different comment characters (#193)", {
     glue(.comment = "", "{foo#}", .transformer = function(x, ...) x),
     "foo#"
   )
+})
+
+test_that("`.literal` treats quotes and `#` as regular characters", {
+  expect_snapshot(
+    error = TRUE,
+    glue("{'fo`o\"#}", .transformer = function(x, ...) x)
+  )
+  expect_equal(
+    glue("{'fo`o\"#}", .literal = TRUE, .transformer = function(x, ...) x),
+    "'fo`o\"#"
+  )
+})
+
+test_that("`.literal` is not about (preventing) evaluation", {
+  x <- "world"
+  expect_equal(glue("hello {x}!"), glue("hello {x}!", .literal = TRUE))
 })

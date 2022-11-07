@@ -44,6 +44,7 @@ mdebugf <- future.apply:::mdebugf
 import_from <- future.apply:::import_from
 get_random_seed <- future.apply:::get_random_seed
 set_random_seed <- future.apply:::set_random_seed
+next_random_seed <- future.apply:::next_random_seed
 as_lecyer_cmrg_seed <- future.apply:::as_lecyer_cmrg_seed
 is_lecyer_cmrg_seed <- future.apply:::is_lecyer_cmrg_seed
 make_rng_seeds <- future.apply:::make_rng_seeds
@@ -61,8 +62,7 @@ supportedStrategies <- function(cores = 1L, excl = c("multiprocess", "cluster"),
   strategies <- future:::supportedStrategies(...)
   strategies <- setdiff(strategies, excl)
   if (cores > 1) {
-    strategies <- setdiff(strategies,
-                          c("sequential", "uniprocess", "eager", "lazy"))
+    strategies <- setdiff(strategies, c("sequential", "uniprocess"))
   }
   strategies
 }

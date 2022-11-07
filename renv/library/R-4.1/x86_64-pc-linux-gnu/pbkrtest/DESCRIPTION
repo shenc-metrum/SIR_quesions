@@ -38,7 +38,7 @@ Author: Ulrich Halekoh [aut, cph],
 OriginalRepository: CRAN
 Repository: MPN
 Date/Publication: 2021-03-09 09:50:08 UTC
-Built: R 4.1.1; ; 2022-05-11 22:27:13 UTC; unix
+Built: R 4.1.1; ; 2022-10-28 16:28:15 UTC; unix
 PkgrVersion: v3.0.0-rc1
 PkgrInstallType: binary
-PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2021-11-19/
+PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2022-10-20

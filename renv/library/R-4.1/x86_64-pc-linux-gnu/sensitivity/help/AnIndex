@@ -6,12 +6,12 @@ ask.sobolGP	sobolGP
 ask.sobolrec	sobolrec
 atantemp.fun	testmodels
 campbell1D.fun	testmodels
+correlRatio	correlRatio
 decoupling	decoupling
 delsa	delsa
 dgumbel.trunc	truncateddistrib
 discrepancyCriteria_cplus	discrepancyCriteria_cplus
 dnorm.trunc	truncateddistrib
-emvd	emvd
 extract	decoupling
 extract.shapleysobol_knn	shapleysobol_knn
 extract.sobolshap_knn	sobolshap_knn
@@ -21,7 +21,6 @@ ggplot.pcc	pcc
 ggplot.pme_knn	pme
 ggplot.qosa	qosa
 ggplot.sensiFdiv	sensiFdiv
-ggplot.sensiHSIC	sensiHSIC
 ggplot.shapleyPermEx	shapleyPermEx
 ggplot.shapleyPermRand	shapleyPermRand
 ggplot.shapleysobol_knn	shapleysobol_knn
@@ -47,6 +46,7 @@ heterdisc.fun	testmodels
 ishigami.fun	testmodels
 linkletter.fun	testmodels
 lmg	lmg
+matyas.fun	testmodels
 maximin_cplus	maximin_cplus
 morris	morris
 morris.fun	testmodels
@@ -61,12 +61,12 @@ PLIsuperquantile	PLIsuperquantile
 PLIsuperquantile_multivar	PLIsuperquantile_multivar
 plot	plot.support
 plot.delsa	delsa
-plot.emvd	emvd
 plot.fast99	fast99
 plot.lmg	lmg
 plot.morris	morris
 plot.pcc	pcc
 plot.pme_knn	pme
+plot.pmvd	pmvd
 plot.qosa	qosa
 plot.sb	sb
 plot.sensiFdiv	sensiFdiv
@@ -98,6 +98,7 @@ plot.soboltouati	soboltouati
 plot.sobol_knn	shapleysobol_knn
 plot.src	src
 plot.support	plot.support
+plot.testHSIC	testHSIC
 plot3d.morris	morris
 plotFG	sobolTIIpf
 plotFG.sobolTIIlo	sobolTIIlo
@@ -110,17 +111,18 @@ plotMultOut.soboljansen	soboljansen
 plotMultOut.sobolmara	sobolmara
 plotMultOut.sobolMultOut	sobolMultOut
 pme_knn	pme
+pmvd	pmvd
 pnorm.trunc	truncateddistrib
 PoincareChaosSqCoef	PoincareChaosSqCoef
 PoincareConstant	PoincareConstant
 PoincareOptimal	PoincareOptimal
 print.delsa	delsa
-print.emvd	emvd
 print.fast99	fast99
 print.lmg	lmg
 print.morris	morris
 print.pcc	pcc
 print.pme_knn	pme
+print.pmvd	pmvd
 print.qosa	qosa
 print.sb	sb
 print.sensiFdiv	sensiFdiv
@@ -150,6 +152,7 @@ print.sobolTIIpf	sobolTIIpf
 print.soboltouati	soboltouati
 print.sobol_knn	shapleysobol_knn
 print.src	src
+print.testHSIC	testHSIC
 qgumbel.trunc	truncateddistrib
 qnorm.trunc	truncateddistrib
 qosa	qosa
@@ -227,6 +230,7 @@ tell.sobolTIIlo	sobolTIIlo
 tell.sobolTIIpf	sobolTIIpf
 tell.soboltouati	soboltouati
 template.replace	template_replace
+testHSIC	testHSIC
 testmodels	testmodels
 truncateddistrib	truncateddistrib
 weightTSA	weightTSA

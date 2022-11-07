@@ -1,11 +1,16 @@
 test_that("output test", {
   x <- new_tbl(list(
     column_zero_zero = 1:3 + 0.23,
-    col_01 = new_tbl(list(col_02 = letters[1:3], col_03 = factor(letters[1:3]))),
-    col_04 = ordered(letters[1:3])
+    `col 01` = new_tbl(list(
+      `col 02` = letters[1:3],
+      `col 03` = LETTERS[1:3],
+      `col 04` = matrix(1:9, nrow = 3, dimnames = list(letters[1:3], LETTERS[1:3]))
+    )),
+    `col 05` = ordered(letters[1:3])
   ))
 
   expect_snapshot({
+    options(width = 100)
     tbl_format_setup(x, width = 4)
     tbl_format_setup(x, width = 5)
     tbl_format_setup(x, width = 6)
@@ -52,6 +57,46 @@ test_that("output test", {
     tbl_format_setup(x, width = 47)
     tbl_format_setup(x, width = 48)
     tbl_format_setup(x, width = 49)
+    tbl_format_setup(x, width = 50)
+    tbl_format_setup(x, width = 51)
+    tbl_format_setup(x, width = 52)
+    tbl_format_setup(x, width = 53)
+    tbl_format_setup(x, width = 54)
+    tbl_format_setup(x, width = 55)
+    tbl_format_setup(x, width = 56)
+    tbl_format_setup(x, width = 57)
+    tbl_format_setup(x, width = 58)
+    tbl_format_setup(x, width = 59)
+    tbl_format_setup(x, width = 60)
+    tbl_format_setup(x, width = 61)
+    tbl_format_setup(x, width = 62)
+    tbl_format_setup(x, width = 63)
+    tbl_format_setup(x, width = 64)
+    tbl_format_setup(x, width = 65)
+    tbl_format_setup(x, width = 66)
+    tbl_format_setup(x, width = 67)
+    tbl_format_setup(x, width = 68)
+    tbl_format_setup(x, width = 69)
+    tbl_format_setup(x, width = 70)
+    tbl_format_setup(x, width = 71)
+    tbl_format_setup(x, width = 72)
+    tbl_format_setup(x, width = 73)
+    tbl_format_setup(x, width = 74)
+    tbl_format_setup(x, width = 75)
+    tbl_format_setup(x, width = 76)
+    tbl_format_setup(x, width = 77)
+    tbl_format_setup(x, width = 78)
+    tbl_format_setup(x, width = 79)
+    tbl_format_setup(x, width = 80)
+    tbl_format_setup(x, width = 81)
+    tbl_format_setup(x, width = 82)
+    tbl_format_setup(x, width = 83)
+    tbl_format_setup(x, width = 84)
+    tbl_format_setup(x, width = 85)
+    tbl_format_setup(x, width = 86)
+    tbl_format_setup(x, width = 87)
+    tbl_format_setup(x, width = 88)
+    tbl_format_setup(x, width = 89)
     tbl_format_setup(x, width = Inf)
   })
 })
@@ -91,5 +136,75 @@ test_that("tbl_format_setup() results", {
       n = 5L,
       width = 30L
     )
+  })
+})
+
+test_that("tbl_format_setup() for footnotes", {
+  expect_snapshot({
+    tbl_format_setup(width = 73, as_tbl(data_frame(
+      xxxabc = 1,
+      xxxdef = 1,
+      xxxghi = 1,
+      xxxjkl = 1,
+      xxxmno = 1,
+      xxxpqr = 1,
+      xxxstu = 1,
+      xxxvwx = 1,
+      xxxyza = 1,
+      xxxbcd = 1,
+      xxxefg = 1,
+      xxxhij = 1,
+      xxxklm = 1,
+      xxxnop = 1
+    )))
+  })
+})
+
+
+test_that("tbl_format_setup() for footnotes with min_title_chars = 4", {
+  local_pillar_option_min_title_chars(4)
+
+  expect_snapshot({
+    tbl_format_setup(width = 73, as_tbl(data_frame(
+      xxxabc = 1,
+      xxxdef = 1,
+      xxxghi = 1,
+      xxxjkl = 1,
+      xxxmno = 1,
+      xxxpqr = 1,
+      xxxstu = 1,
+      xxxvwx = 1,
+      xxxyza = 1,
+      xxxbcd = 1,
+      xxxefg = 1,
+      xxxhij = 1,
+      xxxklm = 1,
+      xxxnop = 1
+    )))
+  })
+})
+
+test_that("tbl_format_setup() for footnotes with UTF-8 output", {
+  skip_if(!l10n_info()$`UTF-8`)
+
+  local_utf8()
+
+  expect_snapshot({
+    tbl_format_setup(width = 73, as_tbl(data_frame(
+      xxxabc = 1,
+      xxxdef = 1,
+      xxxghi = 1,
+      xxxjkl = 1,
+      xxxmno = 1,
+      xxxpqr = 1,
+      xxxstu = 1,
+      xxxvwx = 1,
+      xxxyza = 1,
+      xxxbcd = 1,
+      xxxefg = 1,
+      xxxhij = 1,
+      xxxklm = 1,
+      xxxnop = 1
+    )))
   })
 })

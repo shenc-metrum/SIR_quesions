@@ -220,3 +220,23 @@ assert('pandoc_to gets the current Pandoc format', {
   (pandoc_to(c('docx', 'pptx')))
   opts_knit$set(opts)
 })
+
+assert('comment_out() add prefix and newlines if asked', {
+  (comment_out("a") %==% "## a\n")
+  (comment_out("ab cd") %==% "## ab cd\n")
+  (comment_out("ab cd\n") %==% "## ab cd\n")
+  (comment_out("") %==% "## \n")
+  (comment_out("\n") %==% "## \n")
+  (comment_out(c("a", "b")) %==% c("## a\n", "## b\n"))
+  (comment_out(c("a", "b"), which = 2) %==% c("a\n", "## b\n"))
+  (comment_out("a", newline = FALSE) %==% "## a")
+  (comment_out("a", prefix = "$") %==% "$ a\n")
+  (comment_out("a", prefix = NULL) %==% "a\n")
+})
+
+assert('remove_urls() removes the link', {
+  (remove_urls(c('[a](b)', '[a b](c)')) %==% c('a', 'a b'))
+  (remove_urls('a [b](c) d.') %==% 'a b d.')
+  (remove_urls('a [b](c) d [e f+g](h) i.') %==% 'a b d e f+g i.')
+  (remove_urls('a [b](c) `[d](e)` f.') %==% 'a b `[d](e)` f.')
+})

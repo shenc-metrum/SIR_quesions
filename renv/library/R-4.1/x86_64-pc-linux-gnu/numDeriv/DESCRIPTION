@@ -22,7 +22,7 @@ Packaged: 2019-06-04 11:04:44 UTC; hornik
 OriginalRepository: CRAN
 Repository: MPN
 Date/Publication: 2019-06-06 09:51:09 UTC
-Built: R 4.1.1; ; 2022-05-11 22:15:57 UTC; unix
+Built: R 4.1.1; ; 2022-10-28 16:09:00 UTC; unix
 PkgrVersion: v3.0.0-rc1
 PkgrInstallType: binary
-PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2021-11-19/
+PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2022-10-20

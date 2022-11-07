@@ -26,7 +26,9 @@ cleanup_bbi <- function(.recreate_dir = FALSE) {
 cleanup_bbi(.recreate_dir = TRUE)
 
 # set options and run tests
-withr::with_options(list(bbr.bbi_exe_path = read_bbi_path()), {
+withr::with_options(list(
+  bbr.bbi_exe_path = read_bbi_path(),
+  bbr.verbose = FALSE), {
 
   # cleanup when done
   on.exit({
@@ -53,7 +55,7 @@ withr::with_options(list(bbr.bbi_exe_path = read_bbi_path()), {
       file.path(MODEL_DIR_BBI, "1"),
       .description = "original test-workflow-bbi model",
       .tags = ORIG_TAGS,
-      .bbi_args = list(overwrite = TRUE, threads = 4)
+      .bbi_args = list(overwrite = TRUE, threads = 4, parallel = TRUE)
     )
     expect_identical(class(mod1), NM_MOD_CLASS_LIST)
 
@@ -177,5 +179,87 @@ withr::with_options(list(bbr.bbi_exe_path = read_bbi_path()), {
     })
   })
 
+
+  test_that("wait_for_nonmem() correctly reads in stop time [BBR-UTL-012]", {
+    # create model
+    mod1 <- read_model(file.path(MODEL_DIR_BBI, "1"))
+    submit_model(mod1, .mode = "local", .wait = FALSE)
+    wait_for_nonmem(mod1, 100, .interval = 5)
+    expect_true(suppressMessages(nrow(nm_tab(mod1)) > 1))
+  })
+
+  test_that("wait_for_nonmem() doesn't error out if no stop time found [BBR-UTL-013]", {
+    # model setup
+    mod_fail <- copy_model_from(
+      read_model(file.path(MODEL_DIR_BBI, "1")),
+      "failure"
+    )
+
+    # run model
+    .p <- submit_model(mod_fail, .mode = "local", .wait = FALSE)
+    Sys.sleep(0.5)
+    .p$process$kill()
+
+    # dont need high wait time since we know it failed
+    expect_warning(
+      wait_for_nonmem(mod_fail, 2, .interval = 1),
+        "Expiration was reached"
+    )
+  })
+
+  test_that("check_run_times() works with one model [BBR-CRT-001]", {
+    mod1 <- read_model(file.path(MODEL_DIR_BBI, "1"))
+    # warnings will trigger for bbi <= 3.1.1, but we still want to test this
+    run_times <- check_run_times(mod1, .wait = FALSE) %>% suppressWarnings()
+    expected_cols <- c("run", "threads", "estimation_time")
+    expect_true(all(expected_cols %in% names(run_times)))
+    expect_equal(dim(run_times), c(1, 3))
+  })
+
+  test_that("check_run_times() works with multiple models [BBR-CRT-002]", {
+
+    mods <- purrr::map(file.path(MODEL_DIR_BBI, 1:3), ~ read_model(.x))
+    run_times <- check_run_times(mods, .wait = FALSE) %>% suppressWarnings()
+
+    expected_cols <- c("run", "threads", "estimation_time")
+    expect_true(all(expected_cols %in% names(run_times)))
+    expect_equal(dim(run_times), c(3, 3))
+  })
+
+  test_that("check_run_times() .return_times arg [BBR-CRT-003]", {
+    skip_if_old_bbi("3.2.0")
+    mod1 <- read_model(file.path(MODEL_DIR_BBI, "1"))
+    run_times <- check_run_times(mod1, .wait = FALSE, .return_times = "all")
+    expected_cols <- c("run", "threads", "estimation_time", "covariance_time", "postprocess_time", "cpu_time")
+    expect_true(all(expected_cols %in% names(run_times)))
+    expect_equal(dim(run_times), c(1, 6))
+
+    mods <- purrr::map(file.path(MODEL_DIR_BBI, 1:2), ~ read_model(.x))
+    run_times <- check_run_times(mods, .wait = FALSE,
+                                 .return_times = c("estimation_time", "covariance_time"))
+    expected_cols <- c("run", "threads", "estimation_time", "covariance_time")
+    expect_true(all(expected_cols %in% names(run_times)))
+    expect_equal(dim(run_times), c(2, 4))
+  })
+
+  test_that("check_run_times() waits for models to complete [BBR-CRT-004]", {
+    mod1 <- read_model(file.path(MODEL_DIR_BBI, "1"))
+    mod_threads <- test_threads(mod1, .threads = c(2, 4), .cap_iterations = 100, .mode = "local")
+    run_times <- check_run_times(mod_threads, .wait = TRUE, .time_limit = 100) %>% suppressWarnings()
+    # This will error if .wait didnt work
+    expect_equal(dim(run_times), c(2, 3))
+  })
+
+  test_that("check_run_times() works with a bbi_nonmem_summary object [BBR-CRT-005]", {
+    mod1 <- read_model(file.path(MODEL_DIR_BBI, "1"))
+    run_times <- model_summary(mod1)  %>% check_run_times(.wait = FALSE) %>% suppressWarnings()
+    expect_equal(dim(run_times), c(1, 3))
+  })
+
+  test_that("check_run_times() works with a bbi_summary_list object [BBR-CRT-006]", {
+    mods <- purrr::map(file.path(MODEL_DIR_BBI, 1:3), ~ read_model(.x))
+    run_times <- model_summaries(mods) %>% check_run_times(.wait = FALSE) %>% suppressWarnings()
+    expect_equal(dim(run_times), c(3, 3))
+  })
 }) # closing withr::with_options
 

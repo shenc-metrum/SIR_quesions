@@ -65,7 +65,7 @@ test_that("bbi_init creates bbi.yaml [BBR-BBR-005]", {
 
   # read in yaml and check that it has a bbi key
   bbi_yaml <- yaml::read_yaml("bbi.yaml")
-  expect_true("bbi_binary" %in% names(bbi_yaml))
+  expect_true("clean_lvl" %in% names(bbi_yaml))
 })
 
 test_that("bbi_init errors with non-existent .dir [BBR-BBR-006]", {
@@ -95,4 +95,11 @@ test_that("bbi_init passes .bbi_args [BBR-BBR-008]", {
   bbi_yaml <- yaml::read_yaml("bbi.yaml")
   expect_equal(bbi_yaml$threads, 36)
   expect_true(bbi_yaml$no_shk_file)
+})
+
+test_that("bbi_help captures and relays bbi output [BBR-BBR-009]", {
+  withr::with_options(list(bbr.bbi_exe_path = read_bbi_path()), {
+    res <- paste(capture.output(bbi_help()), collapse = "\n")
+  })
+  expect_true(stringr::str_detect(res, "bbi cli version"))
 })

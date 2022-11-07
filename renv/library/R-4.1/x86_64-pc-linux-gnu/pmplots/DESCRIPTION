@@ -1,7 +1,7 @@
 Package: pmplots
 Type: Package
 Title: Plots for Pharmacometrics
-Version: 0.3.3
+Version: 0.3.5
 Authors@R: c(
        person("Kyle T", "Baron", "", "kyleb@metrumrg.com", c("aut", "cre")),
        person("Metrum Research Group", role =  c("cph"))
@@ -14,13 +14,14 @@ URL: https://github.com/metrumresearchgroup/pmplots/
 BugReports: https://github.com/metrumresearchgroup/pmplots/issues
 Encoding: UTF-8
 Language: en-US
-Imports: dplyr (>= 0.7.2), rlang (>= 0.1.2), glue, assertthat, tidyr,
-        purrr, forcats
+Imports: dplyr (>= 1.0.7), rlang (>= 0.4.12), glue (>= 1.5.0),
+        assertthat, tidyr (>= 1.1.4), forcats (>= 0.5.1), lifecycle,
+        tidyselect (>= 1.1.1)
 VignetteBuilder: knitr
-Suggests: testthat, GGally, latex2exp, knitr, cowplot, yaml, miniUI,
+Suggests: testthat, GGally, latex2exp, patchwork, knitr, yaml, miniUI,
         shiny, rmarkdown
-Depends: ggplot2 (>= 3.0.0)
-RoxygenNote: 7.1.1
+Depends: ggplot2 (>= 3.3.5)
+RoxygenNote: 7.1.2
 Roxygen: list(markdown = TRUE)
 Collate: 'Aaaa.R' 'box.R' 'cont.R' 'data.R' 'dv_pred.R' 'dv_time.R'
         'dv_pred_ipred.R' 'eta_cat.R' 'eta_cont.R' 'eta_hist.R'
@@ -31,13 +32,13 @@ Collate: 'Aaaa.R' 'box.R' 'cont.R' 'data.R' 'dv_pred.R' 'dv_time.R'
 OriginalRepository: MPNDEV
 Repository: MPN
 Origin: github.com/metrumresearchgroup/pmplots
-git_tag: 0.3.3
-git_commit: cc4b4a70267010169bcab4af5bd2f8370a95f7c3
+git_tag: 0.3.5
+git_commit: 1680759b1a298f486f92565174ef3eb30637e13c
 NeedsCompilation: no
-Packaged: 2021-09-07 20:28:21 UTC; root
+Packaged: 2022-05-13 13:38:35 UTC; root
 Author: Kyle T Baron [aut, cre],
   Metrum Research Group [cph]
-Built: R 4.1.1; ; 2022-05-11 22:26:29 UTC; unix
+Built: R 4.1.1; ; 2022-10-28 16:26:36 UTC; unix
 PkgrVersion: v3.0.0-rc1
 PkgrInstallType: binary
-PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2021-11-19/
+PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2022-10-20

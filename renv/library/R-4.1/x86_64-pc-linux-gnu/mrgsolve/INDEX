@@ -18,6 +18,8 @@ carry_out               Select items to carry into simulated output
 cmtn                    Get the compartment number from a compartment
                         name
 code                    Extract the code from a model
+collapse_matrix         Collapse the matrices of a matlist object
+collapse_omega          Collapse OMEGA or SIGMA matrix lists
 data_set                Select and modify a data set for simulation
 design                  Set observation designs for the simulation
 details                 Extract model details
@@ -33,6 +35,7 @@ ev_rep                  Replicate an event object
 ev_repeat               Repeat a block of dosing events
 ev_rx                   Create intervention objects from Rx input
 ev_seq                  Schedule a series of event objects
+evd                     Create an event object with data-like names
 exdatasets              Example input data sets
 expand_observations     Insert observations into a data set
 expand.idata            Create template data sets for simulation
@@ -43,8 +46,7 @@ inventory               Check whether all required parameters needed in
                         a model are present in an object
 is.mrgmod               Check if an object is a model object
 is.mrgsims              Check if an object is mrgsim output
-lctran                  Convert select upper case column names to lower
-                        case to conform to mrgsolve data expectations
+lctran                  Change the case of nmtran-like data items
 loadso                  Load the model shared object
 matrix_helpers          Create matrices from vector input
 mcode                   Write, compile, and load model code

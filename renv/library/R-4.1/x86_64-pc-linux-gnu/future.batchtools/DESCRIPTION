@@ -26,7 +26,7 @@ Maintainer: Henrik Bengtsson <henrikb@braju.com>
 OriginalRepository: CRAN
 Repository: MPN
 Date/Publication: 2021-01-04 21:20:13 UTC
-Built: R 4.1.1; ; 2022-05-11 22:25:34 UTC; unix
+Built: R 4.1.1; ; 2022-11-07 16:50:35 UTC; unix
 PkgrVersion: v3.0.0-rc1
-PkgrInstallType: binary
-PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2021-11-19/
+PkgrInstallType: source
+PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2022-10-20

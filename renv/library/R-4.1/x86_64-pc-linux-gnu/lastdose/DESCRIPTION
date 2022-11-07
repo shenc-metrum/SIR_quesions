@@ -1,7 +1,7 @@
 Package: lastdose
 Type: Package
 Title: Calculate Time and Amount of Last Dose
-Version: 0.4.0
+Version: 0.4.1
 Authors@R: c(
     person("Kyle T", "Baron", email = "kyleb@metrumrg.com", role=c("aut", "cre"), comment=c(ORCID="0000-0001-7252-5656"))
     )
@@ -16,18 +16,18 @@ BugReports: https://github.com/metrumresearchgroup/lastdose/issues
 Suggests: testthat, withr
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Roxygen: list(markdown = TRUE)
 Language: en-US
 OriginalRepository: MPNDEV
 Repository: MPN
 Origin: github.com/metrumresearchgroup/lastdose
-git_tag: 0.4.0
-git_commit: 97023bc5d2f5711e40b2bb45f9500250d162896e
+git_tag: 0.4.1
+git_commit: 11304be75c55ac6704ec131f48fa408cd889e4a7
 NeedsCompilation: yes
-Packaged: 2021-05-15 13:45:09 UTC; root
+Packaged: 2022-05-11 17:14:22 UTC; root
 Author: Kyle T Baron [aut, cre] (<https://orcid.org/0000-0001-7252-5656>)
-Built: R 4.1.1; x86_64-pc-linux-gnu; 2022-05-11 22:19:42 UTC; unix
+Built: R 4.1.1; x86_64-pc-linux-gnu; 2022-10-28 16:13:27 UTC; unix
 PkgrVersion: v3.0.0-rc1
 PkgrInstallType: binary
-PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2021-11-19/
+PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2022-10-20

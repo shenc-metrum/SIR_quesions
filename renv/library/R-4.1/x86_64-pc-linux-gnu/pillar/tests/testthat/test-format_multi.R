@@ -1,12 +1,10 @@
 test_that("sanity check (1)", {
-  expect_false(crayon::has_color())
-  expect_equal(crayon::num_colors(), 1)
+  expect_equal(cli::num_ansi_colors(), 1)
   expect_false(has_color())
   expect_equal(num_colors(), 1)
 
   expect_snapshot({
-    crayon::has_color()
-    crayon::num_colors()
+    cli::num_ansi_colors()
     has_color()
     num_colors()
     style_na("NA")
@@ -14,6 +12,8 @@ test_that("sanity check (1)", {
 })
 
 test_that("output test", {
+  skip_if(getRversion() < "4.0")
+
   x <- list(
     column_zero_one = 1:3 + 0.23,
     col_02 = letters[1:3],
@@ -67,41 +67,43 @@ test_that("output test", {
   # Spurious warnings on Windows
   suppressWarnings(
     expect_snapshot({
-      new_vertical(extra_cols_impl(squeeze_impl(colonnade(x), width = 10)))
+      as_glue(extra_cols_impl(squeeze_impl(colonnade(x), width = 10)))
     })
   )
 
   suppressWarnings(
     expect_snapshot({
-      new_vertical(extra_cols_impl(squeeze_impl(colonnade(x), width = 20)))
+      as_glue(extra_cols_impl(squeeze_impl(colonnade(x), width = 20)))
     })
   )
 
   suppressWarnings(
     expect_snapshot({
-      new_vertical(extra_cols_impl(squeeze_impl(colonnade(x), width = 30)))
+      as_glue(extra_cols_impl(squeeze_impl(colonnade(x), width = 30)))
     })
   )
 
   suppressWarnings(
     expect_snapshot({
-      new_vertical(extra_cols_impl(squeeze_impl(colonnade(x), width = 35)))
+      as_glue(extra_cols_impl(squeeze_impl(colonnade(x), width = 35)))
     })
   )
 
   expect_snapshot({
-    new_vertical(extra_cols_impl(squeeze_impl(colonnade(x), width = 40)))
+    as_glue(extra_cols_impl(squeeze_impl(colonnade(x), width = 40)))
   })
 })
 
 test_that("tests from tibble", {
+  skip_if(getRversion() < "4.0")
+
   skip_if_not_installed("rlang", "0.4.11.9000")
   local_options(width = 80)
 
   expect_snapshot({
     colonnade(mtcars[1:8, ], has_row_id = "*", width = 30)
-    colonnade(iris[1:5, ], width = 30)
-    colonnade(iris[1:3, ], width = 20)
+    colonnade(trees[1:5, ], width = 20)
+    colonnade(trees[1:3, ], width = 10)
     colonnade(df_all, width = 30)
     colonnade(df_all, width = 300)
     options(width = 70)
@@ -116,24 +118,31 @@ test_that("tests from tibble", {
     colonnade(df_all, width = 300)
     options(width = 20)
     colonnade(df_all, width = 300)
-    colonnade(list(`\n` = c("\n", '"'), `\r` = factor("\n")), width = 30)
+    list_with_ctl <- list(c("\n", '"'), factor(c("\n", "\n")))
+    names(list_with_ctl) <- c("\n", "\r")
+    colonnade(list_with_ctl, width = 30)
     colonnade(list(a = c("", " ", "a ", " a")), width = 30)
     colonnade(list("mean(x)" = 5, "var(x)" = 3), width = 30)
   })
 })
 
 test_that("empty", {
+  scoped_lifecycle_silence()
+  skip_if(getRversion() < "4.0")
+
   expect_equal(
     format(colonnade(list(a = character(), b = logical()), width = 30)),
-    structure(character(), class = "pillar_vertical")
+    as_glue(character())
   )
   expect_equal(
-    format(colonnade(iris[1:5, character()], width = 30)),
-    structure(character(), class = "pillar_vertical")
+    format(colonnade(trees[1:5, character()], width = 30)),
+    as_glue(character())
   )
 })
 
 test_that("NA names", {
+  skip_if(getRversion() < "4.0")
+
   x <- list(`NA` = 1:3, set_to_NA = 4:6)
   names(x)[[2]] <- NA_character_
   expect_snapshot({
@@ -142,6 +151,8 @@ test_that("NA names", {
 })
 
 test_that("sep argument", {
+  skip_if(getRversion() < "4.0")
+
   x <- list(sep = 1:3)
   expect_snapshot({
     colonnade(x, width = 30)
@@ -149,17 +160,11 @@ test_that("sep argument", {
   })
 })
 
-# Run opposite test to snapshot output but not alter it
-if (!l10n_info()$`UTF-8`) {
-  test_that("color, options: UTF-8 is TRUE", {
-    skip("Symmetry")
-  })
-}
+test_that("color", {
+  skip_if_not_installed("testthat", "3.1.1")
 
-test_that(paste0("color, options: UTF-8 is ", l10n_info()$`UTF-8`), {
   local_colors()
-  expect_true(crayon::has_color())
-  expect_equal(crayon::num_colors(), 16)
+  expect_equal(cli::num_ansi_colors(), 16)
   expect_true(has_color())
   expect_equal(num_colors(), 16)
 
@@ -168,22 +173,19 @@ test_that(paste0("color, options: UTF-8 is ", l10n_info()$`UTF-8`), {
     expect_true(cli::is_utf8_output())
   }
 
-  expect_snapshot({
-    crayon::has_color()
-    crayon::num_colors()
+  expect_snapshot(variant = snapshot_variant("output-enc"), {
+    cli::num_ansi_colors()
     has_color()
     num_colors()
     style_na("NA")
     style_neg("-1")
   })
 
-  expect_snapshot({
-    style_na("NA")
+  with_lifecycle_silence({
+    xf <- colonnade(list(x = c((10^(-3:4)) * c(-1, 1), NA)))
   })
 
-  xf <- colonnade(list(x = c((10^(-3:4)) * c(-1, 1), NA)))
-
-  expect_snapshot({
+  expect_snapshot(variant = snapshot_variant("output-enc"), {
     print(xf)
     with_options(pillar.subtle_num = TRUE, print(xf))
     with_options(pillar.subtle = FALSE, print(xf))
@@ -192,27 +194,20 @@ test_that(paste0("color, options: UTF-8 is ", l10n_info()$`UTF-8`), {
     with_options(pillar.bold = TRUE, print(xf))
   })
 
-  expect_snapshot({
+  skip_if(getRversion() < "4.0")
+
+  expect_snapshot(variant = snapshot_variant("output-enc"), {
     colonnade(list(a_very_long_column_name = 0), width = 15)
   })
 })
 
-# Run opposite test to snapshot output but not alter it
-if (l10n_info()$`UTF-8`) {
-  test_that("color, options: UTF-8 is FALSE", {
-    skip("Symmetry")
-  })
-}
-
 test_that("sanity check (2)", {
-  expect_false(crayon::has_color())
-  expect_equal(crayon::num_colors(), 1)
+  expect_equal(cli::num_ansi_colors(), 1)
   expect_false(has_color())
   expect_equal(num_colors(), 1)
 
   expect_snapshot({
-    crayon::has_color()
-    crayon::num_colors()
+    cli::num_ansi_colors()
     has_color()
     num_colors()
     style_na("NA")
@@ -220,6 +215,8 @@ test_that("sanity check (2)", {
 })
 
 test_that("tibble columns", {
+  skip_if(getRversion() < "4.0")
+
   x <- list(a = 1:3, b = data.frame(c = 4:6, d = 7:9))
   expect_snapshot({
     colonnade(x, width = 30)
@@ -227,6 +224,8 @@ test_that("tibble columns", {
 })
 
 test_that("tibble columns (nested)", {
+  skip_if(getRversion() < "4.0")
+
   x <- list(
     a = 1:3,
     b = structure(
@@ -243,6 +242,8 @@ test_that("tibble columns (nested)", {
 })
 
 test_that("tibble columns (empty)", {
+  skip_if(getRversion() < "4.0")
+
   x <- list(
     a = 1:3,
     b = structure(
@@ -260,6 +261,8 @@ test_that("tibble columns (empty)", {
 })
 
 test_that("matrix columns (unnamed)", {
+  skip_if(getRversion() < "4.0")
+
   x <- list(a = 1:3, b = matrix(4:9, ncol = 2))
   expect_snapshot({
     colonnade(x, width = 30)
@@ -267,6 +270,8 @@ test_that("matrix columns (unnamed)", {
 })
 
 test_that("matrix columns (named)", {
+  skip_if(getRversion() < "4.0")
+
   x <- list(a = 1:3, b = matrix(4:9, ncol = 2, dimnames = list(NULL, c("c", "d"))))
   expect_snapshot({
     colonnade(x, width = 30)

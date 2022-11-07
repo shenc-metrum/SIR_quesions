@@ -13,7 +13,7 @@ NeedsCompilation: yes
 OriginalRepository: CRAN
 Repository: MPN
 Date/Publication: 2013-12-03 22:25:05
-Built: R 4.1.1; x86_64-pc-linux-gnu; 2022-05-11 22:17:34 UTC; unix
+Built: R 4.1.1; x86_64-pc-linux-gnu; 2022-10-28 16:07:05 UTC; unix
 PkgrVersion: v3.0.0-rc1
 PkgrInstallType: binary
-PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2021-11-19/
+PkgrRepositoryURL: https://mpn.metworx.com/snapshots/stable/2022-10-20
