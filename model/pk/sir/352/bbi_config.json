@@ -1,0 +1,52 @@
+{
+    "bbi_version": "v3.2.1",
+    "model_name": "352.ctl",
+    "original_model": "352.ctl",
+    "model_path": "/data/SIR_quesions/model/pk/sir/352/352.ctl",
+    "data_path": "../../../../data/derived/analysis3.csv",
+    "data_md5": "84a596d0fd81c2d187a64bc62d96b433",
+    "model_md5": "be016a29f35e966a96989a43e28f98cb",
+    "model_filename": "352",
+    "model_extension": "ctl",
+    "original_path": "/data/SIR_quesions/model/pk/sir/352",
+    "output_dir": "/data/SIR_quesions/model/pk/sir/352",
+    "configuration": {
+        "clean_lvl": 1,
+        "git": true,
+        "output_dir": "{{ .Name }}",
+        "threads": 8,
+        "local": {},
+        "nonmem": {
+            "nm73gf": {
+                "home": "/opt/NONMEM/nm73gf",
+                "executable": "nmfe73",
+                "nmqual": true
+            },
+            "nm73gf_nmfe": {
+                "home": "/opt/NONMEM/nm73gf_nmfe",
+                "executable": "nmfe73"
+            },
+            "nm74gf": {
+                "home": "/opt/NONMEM/nm74gf",
+                "executable": "nmfe74",
+                "nmqual": true,
+                "default": true
+            },
+            "nm74gf_nmfe": {
+                "home": "/opt/NONMEM/nm74gf_nmfe",
+                "executable": "nmfe74"
+            },
+            "nm75": {
+                "home": "/opt/NONMEM/nm75",
+                "executable": "nmfe75"
+            }
+        },
+        "parallel": true,
+        "nmfe_options": {
+            "maxlim": 2
+        },
+        "mpi_exec_path": "/usr/local/mpich3/bin/mpiexec",
+        "parallel_timeout": 2147483647
+    },
+    "error": null
+}

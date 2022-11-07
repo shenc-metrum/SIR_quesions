@@ -1,0 +1,9 @@
+time="2022-11-07T13:26:06-05:00" level=info msg="Successfully loaded default configuration from /data/SIR_quesions/model/pk/sir/127/bbi.yaml"
+time="2022-11-07T13:26:06-05:00" level=info msg="Beginning Local Path"
+time="2022-11-07T13:26:06-05:00" level=info msg="A total of 1 models have completed the initial preparation phase"
+time="2022-11-07T13:26:06-05:00" level=info msg="[127] Beginning local work phase"
+time="2022-11-07T13:27:14-05:00" level=info msg="[127] Beginning cleanup phase"
+time="2022-11-07T13:27:27-05:00" level=info msg="[127] Cleanup completed"
+time="2022-11-07T13:27:27-05:00" level=info msg="Waiting for any post execution hooks to finish"
+time="2022-11-07T13:27:27-05:00" level=info msg="\r1 models completed in 1m20.823430779s"
+
