@@ -1,8 +1,0 @@
-as.kable	as_kable
-build_usepackage	build_usepackage
-check_requirements	check_requirements
-get_texpackages	get_texpackages
-tex_opts	tex_opts
-tex_opts_current	tex_opts
-tex_preview	tex_preview
-tex_requirements	tex_requirements

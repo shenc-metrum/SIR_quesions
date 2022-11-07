@@ -1,6 +1,0 @@
-library(magick)
-filename = enc2native('b\u00EAta.png')
-image_write(logo, filename)
-stopifnot(file.exists(filename))
-image_read(filename)
-unlink(filename)

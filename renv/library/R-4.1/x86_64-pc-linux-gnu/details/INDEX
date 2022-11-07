@@ -1,4 +1,0 @@
-%>%                     re-export magrittr pipe operators
-details                 Create HTML DOM Details
-foldstart               Roxygen2 Documentation Folding
-use_details             Use details macros

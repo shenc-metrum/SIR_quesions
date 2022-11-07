@@ -1,5 +1,0 @@
-find_comments           Find commented records
-find_id_col             Find ID column
-find_time_col           Find TIME column
-lastdose                Calculate last dose amount and times since
-                        previous doses

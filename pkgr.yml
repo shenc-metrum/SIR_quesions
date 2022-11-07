@@ -53,6 +53,7 @@ Packages:
   - stringfish
   - rmarkdown
   - markdown
+  - mrgmisc
 
 Repos:
   - mrgda: https://s3.amazonaws.com/mpn.metworx.dev/releases/mrgda/0.1.0

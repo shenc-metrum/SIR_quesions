@@ -1,8 +1,0 @@
-as.kable                Try to coerce an object into a knitr_kable
-                        object
-build_usepackage        Build usepackage command for TeX document
-check_requirements      Check TeX Requirements for Package
-get_texpackages         Get list of TeX packages installed on System
-tex_opts                Default and current tex options
-tex_preview             Render and Preview snippets of TeX in R Viewer
-tex_requirements        Query TeX file for Required Packages

@@ -1,3 +1,0 @@
-SETUP__:
-  import: DEM104101F_PKPD.yml
-  description: importing DEM10401F_PKPD

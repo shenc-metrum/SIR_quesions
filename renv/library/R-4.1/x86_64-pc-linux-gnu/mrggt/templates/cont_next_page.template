@@ -1,4 +1,0 @@
-\hline
-\addlinespace
-\multicolumn{ {{{num_cols}}} }{ {{{align}}} }{ {{{message}}} }
-\endfoot
