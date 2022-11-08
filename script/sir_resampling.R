@@ -44,7 +44,8 @@ write.csv(sir_resample_1,
 
 # read in final estimate and cov matrix for computing WEIGHT (based on final estimates)
 
-w_denom <- 1 # WEIGHT according to final parameter estimates (always equal to 1)
+w_denom <- mean(sir_sample$WEIGHT) # WEIGHT: aver weight across all sir samples
+# from Intro to NM 7: "The weighted average parameter values are listed on the line labeled iteration -1000000000"
 n_denom <- sir_sample %>% select(nsim) %>% max() # number of SIR sample
 
 # resample (unsure how to specify number of resample with this method???)
