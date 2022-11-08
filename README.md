@@ -1,4 +1,4 @@
-# SIR_quesions
+# SIR_questions
 SIR NONMEM questions
 
 This is a small example repository to show our understanding about how SIR is performed within NONMEM. 
