@@ -10,9 +10,9 @@ This is a small example repository to show our understanding about how SIR is pe
   +   `./data/derived/analysis3.csv`
  
 - Scripts: 
-  +   `./script/model-management.R`: NONMEM model fitting script using bbr
+  +   `./script/model-management.R`: NONMEM model fitting script using [bbr](https://metrumresearchgroup.github.io/bbr/articles/getting-started.html)
   +   `./script/sir-sampling.R`: SIR sampling script
-  +   `./script/sir-resampling.R`: SIR resampling script (two resampling method)
+  +   `./script/sir-resampling.R`: SIR resampling script (two resampling methods)
  
 - SIR output: 
   +   `./data/sir_output/sir-sample-106.csv`: SIR samples
