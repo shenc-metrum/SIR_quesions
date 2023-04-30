@@ -1,0 +1,9 @@
+time="2023-04-28T18:20:45-04:00" level=info msg="Successfully loaded default configuration from /data/SIR_questions/model/pk/106-sir-sirdf/106-sir-4/bbi.yaml"
+time="2023-04-28T18:20:45-04:00" level=info msg="Beginning Local Path"
+time="2023-04-28T18:20:45-04:00" level=info msg="A total of 1 models have completed the initial preparation phase"
+time="2023-04-28T18:20:45-04:00" level=info msg="[106-sir-4] Beginning local work phase"
+time="2023-04-28T18:23:49-04:00" level=info msg="[106-sir-4] Beginning cleanup phase"
+time="2023-04-28T18:23:49-04:00" level=info msg="[106-sir-4] Cleanup completed"
+time="2023-04-28T18:23:49-04:00" level=info msg="Waiting for any post execution hooks to finish"
+time="2023-04-28T18:23:49-04:00" level=info msg="\r1 models completed in 3m3.948053335s"
+
