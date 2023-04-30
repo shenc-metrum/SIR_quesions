@@ -2,15 +2,16 @@
     "bbi_version": "v3.2.1",
     "model_name": "106.ctl",
     "original_model": "106.ctl",
-    "model_path": "/data/SIR_quesions/model/pk/106.ctl",
+    "model_path": "/data/SIR_questions/model/pk/106.ctl",
     "data_path": "../../../data/derived/analysis3.csv",
     "data_md5": "84a596d0fd81c2d187a64bc62d96b433",
     "model_md5": "a5e802016cb93a1c8d220e70c89007b9",
     "model_filename": "106",
     "model_extension": "ctl",
-    "original_path": "/data/SIR_quesions/model/pk",
-    "output_dir": "/data/SIR_quesions/model/pk/106",
+    "original_path": "/data/SIR_questions/model/pk",
+    "output_dir": "/data/SIR_questions/model/pk/106",
     "configuration": {
+        "overwrite": true,
         "clean_lvl": 1,
         "git": true,
         "save_config": true,
@@ -32,8 +33,7 @@
             "nm74gf": {
                 "home": "/opt/NONMEM/nm74gf",
                 "executable": "nmfe74",
-                "nmqual": true,
-                "default": true
+                "nmqual": true
             },
             "nm74gf_nmfe": {
                 "home": "/opt/NONMEM/nm74gf_nmfe",
@@ -41,7 +41,8 @@
             },
             "nm75": {
                 "home": "/opt/NONMEM/nm75",
-                "executable": "nmfe75"
+                "executable": "nmfe75",
+                "default": true
             }
         },
         "parallel": false,

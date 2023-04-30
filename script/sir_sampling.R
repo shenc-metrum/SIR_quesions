@@ -43,7 +43,8 @@ withr::with_seed(seed = 0720,
                                          Sigma = cov_matrix) %>% 
                    as.data.frame() %>% 
                    rename_with(.fn = ~str_replace_all(string = colnames(ext_matrix), 
-                                                      pattern = "\\.", replacement = "\\"), 
+                
+                                                                                            pattern = "\\.", replacement = "\\"), 
                                .cols = everything())) # rename colnames of sample with the parameter names in ext files (remove "." in strings)
 
 # compute important ratio -------------------------------------------------
