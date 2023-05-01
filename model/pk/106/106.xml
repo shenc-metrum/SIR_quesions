@@ -5,7 +5,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://namespaces.oreilly.com/xmlnut/address output.xsd"
 xmlns:nm="http://namespaces.oreilly.com/xmlnut/address"
 >
-<nm:start_datetime>2023-04-27T23:20:43.086</nm:start_datetime>
+<nm:start_datetime>2023-04-30T15:26:01.667</nm:start_datetime>
 <nm:control_stream><![CDATA[
 $PROBLEM From bbr: see 106.yaml for details
 
@@ -80,8 +80,8 @@ Note: Analytical 2nd Derivatives are constructed in FSUBS but are never used.
 <nm:license_information><![CDATA[
 License Registered to: Metrum Research Group (with RADAR5NM)
 Expiration Date:    14 JUL 2023
-Current Date:       27 APR 2023
-Days until program expires :  77
+Current Date:       30 APR 2023
+Days until program expires :  74
 ]]></nm:license_information>
 <nm:program_information><![CDATA[
 1NONLINEAR MIXED EFFECTS MODEL PROGRAM (NONMEM) VERSION 7.5.1
@@ -419,11 +419,11 @@ Days until program expires :  77
 <nm:col nm:cname='EPS1'>9.7800886072125000</nm:col>
 </nm:row>
 </nm:epsshrinkvr>
-<nm:estimation_elapsed_time>24.63</nm:estimation_elapsed_time>
+<nm:estimation_elapsed_time>24.54</nm:estimation_elapsed_time>
 <nm:covariance_information><![CDATA[
 ]]></nm:covariance_information>
 <nm:covariance_status nm:error='0' nm:numnegeigenvalues='-1' nm:mineigenvalue='0.0000000000000000' nm:maxeigenvalue='0.0000000000000000' nm:rms='0.0000000000000000'/>
-<nm:covariance_elapsed_time>18.48</nm:covariance_elapsed_time>
+<nm:covariance_elapsed_time>18.46</nm:covariance_elapsed_time>
 <nm:final_objective_function_text>MINIMUM VALUE OF OBJECTIVE FUNCTION</nm:final_objective_function_text>
 <nm:final_objective_function>30904.408631980630</nm:final_objective_function>
 <nm:theta>
@@ -997,11 +997,11 @@ Days until program expires :  77
 </nm:eigenvalues>
 </nm:estimation>
 <nm:post_process_times>
-<nm:post_elapsed_time>2.12</nm:post_elapsed_time>
-<nm:finaloutput_elapsed_time>0.25</nm:finaloutput_elapsed_time>
+<nm:post_elapsed_time>1.84</nm:post_elapsed_time>
+<nm:finaloutput_elapsed_time>0.21</nm:finaloutput_elapsed_time>
 </nm:post_process_times>
 </nm:problem>
 </nm:nonmem>
-<nm:stop_datetime>2023-04-27T23:21:29.461</nm:stop_datetime>
-<nm:total_cputime>46.370</nm:total_cputime>
+<nm:stop_datetime>2023-04-30T15:26:47.601</nm:stop_datetime>
+<nm:total_cputime>45.896</nm:total_cputime>
 </nm:output>

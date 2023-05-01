@@ -21,6 +21,10 @@ library(here)
 # define model dir and load tags
 MODEL_DIR <- here::here("./model/pk")
 MODEL_DIR2 <- here::here("./model/pk/106-sir-sirdf")
+MODEL_DIR3 <- here::here("./model/pk/106-sir-mmratio")
+MODEL_DIR4 <- here::here("./model/pk/001b-sir-sirdf")
+MODEL_DIR5 <- here::here("./model/pk/001b-sir-mmratio")
+MODEL_DIR6 <- here::here("./model/pk/001b-sir-iaccept")
 
 source("./script/functions-model.R")
 
@@ -46,10 +50,10 @@ bbi_version()
 # specified directory. 
 # 
 # To check you have initialized bbi, try to read in the `bbi.yaml` file.
-file.path(MODEL_DIR2, "bbi.yaml") %>% yaml::read_yaml() %>% names()
+file.path(MODEL_DIR6, "bbi.yaml") %>% yaml::read_yaml() %>% names()
 # If this errors, run `bbi_init()`:
 
-bbi_init(.dir = MODEL_DIR2,            # the directory to create the bbi.yaml in
+bbi_init(.dir = MODEL_DIR6,            # the directory to create the bbi.yaml in
          .nonmem_dir = "/opt/NONMEM", # location of NONMEM installation
          .nonmem_version = "nm75")  # default NONMEM version to use
 
@@ -115,5 +119,124 @@ mod106sir4 <- read_model(file.path(MODEL_DIR2, "106-sir-4"))
                                      threads = 4, 
                                      overwrite = TRUE))
 
+########################
+# sir model (test m/M ratio)
+########################
 
+# mod106sir1 <- new_model(file.path(MODEL_DIR3, "106-sir-1"))
+# mod106sir2 <- new_model(file.path(MODEL_DIR3, "106-sir-2"))
+# mod106sir3 <- new_model(file.path(MODEL_DIR3, "106-sir-3"))
+# mod106sir4 <- new_model(file.path(MODEL_DIR3, "106-sir-4"))
+# mod106sir5 <- new_model(file.path(MODEL_DIR3, "106-sir-5"))
+
+mod106sir1 <- read_model(file.path(MODEL_DIR3, "106-sir-1"))
+mod106sir2 <- read_model(file.path(MODEL_DIR3, "106-sir-2"))
+mod106sir3 <- read_model(file.path(MODEL_DIR3, "106-sir-3"))
+mod106sir4 <- read_model(file.path(MODEL_DIR3, "106-sir-4"))
+mod106sir5 <- read_model(file.path(MODEL_DIR3, "106-sir-5"))
+
+.p <- submit_models(list(mod106sir1, mod106sir2, mod106sir3, mod106sir4, mod106sir5),
+                    .bbi_args = list(parallel = TRUE, 
+                                     threads = 4, 
+                                     overwrite = TRUE))
+
+
+# csl0506f model ----------------------------------------------------------
+
+mod001b <- new_model(file.path(MODEL_DIR, "001b")) # make new model (only run if models fit for the first time)
+mod001b <- read_model(file.path(MODEL_DIR, "001b")) # read model
+.p <- submit_model(mod001b, .mode = "local", .wait = FALSE, 
+                   .bbi_args = list(overwrite = TRUE)) # submit model
+.s <- mod001b %>% model_summary() # model summary
+.s
+
+########################
+# 001b sir model
+########################
+
+mod001bsir <- copy_model_from(.parent_mod = mod001b, 
+                              .new_model = "001b-sir", 
+                              .inherit_tags = TRUE) %>% 
+  update_run_number()
+
+edit_model(mod001bsir)
+
+mod106sir <- read_model(file.path(MODEL_DIR, "001b-sir"))
+
+.p <- submit_model(mod001bsir, .mode = "local", .wait = FALSE,
+                   .bbi_args = list(overwrite = TRUE)) # submit model
+
+# mod106sir <- mod106sir %>% add_bbi_args(list(parallel = TRUE, threads = 4))
+# 
+# .p <- mod106sir %>% submit_model(.bbi_args = list(overwrite = TRUE))
+
+.s <- mod001bsir %>% model_summary()
+
+.s %>% param_estimates() %>% 
+  mutate(rse = stderr/estimate) %>% 
+  filter(fixed == FALSE) %>% 
+  mutate(exp = exp(estimate)) %>% 
+  # knitr::kable()
+  view()
+
+########################
+# sir model (test SIRDF)
+########################
+
+# mod001bsir1 <- new_model(file.path(MODEL_DIR4, "001b-sir-1"))
+# mod001bsir2 <- new_model(file.path(MODEL_DIR4, "001b-sir-2"))
+# mod001bsir3 <- new_model(file.path(MODEL_DIR4, "001b-sir-3"))
+# mod001bsir4 <- new_model(file.path(MODEL_DIR4, "001b-sir-4"))
+
+mod001bsir1 <- read_model(file.path(MODEL_DIR4, "001b-sir-1"))
+mod001bsir2 <- read_model(file.path(MODEL_DIR4, "001b-sir-2"))
+mod001bsir3 <- read_model(file.path(MODEL_DIR4, "001b-sir-3"))
+mod001bsir4 <- read_model(file.path(MODEL_DIR4, "001b-sir-4"))
+
+.p <- submit_models(list(mod001bsir1, mod001bsir2, mod001bsir3, mod001bsir4),
+                    .bbi_args = list(parallel = TRUE, 
+                                     threads = 4, 
+                                     overwrite = TRUE))
+
+########################
+# sir model (test m/M ratio)
+########################
+
+# mod001bsir1 <- new_model(file.path(MODEL_DIR5, "001b-sir-1"))
+# mod001bsir2 <- new_model(file.path(MODEL_DIR5, "001b-sir-2"))
+# mod001bsir3 <- new_model(file.path(MODEL_DIR5, "001b-sir-3"))
+# mod001bsir4 <- new_model(file.path(MODEL_DIR5, "001b-sir-4"))
+# mod001bsir5 <- new_model(file.path(MODEL_DIR5, "001b-sir-5"))
+
+mod001bsir1 <- read_model(file.path(MODEL_DIR5, "001b-sir-1"))
+mod001bsir2 <- read_model(file.path(MODEL_DIR5, "001b-sir-2"))
+mod001bsir3 <- read_model(file.path(MODEL_DIR5, "001b-sir-3"))
+mod001bsir4 <- read_model(file.path(MODEL_DIR5, "001b-sir-4"))
+mod001bsir5 <- read_model(file.path(MODEL_DIR5, "001b-sir-5"))
+
+.p <- submit_models(list(mod001bsir1, mod001bsir2, mod001bsir3, mod001bsir4, mod001bsir5),
+                    .bbi_args = list(parallel = TRUE, 
+                                     threads = 4, 
+                                     overwrite = TRUE))
+
+
+
+########################
+# sir model (test IACCEPT)
+########################
+
+mod001bsir1 <- new_model(file.path(MODEL_DIR6, "001b-sir-1"))
+mod001bsir2 <- new_model(file.path(MODEL_DIR6, "001b-sir-2"))
+mod001bsir3 <- new_model(file.path(MODEL_DIR6, "001b-sir-3"))
+mod001bsir4 <- new_model(file.path(MODEL_DIR6, "001b-sir-4"))
+
+mod001bsir1 <- read_model(file.path(MODEL_DIR6, "001b-sir-1"))
+mod001bsir2 <- read_model(file.path(MODEL_DIR6, "001b-sir-2"))
+mod001bsir3 <- read_model(file.path(MODEL_DIR6, "001b-sir-3"))
+mod001bsir4 <- read_model(file.path(MODEL_DIR6, "001b-sir-4"))
+
+.p <- submit_models(list(mod001bsir1, mod001bsir2, mod001bsir3, mod001bsir4),
+                    .bbi_args = list(parallel = TRUE, 
+                                     threads = 4, 
+                                     overwrite = TRUE))
 
