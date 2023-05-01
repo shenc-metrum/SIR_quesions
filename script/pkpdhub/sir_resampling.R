@@ -19,9 +19,19 @@ sirsample1 <- sirsample0 %>%
   mutate(dOFV = OBJ - OBJ[ITERATION == 0]) %>% 
   filter(ITERATION > 0)
 
+names(sirsample1) <- gsub("\\.", "\\", names(sirsample1))
+
+m <- sirsample1 %>% nrow() # number of sampling
+
 # number of parameters in the original model
 mod <- bbr::read_model(file.path(modelDir, runno))
 nparam <- mod %>% model_summary() %>% param_estimates() %>% filter(fixed == FALSE) %>% nrow()
+
+param_names <- mod %>% model_summary() %>% param_estimates() %>% filter(fixed == FALSE) %>% 
+  mutate(parameter_names = str_replace_all(parameter_names, "\\(", "\\")) %>% 
+  mutate(parameter_names = str_replace_all(parameter_names, "\\)", "\\")) %>% 
+  mutate(parameter_names = str_replace_all(parameter_names, "\\,", "\\")) %>% 
+  pull(parameter_names)
 
 # resample method 1 ------------------------------------------------------
 
@@ -56,6 +66,8 @@ sirresample2 <- read.table(siroutput, skip = 1, header = TRUE) %>%
   mutate(dOFV = OBJ - sirsample0[sirsample0$ITERATION == 0,]$OBJ) %>% 
   filter(ITERATION > 0)
 
+names(sirresample2) <- gsub("\\.", "\\", names(sirresample2))
+
 
 # dOFV plot (two method comparison) ---------------------------------------
 
@@ -89,7 +101,94 @@ ggplot()+
   theme(legend.title = element_blank(), 
         legend.position = "bottom")
   
-# glue("Theoretical Chi-Squared Distribution with {nparam} df")
+
+# ci plot -----------------------------------------------------------------
+
+# SIR 95% CI
+sirci <- sirresample2 %>% 
+  dplyr::select(starts_with("THETA"), 
+                starts_with("OMEGA"), 
+                starts_with("SIGMA")) %>% 
+  t() %>% 
+  as.data.frame() %>% 
+  rownames_to_column(var = "parameter") %>% 
+  filter(parameter %in% param_names) %>% 
+  rowwise() %>% 
+  mutate(sir_median = median(c_across(!parameter)),  
+         sir_lower = quantile(c_across(!parameter), 0.025), 
+         sir_upper = quantile(c_across(!parameter), 0.975)) %>% 
+  ungroup() %>% 
+  mutate(type = "SIR") %>% 
+  dplyr::select(parameter, sir_median, sir_lower, sir_upper, type) %>% 
+  mutate(parameter = fct_inorder(parameter))
+
+# 95% CI based on var-cov matrix (symmetrical)
+covci <- mod %>% 
+  model_summary() %>% 
+  param_estimates() %>% 
+  filter(fixed == FALSE) %>% 
+  dplyr::select(parameter = parameter_names, estimate, stderr) %>% 
+  mutate(final_lower = estimate - 1.96*stderr, 
+         final_upper = estimate + 1.96*stderr) %>% 
+  mutate(parameter = str_replace_all(parameter, "\\(", "\\")) %>% 
+  mutate(parameter = str_replace_all(parameter, "\\)", "\\")) %>% 
+  mutate(parameter = str_replace_all(parameter, "\\,", "\\")) %>% 
+  mutate(type = "COV") %>% 
+  dplyr::select(parameter, final_est = estimate, final_lower, final_upper, type) %>% 
+  mutate(parameter = fct_inorder(parameter))
+
+# side to side comparison plot
+ggplot()+
+  geom_point(data = sirci, aes(x=type, y=sir_median))+
+  geom_point(data = covci, aes(x=type, y=final_est))+
+  geom_errorbar(data = sirci, aes(x=type, ymin=sir_lower, ymax=sir_upper), width = 0.25)+
+  geom_errorbar(data = covci, aes(x=type, ymin=final_lower, ymax=final_upper), width = 0.25)+
+  theme_bw()+
+  facet_wrap(~parameter, scales = "free")+
+  xlab("")+
+  ylab("95% CIs")
+
+# spatial trend plot ------------------------------------------------------
+
+nbins <- 10
+mmratio = M2/m
+
+bins_sample <- sirsample1 %>% 
+  dplyr::select(ITERATION, all_of(param_names)) %>% 
+  mutate(across(all_of(param_names), .fns = ~cut_number(., n = 10))) %>% 
+  mutate(across(all_of(param_names), .fns = as.integer))
+
+bins_resample <- sirresample2 %>% dplyr::select(ITERATION) %>% left_join(bins_sample)
+
+# sbins <- map(as.list(bins_sample[, names(bins_sample) %in% param_names]), levels) # extract spatial bins
+
+bins_resample <- bins_resample %>% 
+  pivot_longer(cols = all_of(param_names), names_to = "parameters", values_to = "bins") %>% 
+  group_by(parameters, bins) %>% 
+  mutate(prop = round(n()/(m/nbins), digits = 2)) %>% 
+  ungroup() %>% 
+  distinct(parameters, bins, .keep_all = TRUE) %>% 
+  mutate(parameters = fct_inorder(parameters))
+
+ggplot(bins_resample)+
+  geom_point(aes(x = bins, y = prop))+
+  geom_line(aes(x = bins, y = prop))+
+  geom_ribbon(aes(x = bins, ymin = mmratio-1.96*mmratio*(1-mmratio)/nbins, ymax = mmratio+1.96*mmratio*(1-mmratio)/nbins), alpha = 0.5)+
+  xlab("Spatial bin of initial samples")+
+  ylab("Proportion resampled")+
+  scale_x_continuous(limits = c(1, nbins), breaks = seq(1,nbins,1))+
+  facet_wrap(~parameters)+
+  theme_bw()
+
+
+# temporal trend plot -----------------------------------------------------
+
+
+
+
+###########################################################################
+#################### Sensitivity Analysis #################################
+###########################################################################
 
 # dOFV SIRDF sens ---------------------------------------------------------
 
