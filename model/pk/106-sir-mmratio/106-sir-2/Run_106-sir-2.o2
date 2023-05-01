@@ -1,0 +1,9 @@
+time="2023-04-30T14:59:51-04:00" level=info msg="Successfully loaded default configuration from /data/SIR_questions/model/pk/106-sir-mmratio/106-sir-2/bbi.yaml"
+time="2023-04-30T14:59:51-04:00" level=info msg="Beginning Local Path"
+time="2023-04-30T14:59:51-04:00" level=info msg="A total of 1 models have completed the initial preparation phase"
+time="2023-04-30T14:59:51-04:00" level=info msg="[106-sir-2] Beginning local work phase"
+time="2023-04-30T15:01:27-04:00" level=info msg="[106-sir-2] Beginning cleanup phase"
+time="2023-04-30T15:01:27-04:00" level=info msg="[106-sir-2] Cleanup completed"
+time="2023-04-30T15:01:27-04:00" level=info msg="Waiting for any post execution hooks to finish"
+time="2023-04-30T15:01:27-04:00" level=info msg="\r1 models completed in 1m36.090012062s"
+

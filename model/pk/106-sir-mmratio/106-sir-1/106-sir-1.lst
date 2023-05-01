@@ -1,0 +1,674 @@
+Sun Apr 30 14:59:52 EDT 2023
+$PROBLEM From bbr: see 106-sir.yaml for details
+
+$INPUT C NUM ID TIME SEQ CMT EVID AMT DV AGE WT HT EGFR ALB BMI SEX AAG
+       SCR AST ALT CP TAFD TAD LDOS MDV BLQ PHASE
+
+$DATA ../../../../data/derived/analysis3.csv IGNORE=(C='C', BLQ=1)
+
+$SUBROUTINE ADVAN4 TRANS4
+
+$PK
+ 
+;log transformed PK parms
+ 
+V2WT = LOG(WT/70)
+CLWT = LOG(WT/70)*0.75
+CLEGFR = LOG(EGFR/90)*THETA(6)
+CLAGE = LOG(AGE/35)*THETA(7)
+V3WT = LOG(WT/70)
+QWT  = LOG(WT/70)*0.75
+CLALB = LOG(ALB/4.5)*THETA(8)
+
+
+KA   = EXP(THETA(1)+ETA(1))
+V2   = EXP(THETA(2)+V2WT+ETA(2))
+CL   = EXP(THETA(3)+CLWT+CLEGFR+CLAGE+CLALB+ETA(3))
+V3   = EXP(THETA(4)+V3WT)
+Q    = EXP(THETA(5)+QWT) 
+
+S2 = V2/1000 ; dose in mcg, conc in mcg/mL
+
+$ERROR
+IPRED = F 
+Y=IPRED*(1+EPS(1))
+
+$THETA  ; log values
+(0.5)   ;  1 KA (1/hr) - 1.5
+(3.5)   ;  2 V2 (L) - 60
+(1)     ;  3 CL (L/hr) - 3.5
+(4)     ;  4 V3 (L) - 70
+(2)     ;  5 Q  (L/hr) - 4
+(1)     ;  6 CLEGFR~CL ()
+(1)     ;  7 AGE~CL ()
+(0.5)   ;  8 ALB~CL ()
+
+$OMEGA BLOCK(3)
+0.2   ;ETA(KA)
+0.01 0.2   ;ETA(V2)
+0.01 0.01 0.2   ;ETA(CL)
+
+$SIGMA
+0.05     ; 1 pro error
+
+$CHAIN FILE=../../106/106.ext NSAMPLE=0 ISAMPLE=-1000000000
+$RCOV FILE=../../106/106.cov
+$ETAS FILE=../../106/106.phi
+
+$EST MAXEVAL=9999 METHOD=1 INTER SIGL=6 NSIG=3 PRINT=1 FNLETA=2 
+$COV PRINT=E SIRSAMPLE=1000 SIRDF=4 FILE=./106-sir-1.ext
+
+;$TABLE NUM CL V2 Q V3 KA ETAS(1:LAST) IPRED NPDE CWRES NOPRINT ONEHEADER FILE=106-sir.tab
+;$TABLE NUM CL V2 Q V3 KA ETAS(1:LAST) NOAPPEND NOPRINT ONEHEADER FILE=106-sirpar.tab
+
+NM-TRAN MESSAGES
+  
+ WARNINGS AND ERRORS (IF ANY) FOR PROBLEM    1
+             
+ (WARNING  2) NM-TRAN INFERS THAT THE DATA ARE POPULATION.
+
+ LIM VALUES MAXLIM ASSESSED BY NMTRAN: 1,2,3,4,5,6,7,8,10,11,13,15,16        
+  
+Note: Analytical 2nd Derivatives are constructed in FSUBS but are never used.
+      You may insert $ABBR DERIV2=NO after the first $PROB to save FSUBS construction and compilation time
+  
+
+License Registered to: Metrum Research Group (with RADAR5NM)
+Expiration Date:    14 JUL 2023
+Current Date:       30 APR 2023
+Days until program expires :  74
+1NONLINEAR MIXED EFFECTS MODEL PROGRAM (NONMEM) VERSION 7.5.1
+ ORIGINALLY DEVELOPED BY STUART BEAL, LEWIS SHEINER, AND ALISON BOECKMANN
+ CURRENT DEVELOPERS ARE ROBERT BAUER, ICON DEVELOPMENT SOLUTIONS,
+ AND ALISON BOECKMANN. IMPLEMENTATION, EFFICIENCY, AND STANDARDIZATION
+ PERFORMED BY NOUS INFOSYSTEMS.
+
+ PROBLEM NO.:         1
+ From bbr: see 106-sir.yaml for details
+0DATA CHECKOUT RUN:              NO
+ DATA SET LOCATED ON UNIT NO.:    2
+ THIS UNIT TO BE REWOUND:        NO
+ NO. OF DATA RECS IN DATA SET:     4292
+ NO. OF DATA ITEMS IN DATA SET:  27
+ ID DATA ITEM IS DATA ITEM NO.:   3
+ DEP VARIABLE IS DATA ITEM NO.:   9
+ MDV DATA ITEM IS DATA ITEM NO.: 25
+0INDICES PASSED TO SUBROUTINE PRED:
+   7   4   8   0   0   0   6   0   0   0   0
+0LABELS FOR DATA ITEMS:
+ C NUM ID TIME SEQ CMT EVID AMT DV AGE WT HT EGFR ALB BMI SEX AAG SCR AST ALT CP TAFD TAD LDOS MDV BLQ PHASE
+0FORMAT FOR DATA:
+ (2(10E7.0/),7E7.0)
+
+ TOT. NO. OF OBS RECS:     3142
+ TOT. NO. OF INDIVIDUALS:      160
+0LENGTH OF THETA:   8
+0DEFAULT THETA BOUNDARY TEST OMITTED:    NO
+0OMEGA HAS BLOCK FORM:
+  1
+  1  1
+  1  1  1
+0DEFAULT OMEGA BOUNDARY TEST OMITTED:    NO
+0SIGMA HAS SIMPLE DIAGONAL FORM WITH DIMENSION:   1
+0DEFAULT SIGMA BOUNDARY TEST OMITTED:    NO
+0INITIAL ESTIMATE OF THETA:
+   0.5000E+00  0.3500E+01  0.1000E+01  0.4000E+01  0.2000E+01  0.1000E+01  0.1000E+01  0.5000E+00
+0INITIAL ESTIMATE OF OMEGA:
+ BLOCK SET NO.   BLOCK                                                                    FIXED
+        1                                                                                   NO
+                  0.2000E+00
+                  0.1000E-01   0.2000E+00
+                  0.1000E-01   0.1000E-01   0.2000E+00
+0INITIAL ESTIMATE OF SIGMA:
+ 0.5000E-01
+0COVARIANCE STEP OMITTED:        NO
+ EIGENVLS. PRINTED:             YES
+ SPECIAL COMPUTATION:            NO
+ COMPRESSED FORMAT:              NO
+ GRADIENT METHOD USED:     NOSLOW
+ SIGDIGITS ETAHAT (SIGLO):                  -1
+ SIGDIGITS GRADIENTS (SIGL):                -1
+ EXCLUDE COV FOR FOCE (NOFCOV):              NO
+ Cholesky Transposition of R Matrix (CHOLROFF):0
+ KNUTHSUMOFF:                                -1
+ RESUME COV ANALYSIS (RESUME):               NO
+ SIR SAMPLE SIZE (SIRSAMPLE):              1000
+ NON-LINEARLY TRANSFORM THETAS DURING COV (THBND): 1
+ PRECONDTIONING CYCLES (PRECOND):        0
+ PRECONDTIONING TYPES (PRECONDS):        TOS
+ FORCED PRECONDTIONING CYCLES (PFCOND):0
+ PRECONDTIONING TYPE (PRETYPE):        0
+ FORCED POS. DEFINITE SETTING DURING PRECONDITIONING: (FPOSDEF):0
+ SIMPLE POS. DEFINITE SETTING: (POSDEF):-1
+ SIR SAMPLE ITERATIONS (SIRNITER):          1
+ SIR SAMPLE CENTERED ABOUT ESTIMATE
+ SIR CAP_CORRELATION:                              1.00000000000000
+ SIR MIN WEIGHT:                              1.000000000000000E-03
+ SIR MAX WEIGHT:                              1000.00000000000
+ SIR IACCEPT:                              1.00000000000000
+ SIR IACCEPTL:                             0.00000000000000
+ SIR DF (SIRDF,T-DIST SAMPLING):           4.00000000000000
+ SIR SEED (SIRSEED):          11456
+ SIR RANMETHOD:
+ SIR PRINT ITERATIONS (SIRPRINT):          0
+ SIR FILE:                            ./106-sir-1.ext
+ SIR FORMAT:
+ NON-LINEARLY TRANSFORM THETAS DURING SIR COV (SIRTHBND): 1
+1DOUBLE PRECISION PREDPP VERSION 7.5.1
+
+ TWO COMPARTMENT MODEL WITH FIRST-ORDER ABSORPTION (ADVAN4)
+0MAXIMUM NO. OF BASIC PK PARAMETERS:   5
+0BASIC PK PARAMETERS (AFTER TRANSLATION):
+   BASIC PK PARAMETER NO.  1: ELIMINATION RATE (K)
+   BASIC PK PARAMETER NO.  2: CENTRAL-TO-PERIPH. RATE (K23)
+   BASIC PK PARAMETER NO.  3: PERIPH.-TO-CENTRAL RATE (K32)
+   BASIC PK PARAMETER NO.  5: ABSORPTION RATE (KA)
+ TRANSLATOR WILL CONVERT PARAMETERS
+ CL, V2, Q, V3 TO K, K23, K32 (TRANS4)
+0COMPARTMENT ATTRIBUTES
+ COMPT. NO.   FUNCTION   INITIAL    ON/OFF      DOSE      DEFAULT    DEFAULT
+                         STATUS     ALLOWED    ALLOWED    FOR DOSE   FOR OBS.
+    1         DEPOT        OFF        YES        YES        YES        NO
+    2         CENTRAL      ON         NO         YES        NO         YES
+    3         PERIPH.      ON         NO         YES        NO         NO
+    4         OUTPUT       OFF        YES        NO         NO         NO
+1
+ ADDITIONAL PK PARAMETERS - ASSIGNMENT OF ROWS IN GG
+ COMPT. NO.                             INDICES
+              SCALE      BIOAVAIL.   ZERO-ORDER  ZERO-ORDER  ABSORB
+                         FRACTION    RATE        DURATION    LAG
+    1            *           *           *           *           *
+    2            6           *           *           *           *
+    3            *           *           *           *           *
+    4            *           -           -           -           -
+             - PARAMETER IS NOT ALLOWED FOR THIS MODEL
+             * PARAMETER IS NOT SUPPLIED BY PK SUBROUTINE;
+               WILL DEFAULT TO ONE IF APPLICABLE
+0DATA ITEM INDICES USED BY PRED ARE:
+   EVENT ID DATA ITEM IS DATA ITEM NO.:      7
+   TIME DATA ITEM IS DATA ITEM NO.:          4
+   DOSE AMOUNT DATA ITEM IS DATA ITEM NO.:   8
+   COMPT. NO. DATA ITEM IS DATA ITEM NO.:    6
+
+0PK SUBROUTINE CALLED WITH EVERY EVENT RECORD.
+ PK SUBROUTINE NOT CALLED AT NONEVENT (ADDITIONAL OR LAGGED) DOSE TIMES.
+0ERROR SUBROUTINE CALLED WITH EVERY EVENT RECORD.
+1
+
+
+ #TBLN:      1
+ #METH: Chain Record Processing
+
+ RANDOM GENERATION TYPE (CTYPE):     0
+ RANDOM GENERATION SEED (SEED):      11456
+ RANDOM SAMPLE SELECTION (ISAMPLE):  -1000000000
+ RANDOM SAMPLE RANGE END (ISAMPEND): -2147483647
+ NUMBER OF RANDOM SAMPLES (NSAMPLE): 0
+ UNIFORM FRACTIONAL RANGE (IACCEPT): 0.400000000000000
+ RANDOM SELECTION TYPE (SELECT):     0
+ DEG. FR. TO GENERATE OMEGAS (DF):   0
+ DEG. FR. TO GENERATE SIGMAS (DFS):  -1
+ CHAIN FILE (FILE):                  ../../106/106.ext
+ EXCL. TITLE IN CHAIN FILE (NOTITLE):NO
+ EX. COL. LBS. IN CHAIN FL.(NOLABEL):NO
+ FORMAT FOR CHAIN FILE (FORMAT):     S1PE12.5
+ PAR. ORDER in CHAIN FILE (ORDER):   TSOL
+ RANDOM SAMPLING METHOD (RANMETHOD):3U
+
+ THE FOLLOWING LABELS ARE EQUIVALENT
+ PRED=PREDI
+ RES=RESI
+ WRES=WRESI
+ IWRS=IWRESI
+ IPRD=IPREDI
+ IRS=IRESI
+
+
+
+ FROM SAMPLE -1000000000 OF TABLE 1 OF CHAIN FILE ../../106/106.ext
+ NEW INITIAL ESTIMATES OF THETA
+  0.4431E+00
+  0.4119E+01
+  0.1172E+01
+  0.4209E+01
+  0.1285E+01
+  0.4847E+00
+ -0.3777E-01
+  0.4189E+00
+ NEW INITIAL ESTIMATES OF OMEGA
+  0.2187E+00
+  0.6681E-01  0.8238E-01
+  0.1214E+00  0.7036E-01  0.1144E+00
+ NEW INITIAL ESTIMATES OF SIGMA
+  0.3994E-01
+LOADED PHI/ETA DATA FROM FILE ../../106/106.phi
+LOADED VARIANCE/COVARIANCE DATA FROM FILE ../../106/106.cov
+ SKIPPING ESTIMATION, USING ETAS THAT ARE FROM PHI/ETA INPUTS
+ ALSO SKIPPING $COV STEP
+ Elapsed postprocess time in seconds:     0.00
+LOADED VARIANCE/COVARIANCE DATA FROM FILE ../../106/106.cov
+ Elapsed finaloutput time in seconds:     0.00
+
+ #PARA: PARAFILE=106-sir-1.pnm, PROTOCOL=MPI, NODES= 4
+
+SIR SAMPLING ITERATION      1 OF      1
+1
+
+
+ #TBLN:      1
+ #METH: Importance Sampling of Variance-Covariance (SIR)
+
+ Sampling Mode
+ iteration            0 OBJ=    30904.408631509050     
+ iteration          250 OBJ=    30929.922223209942     
+
+ #TERM:
+ STATISTICAL PORTION WAS COMPLETED
+  
+ TOTAL DATA POINTS NORMALLY DISTRIBUTED (N):        12568
+ N*LOG(2PI) CONSTANT TO OBJECTIVE FUNCTION:    23098.438970632651     
+ OBJECTIVE FUNCTION VALUE WITHOUT CONSTANT:    30919.774893104794     
+ OBJECTIVE FUNCTION VALUE WITH CONSTANT:       54018.213863737445     
+ REPORTED OBJECTIVE FUNCTION DOES NOT CONTAIN CONSTANT
+  
+ TOTAL EFFECTIVE ETAS (NIND*NETA):                          1920
+ NIND*NETA*LOG(2PI) CONSTANT TO OBJECTIVE FUNCTION:    3528.7239675059432     
+ OBJECTIVE FUNCTION VALUE WITHOUT CONSTANT:    30919.774893104794     
+ OBJECTIVE FUNCTION VALUE WITH CONSTANT:       34448.498860610736     
+ REPORTED OBJECTIVE FUNCTION DOES NOT CONTAIN CONSTANT
+  
+ #TERE:
+ Elapsed estimation  time in seconds:    38.01
+1
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ ************************************************************************************************************************
+ ********************                                                                                ********************
+ ********************                 IMPORTANCE SAMPLING OF VARIANCE-COVARIANCE (SIR)               ********************
+ #OBJT:**************                    AVERAGE FITNESS VALUE OF PROPOSAL DENSITY                   ********************
+ ********************                                                                                ********************
+ ************************************************************************************************************************
+ 
+
+
+
+
+
+ #OBJV:********************************************    30919.775       **************************************************
+ #OBJS:********************************************        4.965 (STD) **************************************************
+1
+ ************************************************************************************************************************
+ ********************                                                                                ********************
+ ********************                 IMPORTANCE SAMPLING OF VARIANCE-COVARIANCE (SIR)               ********************
+ ********************                             FINAL PARAMETER ESTIMATE                           ********************
+ ********************                                                                                ********************
+ ************************************************************************************************************************
+ 
+
+
+ THETA - VECTOR OF FIXED EFFECTS PARAMETERS   *********
+
+
+         TH 1      TH 2      TH 3      TH 4      TH 5      TH 6      TH 7      TH 8     
+ 
+         4.42E-01  4.12E+00  1.17E+00  4.21E+00  1.28E+00  4.81E-01 -4.65E-02  4.16E-01
+ 
+
+
+ OMEGA - COV MATRIX FOR RANDOM EFFECTS - ETAS  ********
+
+
+         ETA1      ETA2      ETA3     
+ 
+ ETA1
++        2.31E-01
+ 
+ ETA2
++        7.21E-02  8.73E-02
+ 
+ ETA3
++        1.28E-01  7.45E-02  1.23E-01
+ 
+
+
+ SIGMA - COV MATRIX FOR RANDOM EFFECTS - EPSILONS  ****
+
+
+         EPS1     
+ 
+ EPS1
++        4.00E-02
+ 
+1
+
+
+ OMEGA - CORR MATRIX FOR RANDOM EFFECTS - ETAS  *******
+
+
+         ETA1      ETA2      ETA3     
+ 
+ ETA1
++        4.78E-01
+ 
+ ETA2
++        5.04E-01  2.95E-01
+ 
+ ETA3
++        7.65E-01  7.20E-01  3.50E-01
+ 
+
+
+ SIGMA - CORR MATRIX FOR RANDOM EFFECTS - EPSILONS  ***
+
+
+         EPS1     
+ 
+ EPS1
++        2.00E-01
+ 
+1
+ ************************************************************************************************************************
+ ********************                                                                                ********************
+ ********************                 IMPORTANCE SAMPLING OF VARIANCE-COVARIANCE (SIR)               ********************
+ ********************                STANDARD ERROR OF ESTIMATE (From Sample Variance)               ********************
+ ********************                                                                                ********************
+ ************************************************************************************************************************
+ 
+
+
+ THETA - VECTOR OF FIXED EFFECTS PARAMETERS   *********
+
+
+         TH 1      TH 2      TH 3      TH 4      TH 5      TH 6      TH 7      TH 8     
+ 
+         6.09E-02  2.56E-02  2.89E-02  2.17E-02  3.70E-02  4.42E-02  7.32E-02  8.29E-02
+ 
+
+
+ OMEGA - COV MATRIX FOR RANDOM EFFECTS - ETAS  ********
+
+
+         ETA1      ETA2      ETA3     
+ 
+ ETA1
++        5.38E-02
+ 
+ ETA2
++        2.04E-02  1.13E-02
+ 
+ ETA3
++        2.60E-02  1.15E-02  1.66E-02
+ 
+
+
+ SIGMA - COV MATRIX FOR RANDOM EFFECTS - EPSILONS  ****
+
+
+         EPS1     
+ 
+ EPS1
++        1.09E-03
+ 
+1
+
+
+ OMEGA - CORR MATRIX FOR RANDOM EFFECTS - ETAS  *******
+
+
+         ETA1      ETA2      ETA3     
+ 
+ ETA1
++        5.58E-02
+ 
+ ETA2
++        9.34E-02  1.92E-02
+ 
+ ETA3
++        7.95E-02  4.79E-02  2.33E-02
+ 
+
+
+ SIGMA - CORR MATRIX FOR RANDOM EFFECTS - EPSILONS  ***
+
+
+         EPS1     
+ 
+ EPS1
++        2.73E-03
+ 
+1
+ ************************************************************************************************************************
+ ********************                                                                                ********************
+ ********************                 IMPORTANCE SAMPLING OF VARIANCE-COVARIANCE (SIR)               ********************
+ ********************               COVARIANCE MATRIX OF ESTIMATE (From Sample Variance)             ********************
+ ********************                                                                                ********************
+ ************************************************************************************************************************
+ 
+
+            TH 1      TH 2      TH 3      TH 4      TH 5      TH 6      TH 7      TH 8      OM11      OM12      OM13      OM22  
+             OM23      OM33      SG11  
+ 
+ TH 1
++        3.71E-03
+ 
+ TH 2
++        8.72E-04  6.57E-04
+ 
+ TH 3
++        8.89E-04  4.39E-04  8.34E-04
+ 
+ TH 4
++       -4.40E-04 -1.54E-04 -1.21E-04  4.70E-04
+ 
+ TH 5
++       -1.14E-03 -3.48E-04 -6.19E-05  2.45E-04  1.37E-03
+ 
+ TH 6
++        1.13E-05 -6.91E-05  1.15E-04 -2.79E-07 -7.66E-05  1.95E-03
+ 
+ TH 7
++        5.57E-04  1.93E-04  6.75E-04 -2.36E-04 -2.54E-04  2.17E-04  5.36E-03
+ 
+ TH 8
++       -8.30E-04 -1.27E-04  2.44E-04  2.51E-04  3.88E-04  5.53E-04 -1.25E-03  6.87E-03
+ 
+ OM11
++       -2.24E-04 -1.20E-04 -3.94E-04  2.82E-04  3.52E-04 -4.95E-05 -8.86E-04  6.40E-04  2.90E-03
+ 
+ OM12
++       -2.08E-04 -1.05E-04 -1.50E-04  1.08E-04  2.16E-04  8.06E-05 -2.72E-04  2.21E-04  7.77E-04  4.15E-04
+ 
+ OM13
++       -1.46E-04 -1.09E-04 -2.34E-04  1.69E-04  1.58E-04 -3.38E-05 -4.58E-04  9.72E-05  1.02E-03  4.17E-04  6.74E-04
+ 
+ OM22
++       -7.95E-05 -5.20E-05 -7.56E-05  3.16E-05  6.00E-05  4.50E-06 -5.86E-05 -1.04E-04  1.92E-04  1.45E-04  1.42E-04  1.28E-04
+ 
+ OM23
++       -1.20E-04 -6.32E-05 -9.01E-05  5.28E-05  6.56E-05  2.13E-05 -6.51E-05 -7.18E-05  2.15E-04  1.57E-04  2.02E-04  1.03E-04
+          1.31E-04
+ 
+ OM33
++       -2.72E-04 -8.11E-05 -1.68E-04  9.46E-05  6.47E-05  1.55E-05 -2.54E-04  1.59E-05  3.21E-04  1.89E-04  3.17E-04  9.14E-05
+          1.50E-04  2.74E-04
+ 
+ SG11
++        1.05E-05  2.42E-06  5.36E-06 -2.29E-06 -4.22E-06  3.58E-07  8.99E-06 -1.12E-05 -7.84E-06 -1.55E-06 -1.13E-06  4.85E-07
+         -3.89E-07 -1.50E-06  1.20E-06
+ 
+1
+ ************************************************************************************************************************
+ ********************                                                                                ********************
+ ********************                 IMPORTANCE SAMPLING OF VARIANCE-COVARIANCE (SIR)               ********************
+ ********************              CORRELATION MATRIX OF ESTIMATE (From Sample Variance)             ********************
+ ********************                                                                                ********************
+ ************************************************************************************************************************
+ 
+
+            TH 1      TH 2      TH 3      TH 4      TH 5      TH 6      TH 7      TH 8      OM11      OM12      OM13      OM22  
+             OM23      OM33      SG11  
+ 
+ TH 1
++        6.09E-02
+ 
+ TH 2
++        5.59E-01  2.56E-02
+ 
+ TH 3
++        5.06E-01  5.93E-01  2.89E-02
+ 
+ TH 4
++       -3.33E-01 -2.77E-01 -1.93E-01  2.17E-02
+ 
+ TH 5
++       -5.06E-01 -3.67E-01 -5.78E-02  3.05E-01  3.70E-02
+ 
+ TH 6
++        4.22E-03 -6.11E-02  8.98E-02 -2.92E-04 -4.68E-02  4.42E-02
+ 
+ TH 7
++        1.25E-01  1.03E-01  3.19E-01 -1.49E-01 -9.37E-02  6.72E-02  7.32E-02
+ 
+ TH 8
++       -1.64E-01 -5.97E-02  1.02E-01  1.40E-01  1.26E-01  1.51E-01 -2.07E-01  8.29E-02
+ 
+ OM11
++       -6.83E-02 -8.69E-02 -2.53E-01  2.42E-01  1.77E-01 -2.08E-02 -2.25E-01  1.44E-01  5.38E-02
+ 
+ OM12
++       -1.68E-01 -2.02E-01 -2.54E-01  2.45E-01  2.86E-01  8.96E-02 -1.83E-01  1.31E-01  7.09E-01  2.04E-02
+ 
+ OM13
++       -9.24E-02 -1.63E-01 -3.12E-01  3.01E-01  1.65E-01 -2.95E-02 -2.41E-01  4.52E-02  7.27E-01  7.89E-01  2.60E-02
+ 
+ OM22
++       -1.15E-01 -1.79E-01 -2.31E-01  1.29E-01  1.43E-01  9.00E-03 -7.07E-02 -1.11E-01  3.15E-01  6.30E-01  4.82E-01  1.13E-02
+ 
+ OM23
++       -1.71E-01 -2.15E-01 -2.72E-01  2.13E-01  1.54E-01  4.21E-02 -7.76E-02 -7.56E-02  3.48E-01  6.74E-01  6.79E-01  7.92E-01
+          1.15E-02
+ 
+ OM33
++       -2.69E-01 -1.91E-01 -3.51E-01  2.64E-01  1.05E-01  2.12E-02 -2.10E-01  1.16E-02  3.60E-01  5.62E-01  7.37E-01  4.88E-01
+          7.92E-01  1.66E-02
+ 
+ SG11
++        1.57E-01  8.64E-02  1.69E-01 -9.63E-02 -1.04E-01  7.41E-03  1.12E-01 -1.23E-01 -1.33E-01 -6.94E-02 -3.97E-02  3.91E-02
+         -3.10E-02 -8.26E-02  1.09E-03
+ 
+1
+ ************************************************************************************************************************
+ ********************                                                                                ********************
+ ********************                 IMPORTANCE SAMPLING OF VARIANCE-COVARIANCE (SIR)               ********************
+ ********************           INVERSE COVARIANCE MATRIX OF ESTIMATE (From Sample Variance)         ********************
+ ********************                                                                                ********************
+ ************************************************************************************************************************
+ 
+
+            TH 1      TH 2      TH 3      TH 4      TH 5      TH 6      TH 7      TH 8      OM11      OM12      OM13      OM22  
+             OM23      OM33      SG11  
+ 
+ TH 1
++        6.96E+02
+ 
+ TH 2
++       -1.92E+02  3.30E+03
+ 
+ TH 3
++       -6.53E+02 -1.76E+03  3.39E+03
+ 
+ TH 4
++        2.14E+02  2.94E+02 -2.00E+02  2.73E+03
+ 
+ TH 5
++        4.82E+02  5.96E+02 -9.30E+02 -1.85E+02  1.39E+03
+ 
+ TH 6
++       -3.46E+00  2.01E+02 -1.68E+02 -1.07E+01  1.19E+02  5.74E+02
+ 
+ TH 7
++        6.04E+01  1.19E+02 -2.99E+02  4.05E+01  8.88E+01 -1.30E+01  2.47E+02
+ 
+ TH 8
++        7.79E+01  1.00E+02 -2.52E+02 -3.78E+01  6.51E+01 -3.28E+01  5.66E+01  1.94E+02
+ 
+ OM11
++       -3.20E+00 -2.65E+02  2.70E+02 -8.87E+01 -2.43E+01  1.31E+01 -7.37E+00 -3.68E+01  1.10E+03
+ 
+ OM12
++        1.55E+02 -5.37E+01 -8.34E+01  4.49E+02 -6.45E+02 -4.87E+02 -2.14E+01 -2.42E+02 -1.20E+03  1.14E+04
+ 
+ OM13
++       -6.83E+02  3.79E+02  3.76E+02 -6.77E+02 -1.77E+02  3.23E+02  7.24E+01  7.98E+01 -1.58E+03 -3.93E+03  9.70E+03
+ 
+ OM22
++        3.00E+01 -2.10E+02  6.05E+02  5.21E+01  2.03E+02  3.19E+02  2.37E+02  2.36E+02 -1.95E+02 -5.28E+03  3.08E+03  2.83E+04
+ 
+ OM23
++       -5.32E+02  1.25E+03 -6.77E+02 -1.66E+02 -3.47E+02 -1.77E+02 -5.76E+02  1.88E+02  1.39E+03 -3.57E+03 -2.66E+03 -2.64E+04
+          5.52E+04
+ 
+ OM33
++        1.07E+03 -1.13E+03  3.74E+02 -2.32E+01  7.09E+02 -1.77E+02  2.79E+02 -6.35E+01  8.20E+02  1.89E+03 -6.32E+03  5.69E+03
+         -1.84E+04  1.80E+04
+ 
+ SG11
++        2.91E+02  3.15E+03 -7.58E+03  1.59E+03  2.71E+03 -2.52E+02 -3.02E+02  1.21E+03  4.50E+03  2.28E+03 -1.46E+04 -1.95E+04
+          1.73E+04  7.15E+03  9.26E+05
+ 
+1
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ ************************************************************************************************************************
+ ********************                                                                                ********************
+ ********************                 IMPORTANCE SAMPLING OF VARIANCE-COVARIANCE (SIR)               ********************
+ ********************           EIGENVALUES OF COR MATRIX OF ESTIMATE (From Sample Variance)         ********************
+ ********************                                                                                ********************
+ ************************************************************************************************************************
+ 
+
+             1         2         3         4         5         6         7         8         9        10        11        12
+             13        14        15
+ 
+         8.57E-02  1.00E-01  1.69E-01  1.85E-01  3.86E-01  5.28E-01  6.36E-01  7.57E-01  7.73E-01  9.08E-01  1.03E+00  1.20E+00
+          1.41E+00  2.09E+00  4.74E+00
+ 
+ #CPUT: Total CPU Time in Seconds,      132.881
+Stop Time:
+Sun Apr 30 15:00:49 EDT 2023
