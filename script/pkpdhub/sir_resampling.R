@@ -150,8 +150,9 @@ ggplot()+
 
 # spatial trend plot ------------------------------------------------------
 
-nbins <- 10
-mmratio = M2/m
+nbins1 <- 10
+mmratio <- M2/m
+se <- sqrt(mmratio*(1-mmratio)/(M2/nbins1)) # P*(1-P) / number of samples at each bins
 
 bins_sample <- sirsample1 %>% 
   dplyr::select(ITERATION, all_of(param_names)) %>% 
@@ -162,28 +163,64 @@ bins_resample <- sirresample2 %>% dplyr::select(ITERATION) %>% left_join(bins_sa
 
 # sbins <- map(as.list(bins_sample[, names(bins_sample) %in% param_names]), levels) # extract spatial bins
 
-bins_resample <- bins_resample %>% 
+bins_resample1 <- bins_resample %>% 
   pivot_longer(cols = all_of(param_names), names_to = "parameters", values_to = "bins") %>% 
   group_by(parameters, bins) %>% 
-  mutate(prop = round(n()/(m/nbins), digits = 2)) %>% 
+  mutate(prop = round(n()/(m/nbins1), digits = 2)) %>% 
   ungroup() %>% 
   distinct(parameters, bins, .keep_all = TRUE) %>% 
   mutate(parameters = fct_inorder(parameters))
 
-ggplot(bins_resample)+
+ggplot(bins_resample1)+
   geom_point(aes(x = bins, y = prop))+
   geom_line(aes(x = bins, y = prop))+
-  geom_ribbon(aes(x = bins, ymin = mmratio-1.96*mmratio*(1-mmratio)/nbins, ymax = mmratio+1.96*mmratio*(1-mmratio)/nbins), alpha = 0.5)+
+  geom_ribbon(aes(x = bins, ymin = mmratio-1.96*se, ymax = mmratio+1.96*se, alpha = 0.5))+
   xlab("Spatial bin of initial samples")+
   ylab("Proportion resampled")+
-  scale_x_continuous(limits = c(1, nbins), breaks = seq(1,nbins,1))+
+  scale_x_continuous(limits = c(1, nbins1), breaks = seq(1,nbins1,1))+
   facet_wrap(~parameters)+
   theme_bw()
 
 
 # temporal trend plot -----------------------------------------------------
 
+nbins2 <- 5
+p <- mmratio/nbins1
+se <- sqrt(p*(1-p)/(M2/(nbins1*nbins2)))
 
+# select top spatial bin
+top_sbins <- bins_resample1 %>% 
+  arrange(parameters, desc(prop)) %>% 
+  group_by(parameters) %>% 
+  slice(1) %>% 
+  ungroup() %>% 
+  dplyr::select(parameters, top_sbins = bins)
+
+# filter parameter by parameter that belongs to the top_bins
+bins_resample2 <- bins_resample %>% 
+  left_join(sirsample1 %>% dplyr::select(ITERATION, WEIGHT)) %>% 
+  mutate(bins = cut_number(WEIGHT, n = nbins2)) %>% 
+  mutate(bins = (6 - as.integer(bins))) %>% # reverse order, higher WEIGHT, lower order
+  pivot_longer(cols = all_of(param_names), names_to = "parameters", values_to = "sbins") %>% 
+  left_join(top_sbins) %>% 
+  filter(sbins == top_sbins) %>% 
+  mutate(parameters = fct_inorder(parameters)) %>% 
+  dplyr::select(-ITERATION, -WEIGHT, -sbins) %>% 
+  mutate(top_sbins = glue("Spatial bin {top_sbins}")) %>% 
+  group_by(parameters, bins) %>% 
+  mutate(n = n()) %>% 
+  ungroup() 
+
+ggplot(bins_resample2)+
+  geom_point(aes(x = bins, y = n))+
+  geom_line(aes(x = bins, y = n))+
+  geom_text(aes(x = 4, y = 1.1*max(n), label = top_sbins))+
+  # geom_ribbon(aes(x = bins, ymin = (p-1.96*se)*(m/nbins2), ymax = (p+1.96*se)*(m/nbins2), alpha = 0.5))+
+  xlab("Temporal bin of resamples")+
+  ylab("Number of parameters resampled")+
+  scale_x_continuous(limits = c(1, nbins2), breaks = seq(1,nbins2,1))+
+  facet_wrap(~parameters)+
+  theme_bw()
 
 
 ###########################################################################
