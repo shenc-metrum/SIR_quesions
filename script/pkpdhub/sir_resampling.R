@@ -150,9 +150,9 @@ ggplot()+
 
 # spatial trend plot ------------------------------------------------------
 
-nbins1 <- 10
-mmratio <- M2/m
-se <- sqrt(mmratio*(1-mmratio)/(M2/nbins1)) # P*(1-P) / number of samples at each bins
+nbins1 <- 10       # number of spatial bins
+mmratio <- M2/m    # sample to resample ratio
+se <- sqrt(mmratio*(1-mmratio)/(m/nbins1)) # sqrt(P*(1-P) / number of samples at each spatial bin)
 
 bins_sample <- sirsample1 %>% 
   dplyr::select(ITERATION, all_of(param_names)) %>% 
@@ -184,17 +184,17 @@ ggplot(bins_resample1)+
 
 # temporal trend plot -----------------------------------------------------
 
-nbins2 <- 5
-p <- mmratio/nbins1
-se <- sqrt(p*(1-p)/(M2/(nbins1*nbins2)))
+nbins2 <- 5     # number of temporal bins
 
-# select top spatial bin
+# identify top spatial bin
 top_sbins <- bins_resample1 %>% 
   arrange(parameters, desc(prop)) %>% 
   group_by(parameters) %>% 
+  mutate(prop = mean(prop)) %>% # use mean(prop), ref: https://github.com/UUPharmacometrics/PsN/blob/master/R-scripts/sir_default.R line 319, need to confirm
   slice(1) %>% 
   ungroup() %>% 
-  dplyr::select(parameters, top_sbins = bins)
+  dplyr::select(parameters, top_sbins = bins, p = prop) %>% 
+  mutate(se = sqrt(p*(1-p)/(m/(nbins1*nbins2)))) # sqrt(P*(1-P) / number of samples at each temporal bin)
 
 # filter parameter by parameter that belongs to the top_bins
 bins_resample2 <- bins_resample %>% 
@@ -203,7 +203,7 @@ bins_resample2 <- bins_resample %>%
   mutate(bins = (6 - as.integer(bins))) %>% # reverse order, higher WEIGHT, lower order
   pivot_longer(cols = all_of(param_names), names_to = "parameters", values_to = "sbins") %>% 
   left_join(top_sbins) %>% 
-  filter(sbins == top_sbins) %>% 
+  filter(sbins == top_sbins) %>% # filter resampled parameters in the top spatial bin
   mutate(parameters = fct_inorder(parameters)) %>% 
   dplyr::select(-ITERATION, -WEIGHT, -sbins) %>% 
   mutate(top_sbins = glue("Spatial bin {top_sbins}")) %>% 
@@ -215,7 +215,7 @@ ggplot(bins_resample2)+
   geom_point(aes(x = bins, y = n))+
   geom_line(aes(x = bins, y = n))+
   geom_text(aes(x = 4, y = 1.1*max(n), label = top_sbins))+
-  # geom_ribbon(aes(x = bins, ymin = (p-1.96*se)*(m/nbins2), ymax = (p+1.96*se)*(m/nbins2), alpha = 0.5))+
+  geom_ribbon(aes(x = bins, ymin = (p-1.96*se)*(m/(nbins1*nbins2)), ymax = (p+1.96*se)*(m/(nbins1*nbins2)), alpha = 0.5))+
   xlab("Temporal bin of resamples")+
   ylab("Number of parameters resampled")+
   scale_x_continuous(limits = c(1, nbins2), breaks = seq(1,nbins2,1))+
