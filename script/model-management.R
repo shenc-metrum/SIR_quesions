@@ -101,6 +101,35 @@ mod106sir <- read_model(file.path(MODEL_DIR, "106-sir"))
   view()
 
 ########################
+# sir model try no $ETAS
+########################
+
+mod106sir2 <- copy_model_from(.parent_mod = mod106sir, 
+                              .new_model = "106-sir-no-etas", 
+                              .inherit_tags = TRUE) %>% 
+  update_run_number()
+
+edit_model(mod106sir2)
+
+mod106sir2 <- read_model(file.path(MODEL_DIR, "106-sir-no-etas"))
+
+.p <- submit_model(mod106sir2, .mode = "local", .wait = FALSE,
+                   .bbi_args = list(overwrite = TRUE)) # submit model
+
+# mod106sir2 <- mod106sir2 %>% add_bbi_args(list(parallel = TRUE, threads = 4))
+# 
+# .p <- mod106sir2 %>% submit_model(.bbi_args = list(overwrite = TRUE))
+
+.s <- mod106sir2 %>% model_summary()
+
+.s %>% param_estimates() %>% 
+  mutate(rse = stderr/estimate) %>% 
+  filter(fixed == FALSE) %>% 
+  mutate(exp = exp(estimate)) %>% 
+  # knitr::kable()
+  view()
+
+########################
 # sir model (test SIRDF)
 ########################
 

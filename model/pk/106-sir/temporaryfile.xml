@@ -1,0 +1,15 @@
+ RANDOM GENERATION TYPE (CTYPE):     0           
+ RANDOM GENERATION SEED (SEED):      11456       
+ RANDOM SAMPLE SELECTION (ISAMPLE):  -1000000000 
+ RANDOM SAMPLE RANGE END (ISAMPEND): -2147483647 
+ NUMBER OF RANDOM SAMPLES (NSAMPLE): 0           
+ UNIFORM FRACTIONAL RANGE (IACCEPT): 0.400000000000000       
+ RANDOM SELECTION TYPE (SELECT):     0           
+ DEG. FR. TO GENERATE OMEGAS (DF):   0           
+ DEG. FR. TO GENERATE SIGMAS (DFS):  -1          
+ CHAIN FILE (FILE):                  ../106/106.ext                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+ EXCL. TITLE IN CHAIN FILE (NOTITLE):NO        
+ EX. COL. LBS. IN CHAIN FL.(NOLABEL):NO        
+ FORMAT FOR CHAIN FILE (FORMAT):     S1PE12.5
+ PAR. ORDER in CHAIN FILE (ORDER):   TSOL
+ RANDOM SAMPLING METHOD (RANMETHOD):3U
